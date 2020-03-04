@@ -1,0 +1,26 @@
+.task-title {
+  padding: 10px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.major-task-bg {
+  background: $cream-yellow;
+}
+.task-name {
+  display: inline-block;
+  vertical-align: middle;
+  background: inherit;
+}
+.task-name, .task-name::placeholder {
+  @include fontstyle(14px, 700, $black, 1.4);
+}
+
+@include mediaquery_pad {
+  .task-title {
+    padding: 20px 32px;
+  }
+  .task-name, .task-name::placeholder {
+    font-size: 24px;
+  }
+}

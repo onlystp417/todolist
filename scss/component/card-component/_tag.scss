@@ -1,0 +1,24 @@
+.task-tag {
+  flex: 0 0 100%;
+  padding-left: 25px;
+  margin-top: 3px;
+  @include fontstyle(12px, regular, $heavy-gray, 1.2);
+  .tag-item {
+    display: inline-block;
+    margin-right: 5px;
+    time {
+      padding-left: 5px;
+    }
+  }
+}
+
+@include mediaquery_pad {
+  .task-tag {
+    padding-left: 37px;
+    margin-top: 8px;
+    font-size: 18px;
+    .tag-item {
+      margin-right: 12px;
+    }
+  }
+}
