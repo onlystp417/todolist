@@ -3,31 +3,23 @@
 }
 
 .add-form {
+  display: block;
+  width: 100%;
   background: $white;
   border-radius: 3px;
   border: 1px solid $mid-gray;
-  padding: 5px;
-  font-size: 0;
-  button, input, input::placeholder {
+  padding: 5px 14px;
+  text-align: left;
+  // font-size: 0;
+  span {
     @include fontstyle(14px, regular, $light-gray, 1.6);
-  }
-  button {
-    display: inline-block;
-    vertical-align: middle;
-    background: inherit;
-    &:active {
-      color: $mid-gray;
-    }
-  }
-  input {
-    display: inline-block;
     vertical-align: middle;
   }
 }
 
 @include mediaquery_pad {
   .add-form {
-    button, input, input::placeholder {
+    span {
       font-size: 24px;
     }
   }

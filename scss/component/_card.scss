@@ -7,10 +7,9 @@
 
 .d-none {
   display: none;
-}
-
-.mb-24 {
-  margin-bottom: 24px;
+  .task-btn{
+    display: none;
+  }
 }
 
 @import "./card-component/title";

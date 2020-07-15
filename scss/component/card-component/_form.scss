@@ -1,6 +1,8 @@
 .task-form {
-  padding: 25px 38px 0 38px;
-  border-top: 1px solid $mid-gray;
+  &-edit {
+    padding: 25px 38px 0 38px;
+    border-top: 1px solid $mid-gray;
+  }
   &-item {
     margin-bottom: 20px;
     h3 {
@@ -13,8 +15,12 @@
     input {
       line-height: 28px;
       padding-left: 5px;
-      width: 35%;
-      min-width: 120px;
+      width: 40%;
+      min-width: 135px;
+      letter-spacing: -1px;
+      &[type="time"] {
+        min-width: 98px;
+      }
       &:first-child {
         margin-bottom: 5px;
       }
