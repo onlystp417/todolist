@@ -14,10 +14,12 @@
     color: $mid-gray;
   }
 }
-.invisible {
-  display: none; //星星效果
+
+.task-mark-star.d-none {
+  display: none;
 }
-.current-pen {
+
+.task-mark-pen.current-pen {
   color: $royal-blue;
 }
 

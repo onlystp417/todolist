@@ -16,6 +16,10 @@
   @include fontstyle(14px, 700, $black, 1.4);
 }
 
+.task-name.cross-off {
+  text-decoration: line-through;
+}
+
 @include mediaquery_pad {
   .task-title {
     padding: 20px 32px;

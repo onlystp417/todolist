@@ -25,7 +25,7 @@
     </section>
     <div class="my-tasks">
       <!-- 編輯中的 task-card -->
-      <section class="task">
+      <form class="task">
         <header class="task-title major-task-bg">
           <h2>
             <span class="checkbox">
@@ -36,8 +36,8 @@
             <input class="task-name" type="text" placeholder="Type Something Here...">
           </h2>
           <div class="task-mark">
-            <span class="task-mark-star invisible"><i class="far fa-star"></i></span>
-            <span class="task-mark-star task-mark-star-shiny "><i class="fas fa-star"></i></span>
+            <span class="task-mark-star d-none"><i class="far fa-star"></i></span>
+            <span class="task-mark-star task-mark-star-shiny"><i class="fas fa-star"></i></span>
             <span class="task-mark-pen current-pen"><i class="fas fa-pen"></i></span>
           </div>
           <div class="task-tag">
@@ -52,7 +52,7 @@
             </span>
           </div>
         </header>
-        <form class="task-form d-none">
+        <section class="task-form d-none">
           <div class="task-form-edit">
             <section class="task-form-item task-form-deadline">
               <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
@@ -80,8 +80,8 @@
             <button class="task-btn-basic task-btn-cancel"><i class="fas fa-times"></i>Cancel</button>
             <button class="task-btn-basic task-btn-save"><i class="fas fa-plus"></i>Save</button>
           </div>
-        </form>
-      </section>
+        </section>
+      </form>
       <!-- task counter -->
       <p class="task-counter"><span>0</span> task left</p>
     </div>

@@ -59,9 +59,6 @@ html {
 /* line 8, scss/component/_card.scss */
 .d-none {
   display: none; }
-  /* line 10, scss/component/_card.scss */
-  .d-none .task-btn {
-    display: none; }
 
 /* line 1, scss/component/card-component/_title.scss */
 .task-title {
@@ -87,11 +84,15 @@ html {
   line-height: 1.4;
   color: #000; }
 
+/* line 19, scss/component/card-component/_title.scss */
+.task-name.cross-off {
+  text-decoration: line-through; }
+
 @media all and (min-width: 768px) {
-  /* line 20, scss/component/card-component/_title.scss */
+  /* line 24, scss/component/card-component/_title.scss */
   .task-title {
     padding: 20px 32px; }
-  /* line 23, scss/component/card-component/_title.scss */
+  /* line 27, scss/component/card-component/_title.scss */
   .task-name, .task-name::placeholder {
     font-size: 24px; } }
 
@@ -177,19 +178,19 @@ html {
     display: inline-block;
     color: #C8C8C8; }
 
-/* line 17, scss/component/card-component/_mark.scss */
-.invisible {
+/* line 18, scss/component/card-component/_mark.scss */
+.task-mark-star.d-none {
   display: none; }
 
-/* line 20, scss/component/card-component/_mark.scss */
-.current-pen {
+/* line 22, scss/component/card-component/_mark.scss */
+.task-mark-pen.current-pen {
   color: #4A90E2; }
 
 @media all and (min-width: 768px) {
-  /* line 25, scss/component/card-component/_mark.scss */
+  /* line 27, scss/component/card-component/_mark.scss */
   .task-mark {
     font-size: 24px; }
-    /* line 27, scss/component/card-component/_mark.scss */
+    /* line 29, scss/component/card-component/_mark.scss */
     .task-mark-mark-star, .task-mark-mark-star-shiny {
       padding-right: 15px; } }
 
