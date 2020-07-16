@@ -23,69 +23,71 @@
         <span>Add Task</span>
       </button>
     </section>
-    <div class="my-tasks">
-      <!-- 編輯中的 task-card -->
-      <form class="task">
-        <header class="task-title major-task-bg">
-          <h2>
-            <span class="checkbox">
-              <!-- check-itself 的 id 值要用 js 賦予新的值  -->
-              <input class="check-itself" id="check" type="checkbox">
-              <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
-            </span>
-            <input class="task-name" type="text" placeholder="Type Something Here...">
-          </h2>
-          <div class="task-mark">
-            <span class="task-mark-star d-none"><i class="far fa-star"></i></span>
-            <span class="task-mark-star task-mark-star-shiny"><i class="fas fa-star"></i></span>
-            <span class="task-mark-pen current-pen"><i class="fas fa-pen"></i></span>
-          </div>
-          <div class="task-tag">
-            <span class="tag-item tag-time">
-              <i class="far fa-calendar-alt"></i><time>4/17</time>
-            </span>
-            <span class="tag-item tag-file">
-              <i class="far fa-file"></i>
-            </span>
-            <span class="tag-item tag-comment">
-              <i class="far fa-comment-dots"></i>
-            </span>
-          </div>
-        </header>
-        <section class="task-form d-none">
-          <div class="task-form-edit">
-            <section class="task-form-item task-form-deadline">
-              <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
-              <div action="">
-                <input type="date" value="2020-01-01">
-                <input type="time" value="22:50">
+    <form class="task d-none">
+      <header class="task-title major-task-bg">
+        <h2>
+          <span class="checkbox">
+            <!-- check-itself 的 id 值要用 js 賦予新的值  -->
+            <input class="check-itself" id="check" type="checkbox">
+            <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
+          </span>
+          <input class="task-name task-data" data-keyname="name" type="text" placeholder="Type Something Here...">
+        </h2>
+        <div class="task-mark">
+          <span class="task-mark-star d-none"><i class="far fa-star"></i></span>
+          <span class="task-mark-star task-mark-star-shiny"><i class="fas fa-star"></i></span>
+          <span class="task-mark-pen current-pen"><i class="fas fa-pen"></i></span>
+        </div>
+        <!-- <div class="task-tag">
+          <span class="tag-item tag-time">
+            <i class="far fa-calendar-alt"></i><time>4/17</time>
+          </span>
+          <span class="tag-item tag-file">
+            <i class="far fa-file"></i>
+          </span>
+          <span class="tag-item tag-comment">
+            <i class="far fa-comment-dots"></i>
+          </span>
+        </div> -->
+      </header>
+      <section class="task-form">
+        <div class="task-form-edit">
+          <section class="task-form-item task-form-deadline">
+            <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
+            <div class="task-deadline">
+              <input class="task-data" data-keyname="date" type="date">
+              <input class="task-data" data-keyname="time" type="time">
+            </div>
+          </section>
+          <section class="task-form-item task-form-file">
+            <h3><i class="far fa-file"></i>File</h3>
+            <input type="file" name="" id="">
+            <div class="file-add">
+              <div class="file-caption">
+                <h4>File Name</h4>
+                <time>upload yesterday</time>
               </div>
-            </section>
-            <section class="task-form-item task-form-file">
-              <h3><i class="far fa-file"></i>File</h3>
-              <div class="file-add">
-                <div class="file-caption">
-                  <h4>File Name</h4>
-                  <time>upload yesterday</time>
-                </div>
-                <button class="file-add-button" type="menu"><i class="fas fa-plus"></i></button>
-              </div>
-            </section>
-            <section class="task-form-item task-form-comment">
-              <h3><i class="far fa-comment-dots"></i>Comment</h3>
-              <textarea name="" id="" cols="30" rows="10" placeholder="Type your meno here..."></textarea>
-            </section>
-          </div>
-          <div class="task-btn">
-            <button class="task-btn-basic task-btn-cancel"><i class="fas fa-times"></i>Cancel</button>
-            <button class="task-btn-basic task-btn-save"><i class="fas fa-plus"></i>Save</button>
-          </div>
-        </section>
-      </form>
+              <button class="file-add-button" type="menu"><i class="fas fa-plus"></i></button>
+            </div>
+          </section>
+          <section class="task-form-item task-form-comment">
+            <h3><i class="far fa-comment-dots"></i>Comment</h3>
+            <textarea class="task-data" data-keyname="comment" name="" id="" cols="30" rows="10" placeholder="Type your meno here..."></textarea>
+          </section>
+        </div>
+        <div class="task-btn">
+          <button class="task-btn-basic task-btn-cancel"><i class="fas fa-times"></i>Cancel</button>
+          <button class="task-btn-basic task-btn-save"><i class="fas fa-plus"></i>Save</button>
+        </div>
+      </section>
+    </form>
+    <div class="tasks-list">
       <!-- task counter -->
       <p class="task-counter"><span>0</span> task left</p>
     </div>
   </main>
+
+  <script src="./js/main.js"></script>
 </body>
 
 </html>

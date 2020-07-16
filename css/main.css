@@ -65,34 +65,31 @@ html {
   padding: 10px 14px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; }
-
-/* line 7, scss/component/card-component/_title.scss */
-.major-task-bg {
+  justify-content: space-between;
   background: #FFF2DC; }
 
-/* line 10, scss/component/card-component/_title.scss */
+/* line 9, scss/component/card-component/_title.scss */
 .task-name {
   display: inline-block;
   vertical-align: middle;
   background: inherit; }
 
-/* line 15, scss/component/card-component/_title.scss */
+/* line 14, scss/component/card-component/_title.scss */
 .task-name, .task-name::placeholder {
   font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
   color: #000; }
 
-/* line 19, scss/component/card-component/_title.scss */
+/* line 18, scss/component/card-component/_title.scss */
 .task-name.cross-off {
   text-decoration: line-through; }
 
 @media all and (min-width: 768px) {
-  /* line 24, scss/component/card-component/_title.scss */
+  /* line 23, scss/component/card-component/_title.scss */
   .task-title {
     padding: 20px 32px; }
-  /* line 27, scss/component/card-component/_title.scss */
+  /* line 26, scss/component/card-component/_title.scss */
   .task-name, .task-name::placeholder {
     font-size: 24px; } }
 
@@ -203,21 +200,26 @@ html {
   font-weight: regular;
   line-height: 1.2;
   color: #757575; }
-  /* line 6, scss/component/card-component/_tag.scss */
-  .task-tag .tag-item {
-    display: inline-block;
-    margin-right: 5px; }
-    /* line 9, scss/component/card-component/_tag.scss */
-    .task-tag .tag-item time {
-      padding-left: 5px; }
+
+/* line 8, scss/component/card-component/_tag.scss */
+.tag-item {
+  display: inline-block;
+  margin-right: 5px; }
+  /* line 11, scss/component/card-component/_tag.scss */
+  .tag-item time {
+    padding-left: 5px; }
+
+/* line 16, scss/component/card-component/_tag.scss */
+.tag-item.d-none {
+  display: none; }
 
 @media all and (min-width: 768px) {
-  /* line 16, scss/component/card-component/_tag.scss */
+  /* line 21, scss/component/card-component/_tag.scss */
   .task-tag {
     padding-left: 37px;
     margin-top: 8px;
     font-size: 18px; }
-    /* line 20, scss/component/card-component/_tag.scss */
+    /* line 25, scss/component/card-component/_tag.scss */
     .task-tag .tag-item {
       margin-right: 12px; } }
 
@@ -253,7 +255,7 @@ html {
     .task-form-item input:first-child {
       margin-bottom: 5px; }
   /* line 28, scss/component/card-component/_form.scss */
-  .task-form-item form, .task-form-item .file-add, .task-form-item textarea {
+  .task-form-item .task-deadline, .task-form-item .file-add, .task-form-item textarea {
     margin: 0 18px; }
   /* line 31, scss/component/card-component/_form.scss */
   .task-form-item .file-add-button {
