@@ -28,10 +28,10 @@
         <h2>
           <span class="checkbox">
             <!-- check-itself 的 id 值要用 js 賦予新的值  -->
-            <input class="check-itself" id="check" type="checkbox">
+            <input class="check-itself" id="check" type="checkbox" data-keyname="isComplete">
             <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
           </span>
-          <input class="task-name task-data" data-keyname="name" type="text" placeholder="Type Something Here...">
+          <input class="task-name task-data" type="text" placeholder="Type Something Here..." data-keyname="name">
         </h2>
         <div class="task-mark">
           <span class="task-mark-star d-none"><i class="far fa-star"></i></span>
@@ -55,13 +55,13 @@
           <section class="task-form-item task-form-deadline">
             <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
             <div class="task-deadline">
-              <input class="task-data" data-keyname="date" type="date">
-              <input class="task-data" data-keyname="time" type="time">
+              <input class="task-data" type="date" data-keyname="date">
+              <input class="task-data" type="time" data-keyname="time">
             </div>
           </section>
           <section class="task-form-item task-form-file">
             <h3><i class="far fa-file"></i>File</h3>
-            <input type="file" name="" id="">
+            <input type="file" data-keyname="file" name="" id="">
             <div class="file-add">
               <div class="file-caption">
                 <h4>File Name</h4>
