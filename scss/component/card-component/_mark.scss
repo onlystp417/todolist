@@ -1,18 +1,39 @@
 .task-mark {
   padding-top: 5px;
-  &-star { //暗星星
-    display: inline-block;
-    padding-right: 8px;
-    &-shiny { //亮星星
-      display: inline-block;
+  &-star {
+    display: none;
+    &-custom {
+      cursor: pointer;
       padding-right: 8px;
-      color: $yolk-yellow;
+      &::before {
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 400; 
+        content: "\f005";
+        font-size: 14px;
+      }
     }
   }
   &-pen {
-    display: inline-block;
-    color: $mid-gray;
+    display: none;
+    &-custom {
+      cursor: pointer;
+      &::before {
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 900; 
+        content: "\f304";
+        font-size: 14px;
+      }
+    }
   }
+}
+
+.task-mark-star:checked + .task-mark-star-custom::before {
+  font-weight: 900;
+  color: $yolk-yellow;
+}
+
+.task-mark-pen:checked + .task-mark-pen-custom::before {
+  color: $royal-blue;
 }
 
 .task-mark-star.d-none {

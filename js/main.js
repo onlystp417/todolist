@@ -42,21 +42,11 @@ const taskListArray = [
   }
 ];
 
-// 增加待辦功能
-function showTaskCard(e) {
-  // 防止事件冒泡
-  e.stopPropagation();
-  // 顯示編輯任務區域
-  task.classList.remove('d-none');
-
-  taskSaveButton.addEventListener('click', taskSave);
-}
-
 renderTaskList();
 
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
-  let taskHTML = ''
+  let taskHTML = '';
   taskListArray.forEach((item, index) => {
     taskHTML += `
       <form class="task">
@@ -69,9 +59,10 @@ function renderTaskList() {
             <input class="task-name ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }">
           </h2>
           <div class="task-mark">
-            <span class="task-mark-star ${ item.star ? 'd-none' : '' }"><i class="far fa-star"></i></span>
-            <span class="task-mark-star task-mark-star-shiny ${ item.star ? '' : 'd-none' }"><i class="fas fa-star"></i></span>
-            <span class="task-mark-pen"><i class="fas fa-pen"></i></span>
+            <input class="task-mark-star task-data" id="isStar" type="checkbox" data-keyname="isStar">
+            <label class="task-mark-star-custom" for="isStar"></label>
+            <input class="task-mark-pen" id="isEdit" type="checkbox" data-keyname="isEdit">
+            <label class="task-mark-pen-custom" for="isEdit"></label>
           </div>
           <div class="task-tag">
             <span class="tag-item tag-time ${ item.date ? '' : 'd-none' }">
@@ -121,10 +112,22 @@ function renderTaskList() {
   taskList.innerHTML = taskHTML;
 }
 
-function taskSave() {
-  const inputs = task.querySelectorAll('input');
+function showTaskCard(e) {
+  // 防止事件冒泡
+  e.stopPropagation();
+  // 顯示編輯任務區域
+  task.classList.remove('d-none');
+
+  taskSaveButton.addEventListener('click', taskSave);
+}
+
+function taskSave(e) {
+  e.preventDefault();
+  const inputs = Array.from(task.querySelectorAll('input'));
   const newTask = {};
+  console.log(inputs);
   inputs.forEach(input => {
+    console.log(input.dataset.keyname);
     newTask[input.dataset.keyname] = (input.value !== 'on') 
       ? input.value : input.checked
       ? true : false;

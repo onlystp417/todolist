@@ -163,31 +163,52 @@ html {
   padding-top: 5px; }
   /* line 3, scss/component/card-component/_mark.scss */
   .task-mark-star {
-    display: inline-block;
-    padding-right: 8px; }
-    /* line 6, scss/component/card-component/_mark.scss */
-    .task-mark-star-shiny {
-      display: inline-block;
-      padding-right: 8px;
-      color: #F5A623; }
-  /* line 12, scss/component/card-component/_mark.scss */
+    display: none; }
+    /* line 5, scss/component/card-component/_mark.scss */
+    .task-mark-star-custom {
+      cursor: pointer;
+      padding-right: 8px; }
+      /* line 8, scss/component/card-component/_mark.scss */
+      .task-mark-star-custom::before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 400;
+        content: "\f005";
+        font-size: 14px; }
+  /* line 16, scss/component/card-component/_mark.scss */
   .task-mark-pen {
-    display: inline-block;
-    color: #C8C8C8; }
+    display: none; }
+    /* line 18, scss/component/card-component/_mark.scss */
+    .task-mark-pen-custom {
+      cursor: pointer; }
+      /* line 20, scss/component/card-component/_mark.scss */
+      .task-mark-pen-custom::before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: "\f304";
+        font-size: 14px; }
 
-/* line 18, scss/component/card-component/_mark.scss */
+/* line 30, scss/component/card-component/_mark.scss */
+.task-mark-star:checked + .task-mark-star-custom::before {
+  font-weight: 900;
+  color: #F5A623; }
+
+/* line 35, scss/component/card-component/_mark.scss */
+.task-mark-pen:checked + .task-mark-pen-custom::before {
+  color: #4A90E2; }
+
+/* line 39, scss/component/card-component/_mark.scss */
 .task-mark-star.d-none {
   display: none; }
 
-/* line 22, scss/component/card-component/_mark.scss */
+/* line 43, scss/component/card-component/_mark.scss */
 .task-mark-pen.current-pen {
   color: #4A90E2; }
 
 @media all and (min-width: 768px) {
-  /* line 27, scss/component/card-component/_mark.scss */
+  /* line 48, scss/component/card-component/_mark.scss */
   .task-mark {
     font-size: 24px; }
-    /* line 29, scss/component/card-component/_mark.scss */
+    /* line 50, scss/component/card-component/_mark.scss */
     .task-mark-mark-star, .task-mark-mark-star-shiny {
       padding-right: 15px; } }
 

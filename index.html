@@ -28,15 +28,16 @@
         <h2>
           <span class="checkbox">
             <!-- check-itself 的 id 值要用 js 賦予新的值  -->
-            <input class="check-itself" id="check" type="checkbox" data-keyname="isComplete">
+            <input class="check-itself task-data" id="check" type="checkbox" data-keyname="isComplete">
             <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
           </span>
           <input class="task-name task-data" type="text" placeholder="Type Something Here..." data-keyname="name">
         </h2>
         <div class="task-mark">
-          <span class="task-mark-star d-none"><i class="far fa-star"></i></span>
-          <span class="task-mark-star task-mark-star-shiny"><i class="fas fa-star"></i></span>
-          <span class="task-mark-pen current-pen"><i class="fas fa-pen"></i></span>
+          <input class="task-mark-star task-data" id="isStar" type="checkbox" data-keyname="isStar">
+          <label class="task-mark-star-custom" for="isStar"></label>
+          <input class="task-mark-pen" id="isEdit" type="checkbox" data-keyname="isEdit">
+          <label class="task-mark-pen-custom" for="isEdit"></label>
         </div>
         <!-- <div class="task-tag">
           <span class="tag-item tag-time">
