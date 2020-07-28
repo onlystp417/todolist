@@ -1,7 +1,7 @@
 .checkbox {
   display: inline-block;
 }
-.check-itself {
+.check-is-complete {
   display: none;
 }
 .check-custom {
@@ -15,8 +15,8 @@
   color: $white;
 }
 
-//check-itself 的 id 值用 js 賦予新的值
-.check-itself:checked + .check-custom {
+//check-is-complete 的 id 值用 js 賦予新的值
+.check-is-complete:checked + .check-custom {
   background: $royal-blue;
 }
 

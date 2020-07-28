@@ -134,7 +134,7 @@ html {
   display: inline-block; }
 
 /* line 4, scss/component/card-component/_checkbox.scss */
-.check-itself {
+.check-is-complete {
   display: none; }
 
 /* line 7, scss/component/card-component/_checkbox.scss */
@@ -149,7 +149,7 @@ html {
   color: #fff; }
 
 /* line 19, scss/component/card-component/_checkbox.scss */
-.check-itself:checked + .check-custom {
+.check-is-complete:checked + .check-custom {
   background: #4A90E2; }
 
 @media all and (min-width: 768px) {

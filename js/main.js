@@ -38,12 +38,13 @@ const taskListArray = [
     file: '',
     fileTime: '',
     star: false,
-    isComplete: true
+    isComplete: false
   }
 ];
 
 renderTaskList();
 
+// 取得所有的任務
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
   let taskHTML = '';
@@ -53,16 +54,16 @@ function renderTaskList() {
         <header class="task-title">
           <h2>
             <span class="checkbox">
-              <input class="check-itself" id="check-${ index + 1 }" type="checkbox" ${ item.isComplete ? 'checked' : '' }  >
+              <input class="check-is-complete" id="check-${ index + 1 }" type="checkbox" ${ item.isComplete ? 'checked' : '' }  >
               <label class="check-custom" for="check-${ index + 1 }"><i class="fas fa-check"></i></label>
             </span>
             <input class="task-name ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }">
           </h2>
           <div class="task-mark">
-            <input class="task-mark-star task-data" id="isStar" type="checkbox" data-keyname="isStar">
-            <label class="task-mark-star-custom" for="isStar"></label>
-            <input class="task-mark-pen" id="isEdit" type="checkbox" data-keyname="isEdit">
-            <label class="task-mark-pen-custom" for="isEdit"></label>
+            <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar">
+            <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
+            <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
+            <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }"></label>
           </div>
           <div class="task-tag">
             <span class="tag-item tag-time ${ item.date ? '' : 'd-none' }">
@@ -110,8 +111,21 @@ function renderTaskList() {
     `;
   })
   taskList.innerHTML = taskHTML;
+
+  // 綁定 isCompete inputs
+  const isCompletInputs = document.querySelectorAll('.check-is-complete');
+  isCompletInputs.forEach(input => input.addEventListener('change', checkComplete));
+
+  // 綁定 isStar inputs
+  const isStarInputs = document.querySelectorAll('.task-mark-star');
+  isStarInputs.forEach(input => input.addEventListener('change', markStar));
+
+  // 綁定 isEdit input
+  const isEditInputs = document.querySelectorAll('.task-mark-pen');
+  isEditInputs.forEach(input => input.addEventListener('change', editTask));
 }
 
+// 叫出新增任務的窗口
 function showTaskCard(e) {
   // 防止事件冒泡
   e.stopPropagation();
@@ -121,6 +135,7 @@ function showTaskCard(e) {
   taskSaveButton.addEventListener('click', taskSave);
 }
 
+// 新增任務、變更任務並保存
 function taskSave(e) {
   e.preventDefault();
   const inputs = Array.from(task.querySelectorAll('.task-data'));
@@ -137,7 +152,43 @@ function taskSave(e) {
   renderTaskList();
 }
 
+// 收起新增任務的窗口
 function hideTaskCard(e) {
   if (!e.target.contains(main)) return;
   task.classList.add('d-none');
+}
+
+// 勾選為已完成
+function checkComplete(e) {
+  // 取得任務的 index
+  const index = getTaskIndex(e.currentTarget.id);
+  
+  // 更新 isComplete 參數
+  console.log(taskListArray[index].isComplete);
+  taskListArray[index].isComplete = !taskListArray[index].isComplete;
+  console.log(taskListArray[index].isComplete);
+
+  // 放到 list 最後面
+  const completeTask = taskListArray.splice(index, 1);
+  taskListArray.push(...completeTask);
+  console.log(taskListArray);
+  renderTaskList();
+};
+
+// 編輯已存在的任務
+function editTask(e){
+  const index = getTaskIndex(e.currentTarget.id);
+
+};
+
+// 標記為重要
+function markStar(e) {
+  const index = getTaskIndex(e.currentTarget.id);
+
+};
+
+// 取出任務的序列位置
+function getTaskIndex(target, regExp) {
+  const taskIndex = target.match(/\d/);
+  return (Number(taskIndex[0]) - 1);
 }
