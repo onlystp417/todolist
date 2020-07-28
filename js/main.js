@@ -123,16 +123,17 @@ function showTaskCard(e) {
 
 function taskSave(e) {
   e.preventDefault();
-  const inputs = Array.from(task.querySelectorAll('input'));
+  const inputs = Array.from(task.querySelectorAll('.task-data'));
   const newTask = {};
-  console.log(inputs);
-  inputs.forEach(input => {
-    console.log(input.dataset.keyname);
+  inputs.map(input => {
     newTask[input.dataset.keyname] = (input.value !== 'on') 
       ? input.value : input.checked
       ? true : false;
   });
+  newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
+  console.log("file", newTask["file"]);
+  console.log(newTask);
   renderTaskList();
 }
 
