@@ -60,7 +60,7 @@ function renderTaskList() {
             <input class="task-name ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }">
           </h2>
           <div class="task-mark">
-            <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar">
+            <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.star ? 'checked' : '' }>
             <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
             <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
             <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }"></label>
@@ -162,29 +162,20 @@ function hideTaskCard(e) {
 function checkComplete(e) {
   // 取得任務的 index
   const index = getTaskIndex(e.currentTarget.id);
-  
-  // 更新 isComplete 參數
-  console.log(taskListArray[index].isComplete);
   taskListArray[index].isComplete = !taskListArray[index].isComplete;
-  console.log(taskListArray[index].isComplete);
-
-  // 放到 list 最後面
-  const completeTask = taskListArray.splice(index, 1);
-  taskListArray.push(...completeTask);
-  console.log(taskListArray);
   renderTaskList();
 };
 
 // 編輯已存在的任務
 function editTask(e){
   const index = getTaskIndex(e.currentTarget.id);
-
 };
 
 // 標記為重要
 function markStar(e) {
   const index = getTaskIndex(e.currentTarget.id);
-
+  taskListArray[index].star = !taskListArray[index].star;
+  renderTaskList();
 };
 
 // 取出任務的序列位置
