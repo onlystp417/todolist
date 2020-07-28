@@ -112,6 +112,11 @@ function renderTaskList() {
   })
   taskList.innerHTML = taskHTML;
 
+  addEvent4TaskStatus();
+}
+
+// 為 task 狀態按鈕綁定事件
+function addEvent4TaskStatus() {
   // 綁定 isCompete inputs
   const isCompletInputs = document.querySelectorAll('.check-is-complete');
   isCompletInputs.forEach(input => input.addEventListener('change', checkComplete));
