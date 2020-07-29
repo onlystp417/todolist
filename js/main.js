@@ -3,9 +3,11 @@ const main = document.querySelector('main');
 const addTaskButton = document.querySelector('.add-form');
 const task = document.querySelector('.task');
 const taskSaveButton = document.querySelector('.task-btn-save');
+const taskCancelButton = document.querySelector('.task-btn-cancel');
 
 // 綁定事件
 addTaskButton.addEventListener('click', showTaskCard);
+taskCancelButton.addEventListener('click', cancelAddTask);
 main.addEventListener('click', hideTaskCard);
 
 // 代辦事項 data
@@ -169,12 +171,21 @@ function taskSave(e) {
   newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
   console.log(newTask);
+
+  task.classList.add('d-none');
+
   renderTaskList();
 }
 
 // 收起新增任務的窗口
 function hideTaskCard(e) {
   if (!e.target.contains(main)) return;
+  task.classList.add('d-none');
+}
+
+// 取消新增任務
+function cancelAddTask(e) {
+  e.preventDefault();
   task.classList.add('d-none');
 }
 
