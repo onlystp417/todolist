@@ -134,15 +134,15 @@ function sortTaskListArray() {
 // 為 task 狀態按鈕綁定事件
 function addEvent4TaskStatus() {
   // 綁定 isCompete inputs
-  const isCompletInputs = document.querySelectorAll('.check-is-complete');
+  const isCompletInputs = document.querySelectorAll('.tasks-list .check-is-complete');
   isCompletInputs.forEach(input => input.addEventListener('change', checkComplete));
 
   // 綁定 isStar inputs
-  const isStarInputs = document.querySelectorAll('.task-mark-star');
+  const isStarInputs = document.querySelectorAll('.tasks-list .task-mark-star');
   isStarInputs.forEach(input => input.addEventListener('change', markStar));
 
   // 綁定 isEdit input
-  const isEditInputs = document.querySelectorAll('.task-mark-pen');
+  const isEditInputs = document.querySelectorAll('.tasks-list .task-mark-pen');
   isEditInputs.forEach(input => input.addEventListener('change', editTask));
 }
 
