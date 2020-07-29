@@ -170,10 +170,9 @@ function taskSave(e) {
   });
   newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
-  console.log(newTask);
-
   task.classList.add('d-none');
 
+  resetInputs();
   renderTaskList();
 }
 
@@ -181,12 +180,26 @@ function taskSave(e) {
 function hideTaskCard(e) {
   if (!e.target.contains(main)) return;
   task.classList.add('d-none');
+  resetInputs();
 }
 
 // 取消新增任務
 function cancelAddTask(e) {
   e.preventDefault();
   task.classList.add('d-none');
+  resetInputs();
+}
+
+// reset（清空） input 的值
+function resetInputs() {
+  const inputs = Array.from(task.querySelectorAll('.task-data'));
+  inputs.map(input => {
+    if(input.type === "checkbox") {
+      input.checked = false;
+    } else {
+      input.value = "";
+    }
+  })
 }
 
 // 勾選為已完成
