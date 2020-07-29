@@ -32,7 +32,7 @@
   color: $yolk-yellow;
 }
 
-.task-mark-pen:checked + .task-mark-pen-custom::before {
+.task-mark-pen-custom.is-edit {
   color: $royal-blue;
 }
 

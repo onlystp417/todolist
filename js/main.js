@@ -20,7 +20,8 @@ const taskListArray = [
     file: '123.png',
     fileTime: '1594873114622',
     star: false,
-    isComplete: false
+    isComplete: false,
+    isEdit: false
   },
   {
     name: '吃飯',
@@ -30,7 +31,8 @@ const taskListArray = [
     file: '',
     fileTime: '',
     star: false,
-    isComplete: false
+    isComplete: false,
+    isEdit: false
   },
   {
     name: '整理讀書會筆記',
@@ -40,7 +42,8 @@ const taskListArray = [
     file: '',
     fileTime: '',
     isStar: false,
-    isComplete: false
+    isComplete: false,
+    isEdit: false
   }
 ];
 
@@ -52,7 +55,6 @@ function renderTaskList() {
   let taskHTML = '';
 
   sortTaskListArray();
-
 
   taskListArray.forEach((item, index) => {
     taskHTML += `
@@ -69,7 +71,7 @@ function renderTaskList() {
             <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.isStar ? 'checked' : '' }>
             <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
             <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
-            <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }"></label>
+            <label class="task-mark-pen-custom ${item.isEdit ? 'is-edit' : ''}" for="isEdit-${ index + 1 }"></label>
           </div>
           <div class="task-tag">
             <span class="tag-item tag-time ${ item.date ? '' : 'd-none' }">
@@ -83,7 +85,7 @@ function renderTaskList() {
             </span>
           </div>
         </header>
-        <section class="task-form d-none">
+        <section class="task-form ${item.isEdit ? '' : 'd-none'}">
           <div class="task-form-edit">
             <section class="task-form-item task-form-deadline">
               <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
@@ -210,9 +212,11 @@ function checkComplete(e) {
   renderTaskList();
 };
 
-// 編輯已存在的任務
+// 按編輯筆按鈕打開編輯區塊
 function editTask(e){
   const index = getTaskIndex(e.currentTarget.id);
+  taskListArray[index].isEdit = !taskListArray[index].isEdit;
+  renderTaskList();
 };
 
 // 標記為重要

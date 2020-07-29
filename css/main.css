@@ -193,7 +193,7 @@ html {
   color: #F5A623; }
 
 /* line 35, scss/component/card-component/_mark.scss */
-.task-mark-pen:checked + .task-mark-pen-custom::before {
+.task-mark-pen-custom.is-edit {
   color: #4A90E2; }
 
 /* line 39, scss/component/card-component/_mark.scss */
