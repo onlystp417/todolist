@@ -48,6 +48,10 @@ renderTaskList();
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
   let taskHTML = '';
+
+  sortTaskListArray();
+
+
   taskListArray.forEach((item, index) => {
     taskHTML += `
       <form class="task">
@@ -115,6 +119,18 @@ function renderTaskList() {
   addEvent4TaskStatus();
 }
 
+// 排序 taskList
+function sortTaskListArray() {
+  taskListArray.sort((a, b) => {
+    const starScore = 1;
+    const normalScore = 0;
+    const completeScore = -2;
+    const aScore = (a.star ? starScore : normalScore) + (a.isComplete ? completeScore : normalScore);
+    const bScore = (b.star ? starScore : normalScore) + (b.isComplete ? completeScore : normalScore);
+    return aScore > bScore ? -1 : 1;
+  })
+}
+
 // 為 task 狀態按鈕綁定事件
 function addEvent4TaskStatus() {
   // 綁定 isCompete inputs
@@ -152,8 +168,6 @@ function taskSave(e) {
   });
   newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
-  console.log("file", newTask["file"]);
-  console.log(newTask);
   renderTaskList();
 }
 
