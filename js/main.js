@@ -107,7 +107,7 @@ function renderTaskList() {
             </section>
             <section class="task-form-item task-form-comment">
               <h3><i class="far fa-comment-dots"></i>Comment</h3>
-              <textarea name="" id="" cols="30" rows="10" placeholder="Type your meno here... value="${ item.comment }"></textarea>
+              <textarea name="" id="" cols="30" rows="10" placeholder="Type your meno here...">${ item.comment }</textarea>
             </section>
           </div>
           <div class="task-btn">
@@ -173,6 +173,8 @@ function taskSave(e) {
   newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
   task.classList.add('d-none');
+
+  console.log(newTask);
 
   resetInputs();
   renderTaskList();
