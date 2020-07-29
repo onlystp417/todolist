@@ -37,7 +37,7 @@ const taskListArray = [
     comment: '整理忍者第五章',
     file: '',
     fileTime: '',
-    star: false,
+    isStar: false,
     isComplete: false
   }
 ];
@@ -64,7 +64,7 @@ function renderTaskList() {
             <input class="task-name ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }">
           </h2>
           <div class="task-mark">
-            <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.star ? 'checked' : '' }>
+            <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.isStar ? 'checked' : '' }>
             <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
             <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
             <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }"></label>
@@ -125,8 +125,8 @@ function sortTaskListArray() {
     const starScore = 1;
     const normalScore = 0;
     const completeScore = -2;
-    const aScore = (a.star ? starScore : normalScore) + (a.isComplete ? completeScore : normalScore);
-    const bScore = (b.star ? starScore : normalScore) + (b.isComplete ? completeScore : normalScore);
+    const aScore = (a.isStar ? starScore : normalScore) + (a.isComplete ? completeScore : normalScore);
+    const bScore = (b.isStar ? starScore : normalScore) + (b.isComplete ? completeScore : normalScore);
     return aScore > bScore ? -1 : 1;
   })
 }
@@ -156,7 +156,7 @@ function showTaskCard(e) {
   taskSaveButton.addEventListener('click', taskSave);
 }
 
-// 新增任務、變更任務並保存
+// 新增任務並保存資料
 function taskSave(e) {
   e.preventDefault();
   const inputs = Array.from(task.querySelectorAll('.task-data'));
@@ -168,6 +168,7 @@ function taskSave(e) {
   });
   newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
+  console.log(newTask);
   renderTaskList();
 }
 
@@ -193,7 +194,7 @@ function editTask(e){
 // 標記為重要
 function markStar(e) {
   const index = getTaskIndex(e.currentTarget.id);
-  taskListArray[index].star = !taskListArray[index].star;
+  taskListArray[index].isStar = !taskListArray[index].isStar;
   renderTaskList();
 };
 
