@@ -218,6 +218,11 @@ function checkComplete(e) {
 function editTask(e){
   const index = getTaskIndex(e.currentTarget.id);
   taskListArray[index].isEdit = !taskListArray[index].isEdit;
+
+  const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
+  editArea.classList.toggle('d-none');
+};
+
   renderTaskList();
 };
 
