@@ -70,7 +70,7 @@ function renderTaskList() {
             <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.isStar ? 'checked' : '' } data-keyname="isStar">
             <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
             <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
-            <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }"></label>
+            <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }" id="edit-pen-${index + 1}"></label>
           </div>
           <div class="task-tag">
             <span class="tag-item tag-time ${ item.date ? '' : 'd-none' }">
@@ -224,6 +224,8 @@ function editTask(e){
   const index = getTaskIndex(e.currentTarget.id);
 
   const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
+  const currentPen = document.querySelector(`#task-item-${index + 1} .task-mark-pen-custom`);
+  currentPen.classList.toggle('is-edit');
   editArea.classList.toggle('d-none');
 };
 

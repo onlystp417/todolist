@@ -40,9 +40,9 @@
   display: none;
 }
 
-.task-mark-pen.current-pen {
-  color: $royal-blue;
-}
+// .task-mark-pen-custom.current-pen {
+//   color: $royal-blue;
+// }
 
 @include mediaquery_pad {
   .task-mark {
