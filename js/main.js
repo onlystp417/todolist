@@ -42,8 +42,7 @@ const taskListArray = [
     file: '',
     fileTime: '',
     isStar: false,
-    isComplete: false,
-    isEdit: false
+    isComplete: false
   }
 ];
 
@@ -58,20 +57,20 @@ function renderTaskList() {
 
   taskListArray.forEach((item, index) => {
     taskHTML += `
-      <form class="task">
+      <form class="task" id="task-item-${index + 1}">
         <header class="task-title">
           <h2>
             <span class="checkbox">
-              <input class="check-is-complete" id="check-${ index + 1 }" type="checkbox" ${ item.isComplete ? 'checked' : '' }  >
+              <input class="check-is-complete task-data" id="check-${ index + 1 }" type="checkbox" ${ item.isComplete ? 'checked' : '' } data-keyname="isComplete" >
               <label class="check-custom" for="check-${ index + 1 }"><i class="fas fa-check"></i></label>
             </span>
-            <input class="task-name ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }">
+            <input class="task-name task-data ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }" data-keyname="name">
           </h2>
           <div class="task-mark">
-            <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.isStar ? 'checked' : '' }>
+            <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.isStar ? 'checked' : '' } data-keyname="isStar">
             <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
             <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
-            <label class="task-mark-pen-custom ${item.isEdit ? 'is-edit' : ''}" for="isEdit-${ index + 1 }"></label>
+            <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }"></label>
           </div>
           <div class="task-tag">
             <span class="tag-item tag-time ${ item.date ? '' : 'd-none' }">
@@ -90,13 +89,13 @@ function renderTaskList() {
             <section class="task-form-item task-form-deadline">
               <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
               <div action="">
-                <input type="date" value="${ item.date }">
-                <input type="time" value="${ item.time }">
+                <input class="task-data" type="date" value="${ item.date }" data-keyname="date">
+                <input class="task-data" type="time" value="${ item.time }" data-keyname="time">
               </div>
             </section>
             <section class="task-form-item task-form-file">
               <h3><i class="far fa-file"></i>File</h3>
-              <input type="file" data-keyname="file" value="${ item.file }" name="" id="">
+              <input class="task-data" type="file" data-keyname="file" value="${ item.file }" name="" id="">
               <div class="file-add">
                 <div class="file-caption">
                   <h4>${ item.file }</h4>
@@ -107,12 +106,12 @@ function renderTaskList() {
             </section>
             <section class="task-form-item task-form-comment">
               <h3><i class="far fa-comment-dots"></i>Comment</h3>
-              <textarea name="" id="" cols="30" rows="10" placeholder="Type your meno here...">${ item.comment }</textarea>
+              <textarea class="task-data" name="" id="" cols="30" rows="10" placeholder="Type your meno here..." data-keyname="comment">${ item.comment }</textarea>
             </section>
           </div>
           <div class="task-btn">
-            <button class="task-btn-basic task-btn-cancel"><i class="fas fa-times"></i>Cancel</button>
-            <button class="task-btn-basic task-btn-save"><i class="fas fa-plus"></i>Save</button>
+            <button class="task-btn-basic task-btn-cancel" id="save-button-${index + 1}><i class="fas fa-times"></i>Cancel</button>
+            <button class="task-btn-basic task-btn-save" id="cancel-button-${index + 1}><i class="fas fa-plus"></i>Save</button>
           </div>
         </section>
       </form>
@@ -148,6 +147,12 @@ function addEvent4TaskStatus() {
   // 綁定 isEdit input
   const isEditInputs = document.querySelectorAll('.tasks-list .task-mark-pen');
   isEditInputs.forEach(input => input.addEventListener('change', editTask));
+
+  const saveChangeButtons = document.querySelectorAll('.tasks-list .task-btn-save');
+  saveChangeButtons.forEach(button => button.addEventListener('click', saveChange));
+
+  const cancelEditButtons = document.querySelectorAll('.tasks-list .task-btn-cancel');
+  cancelEditButtons.forEach(button => button.addEventListener('click', cancelEdit));
 }
 
 // 叫出新增任務的窗口
@@ -161,12 +166,12 @@ function showTaskCard(e) {
 }
 
 // 新增任務並保存資料
-function taskSave(e) {
-  e.preventDefault();
+function taskSave(event) {
+  event.preventDefault();
   const inputs = Array.from(task.querySelectorAll('.task-data'));
   const newTask = {};
   inputs.map(input => {
-    newTask[input.dataset.keyname] = (input.value !== 'on') 
+    newTask[input.dataset.keyname] = (input.value !== 'on')
       ? input.value : input.checked
       ? true : false;
   });
@@ -214,17 +219,32 @@ function checkComplete(e) {
   renderTaskList();
 };
 
-// 按編輯筆按鈕打開編輯區塊
+// 打開已存在任務的編輯區域
 function editTask(e){
   const index = getTaskIndex(e.currentTarget.id);
-  taskListArray[index].isEdit = !taskListArray[index].isEdit;
 
   const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
   editArea.classList.toggle('d-none');
 };
 
+// 儲存已存在任務的變更
+function saveChange(e) {
+  e.preventDefault();
+  console.log(e.currentTarget);
+  const index = getTaskIndex(e.currentTarget.id);
+  const inputs = Array.from(document.querySelectorAll(`#task-item-${index + 1} .task-data`));
+
+  inputs.map(input => {
+    taskListArray[index][input.dataset.keyname] = (input.value !== 'on')
+      ? input.value : input.checked
+      ? true : false;
+  });
+
   renderTaskList();
-};
+}
+
+// 取消已存在任務的編輯
+function cancelEdit(e) {};
 
 // 標記為重要
 function markStar(e) {
