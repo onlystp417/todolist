@@ -1,12 +1,12 @@
 // 取得 DOM 節點
 const main = document.querySelector('main');
-const addTaskButton = document.querySelector('.add-form');
+const taskFormButton = document.querySelector('.add-form');
 const task = document.querySelector('.task');
-const taskSaveButton = document.querySelector('.task-btn-save');
+const taskAddButton = document.querySelector('.task-btn-add');
 const taskCancelButton = document.querySelector('.task-btn-cancel');
 
 // 綁定事件
-addTaskButton.addEventListener('click', showTaskCard);
+taskFormButton.addEventListener('click', showTaskCard);
 taskCancelButton.addEventListener('click', cancelAddTask);
 main.addEventListener('click', hideTaskCard);
 
@@ -162,7 +162,7 @@ function showTaskCard(e) {
   // 顯示編輯任務區域
   task.classList.remove('d-none');
 
-  taskSaveButton.addEventListener('click', taskSave);
+  taskAddButton.addEventListener('click', taskSave);
 }
 
 // 新增任務並保存資料
