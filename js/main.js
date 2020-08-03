@@ -221,12 +221,24 @@ function checkComplete(e) {
 
 // 打開已存在任務的編輯區域
 function editTask(e){
+  e.preventDefault();
   const index = getTaskIndex(e.currentTarget.id);
 
   const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
   const currentPen = document.querySelector(`#task-item-${index + 1} .task-mark-pen-custom`);
   currentPen.classList.toggle('is-edit');
   editArea.classList.toggle('d-none');
+};
+
+// 取消編輯已存在任務
+function cancelEdit(e) {
+  e.preventDefault();
+  const index = getTaskIndex(e.currentTarget.id);
+
+  const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
+  const currentPen = document.querySelector(`#task-item-${index + 1} .task-mark-pen-custom`);
+  currentPen.classList.remove('is-edit');
+  editArea.classList.add('d-none');
 };
 
 // 儲存已存在任務的變更
@@ -244,9 +256,6 @@ function saveChange(e) {
 
   renderTaskList();
 }
-
-// 取消已存在任務的編輯
-function cancelEdit(e) {};
 
 // 標記為重要
 function markStar(e) {
