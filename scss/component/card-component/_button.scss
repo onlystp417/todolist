@@ -18,13 +18,13 @@
       color: $white;
     }
   }
-  &-save {
-    background: $royal-blue;
-    color: $white;
+  &-save, &-add {
+    background: $white;
+    color: $royal-blue;
+    border-left: 1px solid $light-gray;
     &:hover, &:active {
-      background: $white;
-      color: $royal-blue;
-      border-left: 1px solid $light-gray;
+      background: $royal-blue;
+      color: $white;
     }
   }
 }

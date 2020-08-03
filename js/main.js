@@ -110,8 +110,8 @@ function renderTaskList() {
             </section>
           </div>
           <div class="task-btn">
-            <button class="task-btn-basic task-btn-cancel" id="save-button-${index + 1}><i class="fas fa-times"></i>Cancel</button>
-            <button class="task-btn-basic task-btn-save" id="cancel-button-${index + 1}><i class="fas fa-plus"></i>Save</button>
+            <button class="task-btn-basic task-btn-cancel" id="save-button-${index + 1}"><i class="fas fa-times"></i>Cancel</button>
+            <button class="task-btn-basic task-btn-save" id="cancel-button-${index + 1}"><i class="fas fa-plus"></i>Save</button>
           </div>
         </section>
       </form>

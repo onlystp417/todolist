@@ -115,14 +115,14 @@ html {
       background: #D0021B;
       color: #fff; }
   /* line 21, scss/component/card-component/_button.scss */
-  .task-btn-save {
-    background: #4A90E2;
-    color: #fff; }
-    /* line 24, scss/component/card-component/_button.scss */
-    .task-btn-save:hover, .task-btn-save:active {
-      background: #fff;
-      color: #4A90E2;
-      border-left: 1px solid #E1E1E1; }
+  .task-btn-save, .task-btn-add {
+    background: #fff;
+    color: #4A90E2;
+    border-left: 1px solid #E1E1E1; }
+    /* line 25, scss/component/card-component/_button.scss */
+    .task-btn-save:hover, .task-btn-save:active, .task-btn-add:hover, .task-btn-add:active {
+      background: #4A90E2;
+      color: #fff; }
 
 @media all and (min-width: 768px) {
   /* line 34, scss/component/card-component/_button.scss */
@@ -199,10 +199,6 @@ html {
 /* line 39, scss/component/card-component/_mark.scss */
 .task-mark-star.d-none {
   display: none; }
-
-/* line 43, scss/component/card-component/_mark.scss */
-.task-mark-pen.current-pen {
-  color: #4A90E2; }
 
 @media all and (min-width: 768px) {
   /* line 48, scss/component/card-component/_mark.scss */
