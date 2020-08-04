@@ -60,15 +60,18 @@ html {
 .d-none {
   display: none; }
 
+/* line 13, scss/component/_card.scss */
+.is-edit .task-form {
+  display: block; }
+
 /* line 1, scss/component/card-component/_title.scss */
 .task-title {
   padding: 10px 14px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  background: #FFF2DC; }
+  justify-content: space-between; }
 
-/* line 9, scss/component/card-component/_title.scss */
+/* line 8, scss/component/card-component/_title.scss */
 .task-name {
   display: inline-block;
   vertical-align: middle;
@@ -83,13 +86,18 @@ html {
 
 /* line 18, scss/component/card-component/_title.scss */
 .task-name.cross-off {
-  text-decoration: line-through; }
+  text-decoration: line-through;
+  color: #C8C8C8; }
+
+/* line 23, scss/component/card-component/_title.scss */
+.is-star {
+  background: #FFF2DC; }
 
 @media all and (min-width: 768px) {
-  /* line 23, scss/component/card-component/_title.scss */
+  /* line 28, scss/component/card-component/_title.scss */
   .task-title {
     padding: 20px 32px; }
-  /* line 26, scss/component/card-component/_title.scss */
+  /* line 31, scss/component/card-component/_title.scss */
   .task-name, .task-name::placeholder {
     font-size: 24px; } }
 
@@ -192,19 +200,19 @@ html {
   font-weight: 900;
   color: #F5A623; }
 
-/* line 35, scss/component/card-component/_mark.scss */
-.task-mark-pen-custom.is-edit {
+/* line 36, scss/component/card-component/_mark.scss */
+.is-edit .task-mark-pen-custom {
   color: #4A90E2; }
 
-/* line 39, scss/component/card-component/_mark.scss */
+/* line 41, scss/component/card-component/_mark.scss */
 .task-mark-star.d-none {
   display: none; }
 
 @media all and (min-width: 768px) {
-  /* line 48, scss/component/card-component/_mark.scss */
+  /* line 50, scss/component/card-component/_mark.scss */
   .task-mark {
     font-size: 24px; }
-    /* line 50, scss/component/card-component/_mark.scss */
+    /* line 52, scss/component/card-component/_mark.scss */
     .task-mark-mark-star, .task-mark-mark-star-shiny {
       padding-right: 15px; } }
 

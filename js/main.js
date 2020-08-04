@@ -19,7 +19,7 @@ const taskListArray = [
     comment: '再不刷就要蛀牙了',
     file: '123.png',
     fileTime: '1594873114622',
-    star: false,
+    isStar: false,
     isComplete: false,
     isEdit: false
   },
@@ -30,7 +30,7 @@ const taskListArray = [
     comment: '',
     file: '',
     fileTime: '',
-    star: false,
+    isStar: false,
     isComplete: false,
     isEdit: false
   },
@@ -52,13 +52,14 @@ renderTaskList();
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
   let taskHTML = '';
+  let outputTaskArray = [];
 
   sortTaskListArray();
 
   taskListArray.forEach((item, index) => {
     taskHTML += `
       <form class="task" id="task-item-${index + 1}">
-        <header class="task-title">
+        <header class="task-title ${item.isStar ? 'is-star' : ''}">
           <h2>
             <span class="checkbox">
               <input class="check-is-complete task-data" id="check-${ index + 1 }" type="checkbox" ${ item.isComplete ? 'checked' : '' } data-keyname="isComplete" >
@@ -121,6 +122,22 @@ function renderTaskList() {
 
   addEvent4TaskStatus();
 }
+
+// 頁籤功能
+// switchTag();
+
+// function switchTag() {
+//   const tags = document.querySelectorAll('.label-link');
+//   tags.forEach(tag => tag.addEventListener('click', () => {
+//     if(e.currentTarget.classList.contains('my-tasks')) {
+//       outputTaskArray = taskListArray;
+//     } else if(e.currentTarget.classList.contains('in-progress')) {
+//       outputTaskArray = taskListArray.filter(item => item.isComplete === false);
+//     } else if(e.currentTarget.classList.contains('completed')) {
+//       outputTaskArray = taskListArray.filter(item => item.isComplete === true);
+//     }
+//   }));
+// }
 
 // 排序 taskList
 function sortTaskListArray() {
@@ -222,23 +239,25 @@ function checkComplete(e) {
 // 打開已存在任務的編輯區域
 function editTask(e){
   e.preventDefault();
+  document.querySelectorAll('.task').forEach(item => {
+    if(item.classList.contains('is-edit')) item.classList.remove('is-edit');
+  });
   const index = getTaskIndex(e.currentTarget.id);
 
-  const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
-  const currentPen = document.querySelector(`#task-item-${index + 1} .task-mark-pen-custom`);
-  currentPen.classList.toggle('is-edit');
-  editArea.classList.toggle('d-none');
+  const currentTask = document.querySelector(`#task-item-${index + 1}`);
+  currentTask.classList.add('is-edit');
+  // const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
+  // const currentPen = document.querySelector(`#task-item-${index + 1} .task-mark-pen-custom`);
+  // currentPen.classList.toggle('is-edit');
+  // editArea.classList.toggle('d-none');
 };
 
 // 取消編輯已存在任務
 function cancelEdit(e) {
   e.preventDefault();
   const index = getTaskIndex(e.currentTarget.id);
-
-  const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
-  const currentPen = document.querySelector(`#task-item-${index + 1} .task-mark-pen-custom`);
-  currentPen.classList.remove('is-edit');
-  editArea.classList.add('d-none');
+  const currentTask = document.querySelector(`#task-item-${index + 1}`);
+  currentTask.classList.remove('is-edit');
 };
 
 // 儲存已存在任務的變更
@@ -265,7 +284,7 @@ function markStar(e) {
 };
 
 // 取出任務的序列位置
-function getTaskIndex(target, regExp) {
+function getTaskIndex(target) {
   const taskIndex = target.match(/\d/);
   return (Number(taskIndex[0]) - 1);
 }

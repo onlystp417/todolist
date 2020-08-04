@@ -9,6 +9,12 @@
   display: none;
 }
 
+.is-edit {
+  .task-form {
+    display: block;
+  }
+}
+
 @import "./card-component/title";
 @import "./card-component/button";
 @import "./card-component/checkbox";

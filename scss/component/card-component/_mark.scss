@@ -32,8 +32,10 @@
   color: $yolk-yellow;
 }
 
-.task-mark-pen-custom.is-edit {
-  color: $royal-blue;
+.is-edit {
+  .task-mark-pen-custom {
+    color: $royal-blue;
+  }
 }
 
 .task-mark-star.d-none {

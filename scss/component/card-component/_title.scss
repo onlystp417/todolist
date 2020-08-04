@@ -3,7 +3,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  background: $cream-yellow;
 }
 
 .task-name {
@@ -11,12 +10,18 @@
   vertical-align: middle;
   background: inherit;
 }
+
 .task-name, .task-name::placeholder {
   @include fontstyle(14px, 700, $black, 1.4);
 }
 
 .task-name.cross-off {
   text-decoration: line-through;
+  color: $mid-gray;
+}
+
+.is-star {
+  background: $cream-yellow;
 }
 
 @include mediaquery_pad {
