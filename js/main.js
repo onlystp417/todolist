@@ -4,28 +4,29 @@ const taskFormButton = document.querySelector('.add-form');
 const task = document.querySelector('.task');
 const taskAddButton = document.querySelector('.task-btn-add');
 const taskCancelButton = document.querySelector('.task-btn-cancel');
+const tags = document.querySelectorAll('.label-link');
 
 // 綁定事件
 taskFormButton.addEventListener('click', showTaskCard);
 taskCancelButton.addEventListener('click', cancelAddTask);
 main.addEventListener('click', hideTaskCard);
+tags.forEach(tag => tag.addEventListener('click', switchTag))
 
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
 
+// 將資料存進 localStorage
 function storeData() {
   localStorage.setItem('taskList', JSON.stringify(taskListArray));
 }
 
-// storeData();
 renderTaskList();
 
-// 取得所有的任務
+// 將所有任務渲染在畫面上
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
   let taskHTML = '';
 
   sortTaskListArray();
-  switchTag();
 
   taskListArray.forEach((item, index) => {
     taskHTML += `
@@ -94,20 +95,12 @@ function renderTaskList() {
   addEvent4TaskStatus();
 }
 
-// 頁籤功能
-// switchTag();
-
-function switchTag() {
-  const tags = document.querySelectorAll('.label-link');
-  tags.forEach(tag => tag.addEventListener('click', () => {
-    if(e.currentTarget.classList.contains('my-tasks')) {
-      outputTaskArray = taskListArray;
-    } else if(e.currentTarget.classList.contains('in-progress')) {
-      outputTaskArray = taskListArray.filter(item => item.isComplete === false);
-    } else if(e.currentTarget.classList.contains('completed')) {
-      outputTaskArray = taskListArray.filter(item => item.isComplete === true);
-    }
-  }));
+// 切換頁籤功能
+let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
+function switchTag(e) {
+  tagName = e.currentTarget.dataset.tagname;
+  tags.forEach(item => item.classList.remove('current'));
+  e.currentTarget.classList.add('current');
 }
 
 // 排序 taskList
