@@ -10,51 +10,22 @@ taskFormButton.addEventListener('click', showTaskCard);
 taskCancelButton.addEventListener('click', cancelAddTask);
 main.addEventListener('click', hideTaskCard);
 
-// 代辦事項 data
-const taskListArray = [
-  {
-    name: '刷牙',
-    date: '2020-07-16',
-    time: '21:30',
-    comment: '再不刷就要蛀牙了',
-    file: '123.png',
-    fileTime: '1594873114622',
-    isStar: false,
-    isComplete: false,
-    isEdit: false
-  },
-  {
-    name: '吃飯',
-    date: '2020-07-16',
-    time: '18:30',
-    comment: '',
-    file: '',
-    fileTime: '',
-    isStar: false,
-    isComplete: false,
-    isEdit: false
-  },
-  {
-    name: '整理讀書會筆記',
-    date: '2020-07-20',
-    time: '22:30',
-    comment: '整理忍者第五章',
-    file: '',
-    fileTime: '',
-    isStar: false,
-    isComplete: false
-  }
-];
+const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
 
+function storeData() {
+  localStorage.setItem('taskList', JSON.stringify(taskListArray));
+}
+
+// storeData();
 renderTaskList();
 
 // 取得所有的任務
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
   let taskHTML = '';
-  let outputTaskArray = [];
 
   sortTaskListArray();
+  switchTag();
 
   taskListArray.forEach((item, index) => {
     taskHTML += `
@@ -126,18 +97,18 @@ function renderTaskList() {
 // 頁籤功能
 // switchTag();
 
-// function switchTag() {
-//   const tags = document.querySelectorAll('.label-link');
-//   tags.forEach(tag => tag.addEventListener('click', () => {
-//     if(e.currentTarget.classList.contains('my-tasks')) {
-//       outputTaskArray = taskListArray;
-//     } else if(e.currentTarget.classList.contains('in-progress')) {
-//       outputTaskArray = taskListArray.filter(item => item.isComplete === false);
-//     } else if(e.currentTarget.classList.contains('completed')) {
-//       outputTaskArray = taskListArray.filter(item => item.isComplete === true);
-//     }
-//   }));
-// }
+function switchTag() {
+  const tags = document.querySelectorAll('.label-link');
+  tags.forEach(tag => tag.addEventListener('click', () => {
+    if(e.currentTarget.classList.contains('my-tasks')) {
+      outputTaskArray = taskListArray;
+    } else if(e.currentTarget.classList.contains('in-progress')) {
+      outputTaskArray = taskListArray.filter(item => item.isComplete === false);
+    } else if(e.currentTarget.classList.contains('completed')) {
+      outputTaskArray = taskListArray.filter(item => item.isComplete === true);
+    }
+  }));
+}
 
 // 排序 taskList
 function sortTaskListArray() {
@@ -194,9 +165,8 @@ function taskSave(event) {
   });
   newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
+  storeData();
   task.classList.add('d-none');
-
-  console.log(newTask);
 
   resetInputs();
   renderTaskList();
@@ -273,6 +243,7 @@ function saveChange(e) {
       ? true : false;
   });
 
+  storeData();
   renderTaskList();
 }
 
@@ -280,6 +251,8 @@ function saveChange(e) {
 function markStar(e) {
   const index = getTaskIndex(e.currentTarget.id);
   taskListArray[index].isStar = !taskListArray[index].isStar;
+
+  storeData();
   renderTaskList();
 };
 
