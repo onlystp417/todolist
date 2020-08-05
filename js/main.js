@@ -5,6 +5,7 @@ const task = document.querySelector('.task');
 const taskAddButton = document.querySelector('.task-btn-add');
 const taskCancelButton = document.querySelector('.task-btn-cancel');
 const tags = document.querySelectorAll('.label-link');
+let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
 
 // 綁定事件
 taskFormButton.addEventListener('click', showTaskCard);
@@ -13,23 +14,15 @@ main.addEventListener('click', hideTaskCard);
 tags.forEach(tag => tag.addEventListener('click', switchTag))
 
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
-
-// 將資料存進 localStorage
-function storeData() {
-  localStorage.setItem('taskList', JSON.stringify(taskListArray));
-}
+let taskListShow = filterTaskList(tagName);
 
 renderTaskList();
 
 // 將所有任務渲染在畫面上
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
-  let taskHTML = '';
-
-  sortTaskListArray();
-
-  taskListArray.forEach((item, index) => {
-    taskHTML += `
+  let taskHTML = taskListShow.map((item, index) => {
+    return `
       <form class="task" id="task-item-${index + 1}">
         <header class="task-title ${item.isStar ? 'is-star' : ''}">
           <h2>
@@ -90,22 +83,46 @@ function renderTaskList() {
       </form>
     `;
   })
-  taskList.innerHTML = taskHTML;
+  taskList.innerHTML = taskHTML.join('');
 
   addEvent4TaskStatus();
 }
 
+// 將資料存進 localStorage
+function storeData() {
+  localStorage.setItem('taskList', JSON.stringify(taskListArray));
+}
+
 // 切換頁籤功能
-let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
 function switchTag(e) {
   tagName = e.currentTarget.dataset.tagname;
   tags.forEach(item => item.classList.remove('current'));
   e.currentTarget.classList.add('current');
+
+  console.log(tagName);
+  taskListShow = filterTaskList(tagName);
+  renderTaskList();
+}
+
+function filterTaskList(type) {
+  let items = [];
+  switch(type) {
+    case 'progress':
+      items = taskListArray.filter(item => item.isComplete === false);
+      break;
+    case 'completed':
+      items = taskListArray.filter(item => item.isComplete === true);
+      break;
+    default: 
+      items = taskListArray;
+      break;
+  }
+  return sortTaskListArray(items);
 }
 
 // 排序 taskList
-function sortTaskListArray() {
-  taskListArray.sort((a, b) => {
+function sortTaskListArray(taskArray) {
+  return taskArray.sort((a, b) => {
     const starScore = 1;
     const normalScore = 0;
     const completeScore = -2;
@@ -194,8 +211,14 @@ function resetInputs() {
 // 勾選為已完成
 function checkComplete(e) {
   // 取得任務的 index
-  const index = getTaskIndex(e.currentTarget.id);
-  taskListArray[index].isComplete = !taskListArray[index].isComplete;
+  const index = ID2Index(e.currentTarget.id);
+  const targetItem = taskListShow[index];
+  const indexTaskList = taskListArray.indexOf(targetItem);
+
+  taskListArray[indexTaskList].isComplete = !taskListArray[indexTaskList].isComplete;
+  taskListShow = filterTaskList(tagName);
+
+  storeData();
   renderTaskList();
 };
 
@@ -205,20 +228,16 @@ function editTask(e){
   document.querySelectorAll('.task').forEach(item => {
     if(item.classList.contains('is-edit')) item.classList.remove('is-edit');
   });
-  const index = getTaskIndex(e.currentTarget.id);
+  const index = ID2Index(e.currentTarget.id);
 
   const currentTask = document.querySelector(`#task-item-${index + 1}`);
   currentTask.classList.add('is-edit');
-  // const editArea = document.querySelector(`#task-item-${index + 1} .task-form`);
-  // const currentPen = document.querySelector(`#task-item-${index + 1} .task-mark-pen-custom`);
-  // currentPen.classList.toggle('is-edit');
-  // editArea.classList.toggle('d-none');
 };
 
 // 取消編輯已存在任務
 function cancelEdit(e) {
   e.preventDefault();
-  const index = getTaskIndex(e.currentTarget.id);
+  const index = ID2Index(e.currentTarget.id);
   const currentTask = document.querySelector(`#task-item-${index + 1}`);
   currentTask.classList.remove('is-edit');
 };
@@ -226,8 +245,7 @@ function cancelEdit(e) {
 // 儲存已存在任務的變更
 function saveChange(e) {
   e.preventDefault();
-  console.log(e.currentTarget);
-  const index = getTaskIndex(e.currentTarget.id);
+  const index = ID2Index(e.currentTarget.id);
   const inputs = Array.from(document.querySelectorAll(`#task-item-${index + 1} .task-data`));
 
   inputs.map(input => {
@@ -242,7 +260,7 @@ function saveChange(e) {
 
 // 標記為重要
 function markStar(e) {
-  const index = getTaskIndex(e.currentTarget.id);
+  const index = ID2Index(e.currentTarget.id);
   taskListArray[index].isStar = !taskListArray[index].isStar;
 
   storeData();
@@ -250,7 +268,7 @@ function markStar(e) {
 };
 
 // 取出任務的序列位置
-function getTaskIndex(target) {
+function ID2Index(target) {
   const taskIndex = target.match(/\d/);
   return (Number(taskIndex[0]) - 1);
 }
