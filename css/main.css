@@ -298,23 +298,22 @@ html {
   /* line 44, scss/component/card-component/_form.scss */
   .task-form-item textarea {
     width: calc(100% - 18px);
-    height: 120px;
     padding: 8px 18px; }
-    /* line 48, scss/component/card-component/_form.scss */
+    /* line 47, scss/component/card-component/_form.scss */
     .task-form-item textarea::placeholder {
       color: #C8C8C8; }
 
 @media all and (min-width: 768px) {
-  /* line 56, scss/component/card-component/_form.scss */
+  /* line 55, scss/component/card-component/_form.scss */
   .task-form {
     padding: 25px 68px 0 68px; }
-    /* line 59, scss/component/card-component/_form.scss */
+    /* line 58, scss/component/card-component/_form.scss */
     .task-form-item h3 {
       font-size: 20px; }
-    /* line 62, scss/component/card-component/_form.scss */
+    /* line 61, scss/component/card-component/_form.scss */
     .task-form-item input {
       min-width: 140px; }
-    /* line 65, scss/component/card-component/_form.scss */
+    /* line 64, scss/component/card-component/_form.scss */
     .task-form-item input, .task-form-item textarea {
       font-size: 14px; } }
 

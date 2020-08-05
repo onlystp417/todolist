@@ -79,7 +79,7 @@ function renderTaskList() {
             </section>
             <section class="task-form-item task-form-comment">
               <h3><i class="far fa-comment-dots"></i>Comment</h3>
-              <textarea class="task-data" name="" id="" cols="30" rows="10" placeholder="Type your meno here..." data-keyname="comment">${ item.comment }</textarea>
+              <textarea class="task-data" name="" id="" cols="3" rows="3" placeholder="Type your meno here..." data-keyname="comment">${ item.comment }</textarea>
             </section>
           </div>
           <div class="task-btn">
