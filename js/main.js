@@ -104,6 +104,7 @@ function switchTag(e) {
   renderTaskList();
 }
 
+// 過濾出當前頁籤的資料
 function filterTaskList(type) {
   let items = [];
   switch(type) {
@@ -216,9 +217,9 @@ function checkComplete(e) {
   const indexTaskList = taskListArray.indexOf(targetItem);
 
   taskListArray[indexTaskList].isComplete = !taskListArray[indexTaskList].isComplete;
-  taskListShow = filterTaskList(tagName);
-
+  
   storeData();
+  taskListShow = filterTaskList(tagName);
   renderTaskList();
 };
 
@@ -261,9 +262,12 @@ function saveChange(e) {
 // 標記為重要
 function markStar(e) {
   const index = ID2Index(e.currentTarget.id);
-  taskListArray[index].isStar = !taskListArray[index].isStar;
+  const indexTaskList = taskListArray.indexOf(taskListShow[index]);
+
+  taskListArray[indexTaskList].isStar = !taskListArray[indexTaskList].isStar;
 
   storeData();
+  taskListShow = filterTaskList(tagName);
   renderTaskList();
 };
 
