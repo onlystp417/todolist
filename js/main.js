@@ -5,7 +5,7 @@ const task = document.querySelector('.task');
 const taskAddButton = document.querySelector('.task-btn-add');
 const taskCancelButton = document.querySelector('.task-btn-cancel');
 const tags = document.querySelectorAll('.label-link');
-let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
+const taskCounter = document.querySelector('.task-counter > span');
 
 // 綁定事件
 taskFormButton.addEventListener('click', showTaskCard);
@@ -275,4 +275,16 @@ function markStar(e) {
 function ID2Index(target) {
   const taskIndex = target.match(/\d/);
   return (Number(taskIndex[0]) - 1);
+}
+
+// 顯示未完成任務的數量
+showLeftTasks();
+
+function showLeftTasks() {
+  console.log('object');
+  let leftTaskAmount = 0;
+  taskListArray.map(item => {
+    leftTaskAmount += item.isComplete === false ? 1 : 0;
+  });
+  taskCounter.textContent = leftTaskAmount;
 }
