@@ -1,19 +1,22 @@
 // 取得 DOM 節點
-const main = document.querySelector('main');
-const taskFormButton = document.querySelector('.add-form');
-const task = document.querySelector('.task');
+const baseLayer = document.querySelector('main');
+const openTaskFormButton = document.querySelector('.add-form');
+const taskAddingForm = document.querySelector('.task');
 const taskAddButton = document.querySelector('.task-btn-add');
 const taskCancelButton = document.querySelector('.task-btn-cancel');
 const tags = document.querySelectorAll('.label-link');
 const taskCounter = document.querySelector('.task-counter > span');
 
 // 綁定事件
-taskFormButton.addEventListener('click', showTaskCard);
-taskCancelButton.addEventListener('click', cancelAddTask);
-main.addEventListener('click', hideTaskCard);
+openTaskFormButton.addEventListener('click', showTaskCard);
+taskCancelButton.addEventListener('click', hideTaskCard);
+baseLayer.addEventListener('click', hideTaskCard);
 tags.forEach(tag => tag.addEventListener('click', switchTag))
 
+// 初始化原始資料
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
+// 初始化要渲染的資料
+let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
 let taskListShow = filterTaskList(tagName);
 
 renderTaskList();
@@ -159,7 +162,7 @@ function showTaskCard(e) {
   // 防止事件冒泡
   e.stopPropagation();
   // 顯示編輯任務區域
-  task.classList.remove('d-none');
+  taskAddingForm.classList.remove('d-none');
 
   taskAddButton.addEventListener('click', taskSave);
 }
@@ -167,7 +170,7 @@ function showTaskCard(e) {
 // 新增任務並保存資料
 function taskSave(event) {
   event.preventDefault();
-  const inputs = Array.from(task.querySelectorAll('.task-data'));
+  const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
   const newTask = {};
   inputs.map(input => {
     newTask[input.dataset.keyname] = (input.value !== 'on')
@@ -177,7 +180,7 @@ function taskSave(event) {
   newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
   taskListArray.unshift(newTask);
   storeData();
-  task.classList.add('d-none');
+  taskAddingForm.classList.add('d-none');
 
   resetInputs();
   renderTaskList();
@@ -185,21 +188,15 @@ function taskSave(event) {
 
 // 收起新增任務的窗口
 function hideTaskCard(e) {
-  if (!e.target.contains(main)) return;
-  task.classList.add('d-none');
-  resetInputs();
-}
-
-// 取消新增任務
-function cancelAddTask(e) {
   e.preventDefault();
-  task.classList.add('d-none');
+  if (!e.target.contains(baseLayer) && !e.target.classList.contains('task-btn-cancel')) return;
+  taskAddingForm.classList.add('d-none');
   resetInputs();
 }
 
 // reset（清空） input 的值
 function resetInputs() {
-  const inputs = Array.from(task.querySelectorAll('.task-data'));
+  const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
   inputs.map(input => {
     if(input.type === "checkbox") {
       input.checked = false;
@@ -221,6 +218,7 @@ function checkComplete(e) {
   storeData();
   taskListShow = filterTaskList(tagName);
   renderTaskList();
+  showLeftTasks();
 };
 
 // 打開已存在任務的編輯區域
