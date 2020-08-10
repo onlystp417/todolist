@@ -188,7 +188,7 @@ function taskSave(event) {
 
 // 收起新增任務的窗口
 function hideTaskCard(e) {
-  e.preventDefault();
+  if (e.target.classList.contains('task-btn-cancel')) e.preventDefault();
   if (!e.target.contains(baseLayer) && !e.target.classList.contains('task-btn-cancel')) return;
   taskAddingForm.classList.add('d-none');
   resetInputs();
@@ -279,7 +279,6 @@ function ID2Index(target) {
 showLeftTasks();
 
 function showLeftTasks() {
-  console.log('object');
   let leftTaskAmount = 0;
   taskListArray.map(item => {
     leftTaskAmount += item.isComplete === false ? 1 : 0;
