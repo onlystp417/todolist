@@ -187,32 +187,37 @@ html {
     display: none; }
     /* line 18, scss/component/card-component/_mark.scss */
     .task-mark-pen-custom {
-      cursor: pointer; }
-      /* line 20, scss/component/card-component/_mark.scss */
+      cursor: pointer;
+      padding-right: 8px; }
+      /* line 21, scss/component/card-component/_mark.scss */
       .task-mark-pen-custom::before {
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         content: "\f304";
         font-size: 14px; }
+  /* line 29, scss/component/card-component/_mark.scss */
+  .task-mark-delete {
+    padding: 0;
+    cursor: pointer; }
 
-/* line 30, scss/component/card-component/_mark.scss */
+/* line 35, scss/component/card-component/_mark.scss */
 .task-mark-star:checked + .task-mark-star-custom::before {
   font-weight: 900;
   color: #F5A623; }
 
-/* line 36, scss/component/card-component/_mark.scss */
+/* line 41, scss/component/card-component/_mark.scss */
 .is-edit .task-mark-pen-custom {
   color: #4A90E2; }
 
-/* line 41, scss/component/card-component/_mark.scss */
+/* line 46, scss/component/card-component/_mark.scss */
 .task-mark-star.d-none {
   display: none; }
 
 @media all and (min-width: 768px) {
-  /* line 50, scss/component/card-component/_mark.scss */
+  /* line 55, scss/component/card-component/_mark.scss */
   .task-mark {
     font-size: 24px; }
-    /* line 52, scss/component/card-component/_mark.scss */
+    /* line 57, scss/component/card-component/_mark.scss */
     .task-mark-mark-star, .task-mark-mark-star-shiny {
       padding-right: 15px; } }
 

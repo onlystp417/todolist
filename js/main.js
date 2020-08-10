@@ -15,6 +15,7 @@ tags.forEach(tag => tag.addEventListener('click', switchTag))
 
 // 初始化原始資料
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
+
 // 初始化要渲染的資料
 let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
 let taskListShow = filterTaskList(tagName);
@@ -40,6 +41,7 @@ function renderTaskList() {
             <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
             <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
             <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }" id="edit-pen-${index + 1}"></label>
+            <button class="task-mark-delete" id="delete-${ index + 1 }"><i class="far fa-trash-alt"></i></button>
           </div>
           <div class="task-tag">
             <span class="tag-item tag-time ${ item.date ? '' : 'd-none' }">
@@ -154,6 +156,9 @@ function addEvent4TaskStatus() {
 
   const cancelEditButtons = document.querySelectorAll('.tasks-list .task-btn-cancel');
   cancelEditButtons.forEach(button => button.addEventListener('click', cancelEdit));
+
+  const deleteTaskButton = document.querySelectorAll('.task-mark-delete');
+  deleteTaskButton.forEach(button => button.addEventListener('click', deleteTask));
 }
 
 // 叫出新增任務的窗口
@@ -183,6 +188,7 @@ function taskSave(event) {
 
   resetInputs();
   renderTaskList();
+  showLeftTasks();
 }
 
 // 收起新增任務的窗口
@@ -283,4 +289,20 @@ function showLeftTasks() {
     leftTaskAmount += item.isComplete === false ? 1 : 0;
   });
   taskCounter.textContent = leftTaskAmount;
+}
+
+// 刪除任務
+function deleteTask(e) {
+  console.log(1);
+  const index = ID2Index(e.currentTarget.id);
+  console.log(2);
+  taskListArray.splice(index, 1);
+  console.log(3);
+  storeData();
+  console.log(4);
+  taskListShow = filterTaskList(tagName);
+  console.log(5);
+  renderTaskList();
+  console.log(6);
+  showLeftTasks();
 }
