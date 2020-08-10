@@ -102,7 +102,6 @@ function switchTag(e) {
   tags.forEach(item => item.classList.remove('current'));
   e.currentTarget.classList.add('current');
 
-  console.log(tagName);
   taskListShow = filterTaskList(tagName);
   renderTaskList();
 }
