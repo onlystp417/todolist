@@ -8,7 +8,6 @@ const tags = document.querySelectorAll('.label-link');
 const taskCounter = document.querySelector('.task-counter > span');
 
 taskAddingForm.addEventListener('click', e => {
-  console.log('formclick');
   e.stopPropagation();
 });
 
@@ -31,7 +30,6 @@ renderTaskList();
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
   taskList.addEventListener('click', e => {
-    console.log('taskListClick');
     e.stopPropagation();
   })
   let taskHTML = taskListShow.map((item, index) => {
@@ -308,7 +306,9 @@ function showLeftTasks() {
 function deleteTask(e) {
   e.preventDefault();
   const index = ID2Index(e.currentTarget.id);
-  taskListArray.splice(index, 1);
+  const targetItem = taskListShow[index];
+  const indexTaskList = taskListArray.indexOf(targetItem);
+  taskListArray.splice(indexTaskList, 1);
 
   storeData();
   taskListShow = filterTaskList(tagName);
