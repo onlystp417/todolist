@@ -7,6 +7,11 @@ const taskCancelButton = document.querySelector('.task-btn-cancel');
 const tags = document.querySelectorAll('.label-link');
 const taskCounter = document.querySelector('.task-counter > span');
 
+taskAddingForm.addEventListener('click', e => {
+  console.log('formclick');
+  e.stopPropagation();
+});
+
 // 綁定事件
 openTaskFormButton.addEventListener('click', showTaskCard);
 taskCancelButton.addEventListener('click', hideTaskCard);
@@ -25,6 +30,10 @@ renderTaskList();
 // 將所有任務渲染在畫面上
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
+  taskList.addEventListener('click', e => {
+    console.log('taskListClick');
+    e.stopPropagation();
+  })
   let taskHTML = taskListShow.map((item, index) => {
     return `
       <form class="task" id="task-item-${index + 1}">
@@ -34,14 +43,14 @@ function renderTaskList() {
               <input class="check-is-complete task-data" id="check-${ index + 1 }" type="checkbox" ${ item.isComplete ? 'checked' : '' } data-keyname="isComplete" >
               <label class="check-custom" for="check-${ index + 1 }"><i class="fas fa-check"></i></label>
             </span>
-            <input class="task-name task-data ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }" data-keyname="name">
+            <input onkeypress="if (event.keyCode == 13) {return false;}" class="task-name task-data ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }" data-keyname="name">
           </h2>
           <div class="task-mark">
             <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.isStar ? 'checked' : '' } data-keyname="isStar">
             <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
             <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
             <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }" id="edit-pen-${index + 1}"></label>
-            <button class="task-mark-delete" id="delete-${ index + 1 }"><i class="far fa-trash-alt"></i></button>
+            <button type="submit" class="task-mark-delete" id="delete-${ index + 1 }"><i class="far fa-trash-alt"></i></button>
           </div>
           <div class="task-tag">
             <span class="tag-item tag-time ${ item.date ? '' : 'd-none' }">
@@ -168,11 +177,12 @@ function showTaskCard(e) {
   // 顯示編輯任務區域
   taskAddingForm.classList.remove('d-none');
 
-  taskAddButton.addEventListener('click', taskSave);
+  taskAddButton.addEventListener('click', taskAdd);
 }
 
 // 新增任務並保存資料
-function taskSave(event) {
+function taskAdd(event) {
+  event.stopPropagation();
   event.preventDefault();
   const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
   const newTask = {};
@@ -187,14 +197,17 @@ function taskSave(event) {
   taskAddingForm.classList.add('d-none');
 
   resetInputs();
+  taskListShow = filterTaskList(tagName);
   renderTaskList();
   showLeftTasks();
 }
 
 // 收起新增任務的窗口
 function hideTaskCard(e) {
-  if (e.target.classList.contains('task-btn-cancel')) e.preventDefault();
-  if (!e.target.contains(baseLayer) && !e.target.classList.contains('task-btn-cancel')) return;
+  // if (e.target)
+  e.stopPropagation();
+  // if (e.target.classList.contains('task-btn-cancel')) e.preventDefault();
+  // if (!e.target.contains(baseLayer) && !e.target.classList.contains('task-btn-cancel')) return;
   taskAddingForm.classList.add('d-none');
   resetInputs();
 }
@@ -293,16 +306,12 @@ function showLeftTasks() {
 
 // 刪除任務
 function deleteTask(e) {
-  console.log(1);
+  e.preventDefault();
   const index = ID2Index(e.currentTarget.id);
-  console.log(2);
   taskListArray.splice(index, 1);
-  console.log(3);
+
   storeData();
-  console.log(4);
   taskListShow = filterTaskList(tagName);
-  console.log(5);
   renderTaskList();
-  console.log(6);
   showLeftTasks();
 }

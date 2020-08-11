@@ -31,7 +31,7 @@
             <input class="check-is-complete task-data" id="check" type="checkbox" data-keyname="isComplete">
             <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
           </span>
-          <input class="task-name task-data" type="text" placeholder="Type Something Here..." data-keyname="name">
+          <input onkeypress="if (event.keyCode == 13) {return false;}" class="task-name task-data" type="text" placeholder="Type Something Here..." data-keyname="name">
         </h2>
         <div class="task-mark">
           <input class="task-mark-star task-data" id="isStar" type="checkbox" data-keyname="isStar">
