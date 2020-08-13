@@ -73,14 +73,12 @@ function renderTaskList() {
             </section>
             <section class="task-form-item task-form-file">
               <h3><i class="far fa-file"></i>File</h3>
-              <input class="task-data" type="file" data-keyname="file" value="${ item.file }" name="" id="">
-              <div class="file-add">
-                <div class="file-caption">
-                  <h4>${ item.file }</h4>
-                  <time>upload yesterday</time>
-                </div>
-                <button class="file-add-button" type="menu"><i class="fas fa-plus"></i></button>
+              <div class="file-caption">
+                <h4>${ item.file }</h4>
+                <time>${ item.fileTime }</time>
               </div>
+              <label class="file-add-button" for="add-file-${ index + 1 }"><i class="fas fa-plus"></i></label>
+              <input class="task-data" type="file" data-keyname="file" id="add-file-${ index + 1 }">              <div class="file-add">
             </section>
             <section class="task-form-item task-form-comment">
               <h3><i class="far fa-comment-dots"></i>Comment</h3>
@@ -176,6 +174,14 @@ function showTaskCard(e) {
   taskAddingForm.classList.remove('d-none');
 
   taskAddButton.addEventListener('click', taskAdd);
+
+  const fileName = taskAddingForm.querySelector('.file-caption > h4');
+  const fileTime = taskAddingForm.querySelector('.file-caption > time');
+  const fileInput = taskAddingForm.querySelector('.file-input');
+  fileInput.addEventListener('change', (e) => {
+    fileName.textContent = e.currentTarget.files[0].name;
+    fileTime.textContent = timeFormat(new Date(Date.now()));
+  })
 }
 
 // 新增任務並保存資料
@@ -185,11 +191,16 @@ function taskAdd(event) {
   const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
   const newTask = {};
   inputs.map(input => {
-    newTask[input.dataset.keyname] = (input.value !== 'on')
-      ? input.value : input.checked
-      ? true : false;
+    if (input.type === 'checkbox') {
+      newTask[input.dataset.keyname] = input.checked ? true : false;
+    } else if (input.type === 'file') {
+      newTask[input.dataset.keyname] = input.files[0] ? input.files[0].name : '';
+      newTask["fileTime"] = input.files[0] ? timeFormat(new Date(Date.now())) : "";
+    } else {
+      newTask[input.dataset.keyname] = input.value;
+    }
   });
-  newTask["fileTime"] = !newTask["file"] ? "" : Date.now();
+
   taskListArray.unshift(newTask);
   storeData();
   taskAddingForm.classList.add('d-none');
@@ -198,6 +209,19 @@ function taskAdd(event) {
   taskListShow = filterTaskList(tagName);
   renderTaskList();
   showLeftTasks();
+}
+
+// 時間戳格式化
+function timeFormat(timeStamp) {
+  const year = timeStamp.getFullYear();
+  const month = timeStamp.getMonth() + 1;
+  const day = timeStamp.getDate();
+
+  return `${ year }.${ month }.${ day }`;
+}
+
+function fileChange(e) {
+  console.log(e);
 }
 
 // 收起新增任務的窗口

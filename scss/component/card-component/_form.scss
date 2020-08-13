@@ -5,6 +5,7 @@
   }
   &-item {
     margin-bottom: 20px;
+    font-size: 0;
     h3 {
       margin-bottom: 10px;
       @include fontstyle(14px, 700, $black, 1.6);
@@ -24,22 +25,34 @@
       &:first-child {
         margin-bottom: 5px;
       }
+      &[type="file"] {
+        display: none;
+      }
     }
     .task-deadline, .file-add, textarea {
       margin: 0 18px;
     }
     .file-add-button {
+      display: inline-block;
       padding: 6px 8px;
       background: $mid-gray;
+      vertical-align: middle;
       border-radius: 1px;
       color: $white;
+      font-size: 16px;
       cursor: pointer;
       &:active, &:hover {
         background: $royal-blue;
       }
     }
     .file-caption {
-      display: none;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 3%;
+      font-size: 12px;
+      time {
+        color: $heavy-gray;
+      }
     }
     textarea {
       width: calc(100% - 18px);
@@ -63,6 +76,9 @@
       }
       input, textarea {
         font-size: 14px;
+      }
+      .file-caption {
+        font-size: 16px;
       }
     }
   }

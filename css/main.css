@@ -260,67 +260,83 @@ html {
 
 /* line 6, scss/component/card-component/_form.scss */
 .task-form-item {
-  margin-bottom: 20px; }
-  /* line 8, scss/component/card-component/_form.scss */
+  margin-bottom: 20px;
+  font-size: 0; }
+  /* line 9, scss/component/card-component/_form.scss */
   .task-form-item h3 {
     margin-bottom: 10px;
     font-size: 14px;
     font-weight: 700;
     line-height: 1.6;
     color: #000; }
-    /* line 11, scss/component/card-component/_form.scss */
+    /* line 12, scss/component/card-component/_form.scss */
     .task-form-item h3 i {
       padding-right: 5px; }
-  /* line 15, scss/component/card-component/_form.scss */
+  /* line 16, scss/component/card-component/_form.scss */
   .task-form-item input {
     line-height: 28px;
     padding-left: 5px;
     width: 40%;
     min-width: 135px;
     letter-spacing: -1px; }
-    /* line 21, scss/component/card-component/_form.scss */
+    /* line 22, scss/component/card-component/_form.scss */
     .task-form-item input[type="time"] {
       min-width: 98px; }
-    /* line 24, scss/component/card-component/_form.scss */
+    /* line 25, scss/component/card-component/_form.scss */
     .task-form-item input:first-child {
       margin-bottom: 5px; }
-  /* line 28, scss/component/card-component/_form.scss */
+    /* line 28, scss/component/card-component/_form.scss */
+    .task-form-item input[type="file"] {
+      display: none; }
+  /* line 32, scss/component/card-component/_form.scss */
   .task-form-item .task-deadline, .task-form-item .file-add, .task-form-item textarea {
     margin: 0 18px; }
-  /* line 31, scss/component/card-component/_form.scss */
+  /* line 35, scss/component/card-component/_form.scss */
   .task-form-item .file-add-button {
+    display: inline-block;
     padding: 6px 8px;
     background: #C8C8C8;
+    vertical-align: middle;
     border-radius: 1px;
     color: #fff;
+    font-size: 16px;
     cursor: pointer; }
-    /* line 37, scss/component/card-component/_form.scss */
+    /* line 44, scss/component/card-component/_form.scss */
     .task-form-item .file-add-button:active, .task-form-item .file-add-button:hover {
       background: #4A90E2; }
-  /* line 41, scss/component/card-component/_form.scss */
+  /* line 48, scss/component/card-component/_form.scss */
   .task-form-item .file-caption {
-    display: none; }
-  /* line 44, scss/component/card-component/_form.scss */
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3%;
+    font-size: 12px; }
+    /* line 53, scss/component/card-component/_form.scss */
+    .task-form-item .file-caption time {
+      color: #757575; }
+  /* line 57, scss/component/card-component/_form.scss */
   .task-form-item textarea {
     width: calc(100% - 18px);
     padding: 8px 18px; }
-    /* line 47, scss/component/card-component/_form.scss */
+    /* line 60, scss/component/card-component/_form.scss */
     .task-form-item textarea::placeholder {
       color: #C8C8C8; }
 
 @media all and (min-width: 768px) {
-  /* line 55, scss/component/card-component/_form.scss */
+  /* line 68, scss/component/card-component/_form.scss */
   .task-form {
     padding: 25px 68px 0 68px; }
-    /* line 58, scss/component/card-component/_form.scss */
+    /* line 71, scss/component/card-component/_form.scss */
     .task-form-item h3 {
       font-size: 20px; }
-    /* line 61, scss/component/card-component/_form.scss */
+    /* line 74, scss/component/card-component/_form.scss */
     .task-form-item input {
       min-width: 140px; }
-    /* line 64, scss/component/card-component/_form.scss */
+    /* line 77, scss/component/card-component/_form.scss */
     .task-form-item input, .task-form-item textarea {
-      font-size: 14px; } }
+      font-size: 14px; }
+    /* line 80, scss/component/card-component/_form.scss */
+    .task-form-item .file-caption {
+      font-size: 16px; } }
 
 /* line 1, scss/component/_counter.scss */
 .task-counter {
