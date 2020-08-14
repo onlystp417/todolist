@@ -78,7 +78,7 @@ function renderTaskList() {
                 <time>${ item.fileTime }</time>
               </div>
               <label class="file-add-button" for="add-file-${ index + 1 }"><i class="fas fa-plus"></i></label>
-              <input class="task-data" type="file" data-keyname="file" id="add-file-${ index + 1 }">              <div class="file-add">
+              <input class="task-data file-input" type="file" data-keyname="file" id="add-file-${ index + 1 }">              <div class="file-add">
             </section>
             <section class="task-form-item task-form-comment">
               <h3><i class="far fa-comment-dots"></i>Comment</h3>
@@ -175,13 +175,7 @@ function showTaskCard(e) {
 
   taskAddButton.addEventListener('click', taskAdd);
 
-  const fileName = taskAddingForm.querySelector('.file-caption > h4');
-  const fileTime = taskAddingForm.querySelector('.file-caption > time');
-  const fileInput = taskAddingForm.querySelector('.file-input');
-  fileInput.addEventListener('change', (e) => {
-    fileName.textContent = e.currentTarget.files[0].name;
-    fileTime.textContent = timeFormat(new Date(Date.now()));
-  })
+  showFileChange(taskAddingForm);
 }
 
 // 新增任務並保存資料
@@ -218,10 +212,6 @@ function timeFormat(timeStamp) {
   const day = timeStamp.getDate();
 
   return `${ year }.${ month }.${ day }`;
-}
-
-function fileChange(e) {
-  console.log(e);
 }
 
 // 收起新增任務的窗口
@@ -271,7 +261,21 @@ function editTask(e){
 
   const currentTask = document.querySelector(`#task-item-${index + 1}`);
   currentTask.classList.add('is-edit');
+  
+  showFileChange(currentTask);
 };
+
+// 上傳檔案即時顯示檔案名稱與修改日期
+function showFileChange(taskCard) {
+  const fileName = taskCard.querySelector('.file-caption > h4');
+  const fileTime = taskCard.querySelector('.file-caption > time');
+  const fileInput = taskCard.querySelector('.file-input');
+
+  fileInput.addEventListener('change', (e) => {
+    fileName.textContent = e.currentTarget.files[0].name;
+    fileTime.textContent = timeFormat(new Date(Date.now()));
+  })
+}
 
 // 取消編輯已存在任務
 function cancelEdit(e) {
@@ -288,9 +292,14 @@ function saveChange(e) {
   const inputs = Array.from(document.querySelectorAll(`#task-item-${index + 1} .task-data`));
 
   inputs.map(input => {
-    taskListArray[index][input.dataset.keyname] = (input.value !== 'on')
-      ? input.value : input.checked
-      ? true : false;
+    if (input.type === 'checkbox') {
+      taskListArray[index][input.dataset.keyname] = input.checked ? true : false;
+    } else if (input.type === 'file') {
+      taskListArray[index][input.dataset.keyname]  = input.files[0] ? input.files[0].name : '';
+      taskListArray[index]["fileTime"] = input.files[0] ? timeFormat(new Date(Date.now())) : "";
+    } else {
+      taskListArray[index][input.dataset.keyname] = input.value;
+    }
   });
 
   storeData();
@@ -317,7 +326,6 @@ function ID2Index(target) {
 
 // 顯示未完成任務的數量
 showLeftTasks();
-
 function showLeftTasks() {
   let leftTaskAmount = 0;
   taskListArray.map(item => {
