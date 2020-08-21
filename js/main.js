@@ -1,25 +1,19 @@
 import { buildTaskForm } from './module/BuildElement.js';
 
 // 取得 DOM 節點
-const baseLayer = document.querySelector('main');
-const openTaskFormButton = document.querySelector('.add-form');
-const taskAddingForm = document.querySelector('.task');
-const taskAddButton = document.querySelector('.task-btn-add');
-const taskCancelButton = document.querySelector('.task-btn-cancel');
-const tags = document.querySelectorAll('.label-link');
-const taskCounter = document.querySelector('.task-counter > span');
-
-taskAddingForm.addEventListener('click', e => e.stopPropagation());
-
-// 綁定事件
-openTaskFormButton.addEventListener('click', showTaskCard);
-taskCancelButton.addEventListener('click', hideTaskCard);
-baseLayer.addEventListener('click', hideTaskCard);
-tags.forEach(tag => tag.addEventListener('click', switchTag));
+function initEvent() {
+  // 防止 form 點擊自己會關閉
+  document.querySelector('.task').addEventListener('click', e => e.stopPropagation());
+  // 防止點擊任務列表區域導致 form 關閉
+  document.querySelector('.tasks-list').addEventListener('click', e => e.stopPropagation());
+  document.querySelector('.add-form').addEventListener('click', showAddTaskForm);
+  document.querySelector('.task-btn-cancel').addEventListener('click', hideTaskCard);
+  document.querySelector('main').addEventListener('click', hideTaskCard);
+  document.querySelectorAll('.label-link').forEach(tag => tag.addEventListener('click', switchTag));
+}
 
 // 初始化原始資料
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
-
 // 初始化要渲染的資料
 let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
 let taskListShow = filterTaskList(tagName);
@@ -29,11 +23,7 @@ renderTaskList();
 // 將所有任務渲染在畫面上
 function renderTaskList() {
   const taskList = document.querySelector('.tasks-list');
-  taskList.addEventListener('click', e => e.stopPropagation());
-
-  // const taskElement = ;
-
-  let taskListHTML = taskListShow.map((item, index) => buildTaskForm(item, index));
+  const taskListHTML = taskListShow.map((item, index) => buildTaskForm(item, index));
 
   taskList.innerHTML = taskListHTML.join('');
 
@@ -218,10 +208,12 @@ function addEvent4TaskStatus() {
 }
 
 // 叫出新增任務的窗口
-function showTaskCard(e) {
-  // 防止事件冒泡
+function showAddTaskForm(e) {
+  const taskAddingForm = document.querySelector('.task');
+  const taskAddButton = document.querySelector('.task-btn-add');
+
   e.stopPropagation();
-  // 顯示編輯任務區域
+
   taskAddingForm.classList.remove('d-none');
 
   taskAddButton.addEventListener('click', taskAdd);
@@ -267,16 +259,18 @@ function timeFormat(timeStamp) {
 
 // 收起新增任務的窗口
 function hideTaskCard(e) {
-  // if (e.target)
+  const taskAddingForm = document.querySelector('.task');
+
+  e.preventDefault();
   e.stopPropagation();
-  // if (e.target.classList.contains('task-btn-cancel')) e.preventDefault();
-  // if (!e.target.contains(baseLayer) && !e.target.classList.contains('task-btn-cancel')) return;
+
   taskAddingForm.classList.add('d-none');
   resetInputs();
 }
 
 // reset（清空） input 的值
 function resetInputs() {
+  const taskAddingForm = document.querySelector('.task');
   const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
   inputs.map(input => {
     if(input.type === "checkbox") {
@@ -396,5 +390,6 @@ function deleteTask(e) {
   storeData();
   taskListShow = filterTaskList(tagName);
   renderTaskList();
-  showLeftTasks();
 }
+
+initEvent();
