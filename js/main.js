@@ -1,3 +1,5 @@
+import { buildTaskForm } from './module/BuildElement.js';
+
 // 取得 DOM 節點
 const baseLayer = document.querySelector('main');
 const openTaskFormButton = document.querySelector('.add-form');
