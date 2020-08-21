@@ -28,51 +28,7 @@ function renderTaskList() {
   taskList.innerHTML = taskListHTML.join('');
 
   addEvent4TaskStatus();
-}
-
-// 建立 elements 以下拆 module
-function buildTaskForm(item, index) {
-  return `
-  <form class="task" id="task-item-${index + 1}">
-    ${ buildTaskHeader(item, index) }
-    ${ buildTaskBody(item, index) }
-  </form>
-  `
-}
-
-function buildTaskHeader(item, index) {
-  return `
-  <header class="task-title ${item.isStar ? 'is-star' : ''}">
-    ${ buildTaskTitle(item, index) }
-    ${ buildTaskMark(item, index) }
-    ${ buildTaskTag(item, index) }
-  </header>
-  `
-}
-
-function buildTaskTitle(item, index) {
-  return `
-  <h2>
-    <span class="checkbox">
-      <input class="check-is-complete task-data" id="check-${ index + 1 }" type="checkbox" ${ item.isComplete ? 'checked' : '' } data-keyname="isComplete" >
-      <label class="check-custom" for="check-${ index + 1 }"><i class="fas fa-check"></i></label>
-    </span>
-    <input onkeypress="if (event.keyCode == 13) {return false;}" class="task-name task-data ${ item.isComplete ? 'cross-off' : '' }" type="text" placeholder="Type Something Here..." value="${ item.name }" data-keyname="name">
-  </h2>
-  `
-}
-
-function buildTaskMark(item, index) {
-  return `
-  <div class="task-mark">
-    <input class="task-mark-star task-data" id="isStar-${ index + 1 }" type="checkbox" data-keyname="isStar" ${ item.isStar ? 'checked' : '' } data-keyname="isStar">
-    <label class="task-mark-star-custom" for="isStar-${ index + 1 }"></label>
-    <input class="task-mark-pen" id="isEdit-${ index + 1 }" type="checkbox" data-keyname="isEdit">
-    <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }" id="edit-pen-${index + 1}"></label>
-    <button type="submit" class="task-mark-delete" id="delete-${ index + 1 }"><i class="far fa-trash-alt"></i></button>
-  </div>
-
-  `
+  showLeftTasks();
 }
 
 function buildTaskTag(item) {
@@ -245,7 +201,6 @@ function taskAdd(event) {
   resetInputs();
   taskListShow = filterTaskList(tagName);
   renderTaskList();
-  showLeftTasks();
 }
 
 // 時間戳格式化
@@ -293,7 +248,6 @@ function checkComplete(e) {
   storeData();
   taskListShow = filterTaskList(tagName);
   renderTaskList();
-  showLeftTasks();
 };
 
 // 打開已存在任務的編輯區域
@@ -370,8 +324,8 @@ function ID2Index(target) {
 }
 
 // 顯示未完成任務的數量
-showLeftTasks();
 function showLeftTasks() {
+  const taskCounter = document.querySelector('.task-counter > span');
   let leftTaskAmount = 0;
   taskListArray.map(item => {
     leftTaskAmount += item.isComplete === false ? 1 : 0;
