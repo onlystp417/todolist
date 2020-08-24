@@ -126,8 +126,6 @@ function taskAdd(event) {
 
   newTask = getFormData(inputs, newTask)
 
-  console.log(newTask);
-
   taskListArray.unshift(newTask);
   storeData();
   taskAddingForm.classList.add('d-none');
@@ -246,14 +244,11 @@ function getFormData(form, dataStore) {
   form.map(input => {
     if (input.type === 'checkbox') {
       dataStore[input.dataset.keyname] = input.checked ? true : false;
-      console.log(dataStore[input.dataset.keyname]);
     } else if (input.type === 'file') {
       dataStore[input.dataset.keyname] = input.files[0] ? input.files[0].name : '';
       dataStore["fileTime"] = input.files[0] ? timeFormat(new Date(Date.now())) : "";
-      console.log(dataStore[input.dataset.keyname]);
     } else {
       dataStore[input.dataset.keyname] = input.value;
-      console.log(dataStore[input.dataset.keyname]);
     }
   });
 
