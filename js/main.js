@@ -7,8 +7,8 @@ function initEvent() {
   // 防止點擊任務列表區域導致 form 關閉
   document.querySelector('.tasks-list').addEventListener('click', e => e.stopPropagation());
   document.querySelector('.add-form').addEventListener('click', showAddTaskForm);
-  document.querySelector('.task-btn-cancel').addEventListener('click', hideTaskCard);
-  document.querySelector('main').addEventListener('click', hideTaskCard);
+  document.querySelector('.task-btn-cancel').addEventListener('click', cacelAddTask);
+  document.querySelector('main').addEventListener('click', cacelAddTask);
   document.querySelectorAll('.label-link').forEach(tag => tag.addEventListener('click', switchTag));
 }
 
@@ -16,17 +16,16 @@ function initEvent() {
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
 // 初始化要渲染的資料
 let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
-let taskListShow = filterTaskList(tagName);
-
-renderTaskList();
+let taskListShow = sortTaskListArray(filterTaskList(tagName));
 
 // 將所有任務渲染在畫面上
-function renderTaskList() {
+function renderUI() {
+  taskListShow = sortTaskListArray(filterTaskList(tagName));
   const taskList = document.querySelector('.tasks-list');
   const taskListHTML = taskListShow.map((item, index) => buildTaskForm(item, index));
-
+  
   taskList.innerHTML = taskListHTML.join('');
-
+  
   addEvent4TaskStatus();
   showLeftTasks();
 }
@@ -38,22 +37,19 @@ function storeData() {
 
 // 切換頁籤功能
 function switchTag(e) {
+  const tags = document.querySelectorAll('.label-link')
+
   tagName = e.currentTarget.dataset.tagname;
+
   tags.forEach(item => item.classList.remove('current'));
   e.currentTarget.classList.add('current');
 
-  taskListShow = filterTaskList(tagName);
-  renderTaskList();
+  renderUI();
 }
 
 // 過濾出當前頁籤的資料
 function filterTaskList(type) {
   let items = [];
-  // const obj = {
-  //   progress: items = taskListArray.filter(item => item.isComplete === false),
-
-  // };
-  // obj[type];
   switch(type) {
     case 'progress':
       items = taskListArray.filter(item => item.isComplete === false);
@@ -65,7 +61,8 @@ function filterTaskList(type) {
       items = taskListArray;
       break;
   }
-  return sortTaskListArray(items);
+
+  return items;
 }
 
 // 排序 taskList
@@ -92,10 +89,10 @@ function addEvent4TaskStatus() {
 
   // 綁定 isEdit input
   const isEditInputs = document.querySelectorAll('.tasks-list .task-mark-pen');
-  isEditInputs.forEach(input => input.addEventListener('change', editTask));
+  isEditInputs.forEach(input => input.addEventListener('change', openTaskEditForm));
 
   const saveChangeButtons = document.querySelectorAll('.tasks-list .task-btn-save');
-  saveChangeButtons.forEach(button => button.addEventListener('click', saveChange));
+  saveChangeButtons.forEach(button => button.addEventListener('click', saveEditChange));
 
   const cancelEditButtons = document.querySelectorAll('.tasks-list .task-btn-cancel');
   cancelEditButtons.forEach(button => button.addEventListener('click', cancelEdit));
@@ -122,26 +119,21 @@ function showAddTaskForm(e) {
 function taskAdd(event) {
   event.stopPropagation();
   event.preventDefault();
+
+  const taskAddingForm = document.querySelector('.task');
   const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
-  const newTask = {};
-  inputs.map(input => {
-    if (input.type === 'checkbox') {
-      newTask[input.dataset.keyname] = input.checked ? true : false;
-    } else if (input.type === 'file') {
-      newTask[input.dataset.keyname] = input.files[0] ? input.files[0].name : '';
-      newTask["fileTime"] = input.files[0] ? timeFormat(new Date(Date.now())) : "";
-    } else {
-      newTask[input.dataset.keyname] = input.value;
-    }
-  });
+  let newTask = {};
+
+  newTask = getFormData(inputs, newTask)
+
+  console.log(newTask);
 
   taskListArray.unshift(newTask);
   storeData();
   taskAddingForm.classList.add('d-none');
 
   resetInputs();
-  taskListShow = filterTaskList(tagName);
-  renderTaskList();
+  renderUI();
 }
 
 // 時間戳格式化
@@ -154,7 +146,7 @@ function timeFormat(timeStamp) {
 }
 
 // 收起新增任務的窗口
-function hideTaskCard(e) {
+function cacelAddTask(e) {
   const taskAddingForm = document.querySelector('.task');
 
   e.preventDefault();
@@ -167,32 +159,29 @@ function hideTaskCard(e) {
 // reset（清空） input 的值
 function resetInputs() {
   const taskAddingForm = document.querySelector('.task');
-  const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
-  inputs.map(input => {
-    if(input.type === "checkbox") {
-      input.checked = false;
-    } else {
-      input.value = "";
-    }
-  })
+  taskAddingForm.reset();
+  
+  // 把檔案標題與時間清空
+  const fileName = taskAddingForm.querySelector('.file-caption > h4');
+  const fileTime = taskAddingForm.querySelector('.file-caption > time');
+  fileName.textContent = '';
+  fileTime.textContent = '';
 }
 
 // 勾選為已完成
 function checkComplete(e) {
   // 取得任務的 index
   const index = ID2Index(e.currentTarget.id);
-  const targetItem = taskListShow[index];
-  const indexTaskList = taskListArray.indexOf(targetItem);
+  const indexTaskList = originDataIndex(index);
 
   taskListArray[indexTaskList].isComplete = !taskListArray[indexTaskList].isComplete;
   
   storeData();
-  taskListShow = filterTaskList(tagName);
-  renderTaskList();
+  renderUI();
 };
 
 // 打開已存在任務的編輯區域
-function editTask(e){
+function openTaskEditForm(e){
   e.preventDefault();
   document.querySelectorAll('.task').forEach(item => {
     if(item.classList.contains('is-edit')) item.classList.remove('is-edit');
@@ -204,6 +193,19 @@ function editTask(e){
   
   showFileChange(currentTask);
 };
+
+function removeFileChange(e) {
+  const index = ID2Index(e.currentTarget.id);
+  const indexTaskList = originDataIndex(index);
+  
+  const taskItem = document.querySelector(`#task-item-${ index + 1 }`);
+
+  const fileName = taskItem.querySelector('.file-caption > h4');
+  const fileTime = taskItem.querySelector('.file-caption > time');
+
+  fileName.textContent = taskListArray[indexTaskList].file;
+  fileTime.textContent = taskListArray[indexTaskList].fileTime;
+}
 
 // 上傳檔案即時顯示檔案名稱與修改日期
 function showFileChange(taskCard) {
@@ -223,27 +225,39 @@ function cancelEdit(e) {
   const index = ID2Index(e.currentTarget.id);
   const currentTask = document.querySelector(`#task-item-${index + 1}`);
   currentTask.classList.remove('is-edit');
+
+  removeFileChange(e);
 };
 
 // 儲存已存在任務的變更
-function saveChange(e) {
+function saveEditChange(e) {
   e.preventDefault();
+
   const index = ID2Index(e.currentTarget.id);
   const inputs = Array.from(document.querySelectorAll(`#task-item-${index + 1} .task-data`));
 
-  inputs.map(input => {
+  const newTask = getFormData(inputs, taskListArray[index]);
+
+  storeData();
+  renderUI();
+}
+
+function getFormData(form, dataStore) {
+  form.map(input => {
     if (input.type === 'checkbox') {
-      taskListArray[index][input.dataset.keyname] = input.checked ? true : false;
+      dataStore[input.dataset.keyname] = input.checked ? true : false;
+      console.log(dataStore[input.dataset.keyname]);
     } else if (input.type === 'file') {
-      taskListArray[index][input.dataset.keyname]  = input.files[0] ? input.files[0].name : '';
-      taskListArray[index]["fileTime"] = input.files[0] ? timeFormat(new Date(Date.now())) : "";
+      dataStore[input.dataset.keyname] = input.files[0] ? input.files[0].name : '';
+      dataStore["fileTime"] = input.files[0] ? timeFormat(new Date(Date.now())) : "";
+      console.log(dataStore[input.dataset.keyname]);
     } else {
-      taskListArray[index][input.dataset.keyname] = input.value;
+      dataStore[input.dataset.keyname] = input.value;
+      console.log(dataStore[input.dataset.keyname]);
     }
   });
 
-  storeData();
-  renderTaskList();
+  return dataStore;
 }
 
 // 標記為重要
@@ -254,8 +268,7 @@ function markStar(e) {
   taskListArray[indexTaskList].isStar = !taskListArray[indexTaskList].isStar;
 
   storeData();
-  taskListShow = filterTaskList(tagName);
-  renderTaskList();
+  renderUI();
 };
 
 // 取出任務的序列位置
@@ -268,23 +281,31 @@ function ID2Index(target) {
 function showLeftTasks() {
   const taskCounter = document.querySelector('.task-counter > span');
   let leftTaskAmount = 0;
+
   taskListArray.map(item => {
     leftTaskAmount += item.isComplete === false ? 1 : 0;
   });
+
   taskCounter.textContent = leftTaskAmount;
 }
 
 // 刪除任務
 function deleteTask(e) {
   e.preventDefault();
+
   const index = ID2Index(e.currentTarget.id);
-  const targetItem = taskListShow[index];
-  const indexTaskList = taskListArray.indexOf(targetItem);
+  const indexTaskList = originDataIndex(index);
+
   taskListArray.splice(indexTaskList, 1);
 
   storeData();
-  taskListShow = filterTaskList(tagName);
-  renderTaskList();
+  renderUI();
+}
+
+function originDataIndex(index) {
+  const targetItem = taskListShow[index];
+  return taskListArray.indexOf(targetItem);
 }
 
 initEvent();
+renderUI();

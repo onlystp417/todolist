@@ -84,7 +84,7 @@ function buildTaskBody(item, index) {
         <textarea class="task-data" name="" id="" cols="3" rows="3" placeholder="Type your meno here..." data-keyname="comment">${ item.comment }</textarea>
       </section>
     </div>
-    ${ buildTaskButton(item, index) }
+    ${ buildTaskButton(index) }
   </section>
   `
 }
