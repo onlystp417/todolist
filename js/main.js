@@ -1,4 +1,6 @@
-import { buildTaskForm } from './module/BuildElement.js';
+import { buildTaskForm } from './BuildElement.js';
+// import { storeData } from './module/data/StoreData.js';
+// import { switchTag } from './module/data/SwitchTag.js';
 
 // 取得 DOM 節點
 function initEvent() {
@@ -16,11 +18,11 @@ function initEvent() {
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
 // 初始化要渲染的資料
 let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
-let taskListShow = sortTaskListArray(filterTaskList(tagName));
+let taskListShow = sortTaskList(filterTaskList(tagName));
 
 // 將所有任務渲染在畫面上
 function renderUI() {
-  taskListShow = sortTaskListArray(filterTaskList(tagName));
+  taskListShow = sortTaskList(filterTaskList(tagName));
   const taskList = document.querySelector('.tasks-list');
   const taskListHTML = taskListShow.map((item, index) => buildTaskForm(item, index));
   
@@ -66,7 +68,7 @@ function filterTaskList(type) {
 }
 
 // 排序 taskList
-function sortTaskListArray(taskArray) {
+function sortTaskList(taskArray) {
   return taskArray.sort((a, b) => {
     const starScore = 1;
     const normalScore = 0;
@@ -115,7 +117,7 @@ function showAddTaskForm(e) {
   showFileChange(taskAddingForm);
 }
 
-// 新增任務並保存資料
+// 新增任務
 function taskAdd(event) {
   event.stopPropagation();
   event.preventDefault();
@@ -170,7 +172,7 @@ function resetInputs() {
 function checkComplete(e) {
   // 取得任務的 index
   const index = ID2Index(e.currentTarget.id);
-  const indexTaskList = originDataIndex(index);
+  const indexTaskList = UIIndex2DataIndex(index);
 
   taskListArray[indexTaskList].isComplete = !taskListArray[indexTaskList].isComplete;
   
@@ -194,7 +196,7 @@ function openTaskEditForm(e){
 
 function removeFileChange(e) {
   const index = ID2Index(e.currentTarget.id);
-  const indexTaskList = originDataIndex(index);
+  const indexTaskList = UIIndex2DataIndex(index);
   
   const taskItem = document.querySelector(`#task-item-${ index + 1 }`);
 
@@ -289,7 +291,7 @@ function deleteTask(e) {
   e.preventDefault();
 
   const index = ID2Index(e.currentTarget.id);
-  const indexTaskList = originDataIndex(index);
+  const indexTaskList = UIIndex2DataIndex(index);
 
   taskListArray.splice(indexTaskList, 1);
 
@@ -297,7 +299,7 @@ function deleteTask(e) {
   renderUI();
 }
 
-function originDataIndex(index) {
+function UIIndex2DataIndex(index) {
   const targetItem = taskListShow[index];
   return taskListArray.indexOf(targetItem);
 }

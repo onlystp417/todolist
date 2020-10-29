@@ -38,7 +38,6 @@ function buildTaskMark(item, index) {
     <label class="task-mark-pen-custom" for="isEdit-${ index + 1 }" id="edit-pen-${index + 1}"></label>
     <button type="submit" class="task-mark-delete" id="delete-${ index + 1 }"><i class="far fa-trash-alt"></i></button>
   </div>
-
   `
 }
 
@@ -55,7 +54,6 @@ function buildTaskTag(item) {
       <i class="far fa-comment-dots"></i>
     </span>
   </div>
-
   `
 }
 
