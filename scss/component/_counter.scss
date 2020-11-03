@@ -1,0 +1,10 @@
+.task-counter {
+  @include fontstyle(14px, 400, $mid-gray, 1.6);
+  font-style: italic;
+}
+
+@include mediaquery_pad {
+  .task-counter {
+    font-size: 24px;
+  }
+}
