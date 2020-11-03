@@ -1,24 +1,33 @@
-import { buildTaskForm } from './BuildElement.js';
-// import { storeData } from './module/data/StoreData.js';
-// import { switchTag } from './module/data/SwitchTag.js';
+// 拆 module 參考 https://github.com/dwatow/web-file-api
 
-// 取得 DOM 節點
-function initEvent() {
-  // 防止 form 點擊自己會關閉
-  document.querySelector('.task').addEventListener('click', e => e.stopPropagation());
-  // 防止點擊任務列表區域導致 form 關閉
-  document.querySelector('.tasks-list').addEventListener('click', e => e.stopPropagation());
-  document.querySelector('.add-form').addEventListener('click', showAddTaskForm);
-  document.querySelector('.task-btn-cancel').addEventListener('click', cacelAddTask);
-  document.querySelector('main').addEventListener('click', cacelAddTask);
-  document.querySelectorAll('.label-link').forEach(tag => tag.addEventListener('click', switchTag));
-}
+import { buildTaskForm } from './BuildElement.js';
 
 // 初始化原始資料
 const taskListArray = JSON.parse(localStorage.getItem('taskList')) || [];
 // 初始化要渲染的資料
 let tagName = 'my-tasks'; // 初始的 tag 為 My Tasks
-let taskListShow = sortTaskList(filterTaskList(tagName));
+let taskListShow = [];
+
+initEvent();
+renderUI();
+
+// 取得 DOM 節點
+function initEvent() {
+  // 防止 form 點擊自己會關閉
+  document.querySelector('.task')
+    .addEventListener('click', e => e.stopPropagation());
+  // 防止點擊任務列表區域導致 form 關閉
+  document.querySelector('.tasks-list')
+    .addEventListener('click', e => e.stopPropagation());
+  document.querySelector('.add-form')
+    .addEventListener('click', showAddTaskForm);
+  document.querySelector('.task-btn-cancel')
+    .addEventListener('click', cacelAddTask);
+  document.querySelector('main')
+    .addEventListener('click', cacelAddTask);
+  document.querySelectorAll('.label-link')
+    .forEach(tag => tag.addEventListener('click', switchTag));
+}
 
 // 將所有任務渲染在畫面上
 function renderUI() {
@@ -304,5 +313,4 @@ function UIIndex2DataIndex(index) {
   return taskListArray.indexOf(targetItem);
 }
 
-initEvent();
-renderUI();
+
