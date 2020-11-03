@@ -308,33 +308,34 @@ html {
   .task-form-item .file-caption {
     display: inline-block;
     vertical-align: middle;
+    max-width: 174px;
     margin-right: 3%;
     font-size: 12px; }
-    /* line 53, scss/component/card-component/_form.scss */
+    /* line 54, scss/component/card-component/_form.scss */
     .task-form-item .file-caption time {
       color: #757575; }
-  /* line 57, scss/component/card-component/_form.scss */
+  /* line 58, scss/component/card-component/_form.scss */
   .task-form-item textarea {
     width: calc(100% - 18px);
     padding: 8px 18px; }
-    /* line 60, scss/component/card-component/_form.scss */
+    /* line 61, scss/component/card-component/_form.scss */
     .task-form-item textarea::placeholder {
       color: #C8C8C8; }
 
 @media all and (min-width: 768px) {
-  /* line 68, scss/component/card-component/_form.scss */
+  /* line 69, scss/component/card-component/_form.scss */
   .task-form {
     padding: 25px 68px 0 68px; }
-    /* line 71, scss/component/card-component/_form.scss */
+    /* line 72, scss/component/card-component/_form.scss */
     .task-form-item h3 {
       font-size: 20px; }
-    /* line 74, scss/component/card-component/_form.scss */
+    /* line 75, scss/component/card-component/_form.scss */
     .task-form-item input {
       min-width: 140px; }
-    /* line 77, scss/component/card-component/_form.scss */
+    /* line 78, scss/component/card-component/_form.scss */
     .task-form-item input, .task-form-item textarea {
       font-size: 14px; }
-    /* line 80, scss/component/card-component/_form.scss */
+    /* line 81, scss/component/card-component/_form.scss */
     .task-form-item .file-caption {
       font-size: 16px; } }
 
