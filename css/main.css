@@ -1,33 +1,33 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i&display=swap");
-/* line 1, scss/base/_reset.scss */
 body, h1, h2, h3, h4, p {
-  margin: 0; }
+  margin: 0;
+}
 
-/* line 5, scss/base/_reset.scss */
 *, *::before, *::after {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
-/* line 9, scss/base/_reset.scss */
 input, button, textarea {
-  border: none; }
+  border: none;
+}
 
-/* line 13, scss/base/_reset.scss */
 input:focus, button:focus {
-  outline: none; }
+  outline: none;
+}
 
-/* line 17, scss/base/_reset.scss */
 a {
-  text-decoration: none; }
+  text-decoration: none;
+}
 
-/* line 3, scss/abstract/_typogrphy.scss */
 html {
-  font-family: 'Roboto', 'sans-serif'; }
+  font-family: "Roboto", "sans-serif";
+}
 
-/* line 1, scss/component/_add.scss */
 .add {
-  margin-bottom: 24px; }
+  margin-bottom: 24px;
+}
 
-/* line 5, scss/component/_add.scss */
 .add-form {
   display: block;
   width: 100%;
@@ -35,117 +35,118 @@ html {
   border-radius: 3px;
   border: 1px solid #C8C8C8;
   padding: 5px 14px;
-  text-align: left; }
-  /* line 14, scss/component/_add.scss */
-  .add-form span {
-    font-size: 14px;
-    font-weight: regular;
-    line-height: 1.6;
-    color: #E1E1E1;
-    vertical-align: middle; }
+  text-align: left;
+}
+.add-form span {
+  font-size: 14px;
+  font-weight: regular;
+  line-height: 1.6;
+  color: #E1E1E1;
+  vertical-align: middle;
+}
 
 @media all and (min-width: 768px) {
-  /* line 22, scss/component/_add.scss */
   .add-form span {
-    font-size: 24px; } }
-
-/* line 1, scss/component/_card.scss */
+    font-size: 24px;
+  }
+}
 .task {
   background: #F2F2F2;
   margin-bottom: 8px;
   border-radius: 5px;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
-/* line 8, scss/component/_card.scss */
 .d-none {
-  display: none; }
+  display: none;
+}
 
-/* line 13, scss/component/_card.scss */
 .is-edit .task-form {
-  display: block; }
+  display: block;
+}
 
-/* line 1, scss/component/card-component/_title.scss */
 .task-title {
   padding: 10px 14px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
-/* line 8, scss/component/card-component/_title.scss */
 .task-name {
   display: inline-block;
   vertical-align: middle;
-  background: inherit; }
+  background: inherit;
+}
 
-/* line 14, scss/component/card-component/_title.scss */
 .task-name, .task-name::placeholder {
   font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
-  color: #000; }
+  color: #000;
+}
 
-/* line 18, scss/component/card-component/_title.scss */
 .task-name.cross-off {
   text-decoration: line-through;
-  color: #C8C8C8; }
+  color: #C8C8C8;
+}
 
-/* line 23, scss/component/card-component/_title.scss */
 .is-star {
-  background: #FFF2DC; }
+  background: #FFF2DC;
+}
 
 @media all and (min-width: 768px) {
-  /* line 28, scss/component/card-component/_title.scss */
   .task-title {
-    padding: 20px 32px; }
-  /* line 31, scss/component/card-component/_title.scss */
-  .task-name, .task-name::placeholder {
-    font-size: 24px; } }
+    padding: 20px 32px;
+  }
 
-/* line 1, scss/component/card-component/_button.scss */
+  .task-name, .task-name::placeholder {
+    font-size: 24px;
+  }
+}
 .task-btn {
-  font-size: 0; }
-  /* line 3, scss/component/card-component/_button.scss */
-  .task-btn-basic {
-    width: 50%;
-    font-size: 14px;
-    line-height: 2.5;
-    font-weight: 300;
-    cursor: pointer; }
-    /* line 9, scss/component/card-component/_button.scss */
-    .task-btn-basic i {
-      margin-right: 5px; }
-  /* line 13, scss/component/card-component/_button.scss */
-  .task-btn-cancel {
-    background: #fff;
-    color: #D0021B; }
-    /* line 16, scss/component/card-component/_button.scss */
-    .task-btn-cancel:hover, .task-btn-cancel:active {
-      background: #D0021B;
-      color: #fff; }
-  /* line 21, scss/component/card-component/_button.scss */
-  .task-btn-save, .task-btn-add {
-    background: #fff;
-    color: #4A90E2;
-    border-left: 1px solid #E1E1E1; }
-    /* line 25, scss/component/card-component/_button.scss */
-    .task-btn-save:hover, .task-btn-save:active, .task-btn-add:hover, .task-btn-add:active {
-      background: #4A90E2;
-      color: #fff; }
+  font-size: 0;
+}
+.task-btn-basic {
+  width: 50%;
+  font-size: 14px;
+  line-height: 2.5;
+  font-weight: 300;
+  cursor: pointer;
+}
+.task-btn-basic i {
+  margin-right: 5px;
+}
+.task-btn-cancel {
+  background: #fff;
+  color: #D0021B;
+}
+.task-btn-cancel:hover, .task-btn-cancel:active {
+  background: #D0021B;
+  color: #fff;
+}
+.task-btn-save, .task-btn-add {
+  background: #fff;
+  color: #4A90E2;
+  border-left: 1px solid #E1E1E1;
+}
+.task-btn-save:hover, .task-btn-save:active, .task-btn-add:hover, .task-btn-add:active {
+  background: #4A90E2;
+  color: #fff;
+}
 
 @media all and (min-width: 768px) {
-  /* line 34, scss/component/card-component/_button.scss */
   .task-btn-basic {
-    font-size: 24px; } }
-
-/* line 1, scss/component/card-component/_checkbox.scss */
+    font-size: 24px;
+  }
+}
 .checkbox {
-  display: inline-block; }
+  display: inline-block;
+}
 
-/* line 4, scss/component/card-component/_checkbox.scss */
 .check-is-complete {
-  display: none; }
+  display: none;
+}
 
-/* line 7, scss/component/card-component/_checkbox.scss */
 .check-custom {
   display: inline-block;
   vertical-align: middle;
@@ -154,74 +155,74 @@ html {
   cursor: pointer;
   border-radius: 2px;
   font-size: 12px;
-  color: #fff; }
+  color: #fff;
+}
 
-/* line 19, scss/component/card-component/_checkbox.scss */
 .check-is-complete:checked + .check-custom {
-  background: #4A90E2; }
+  background: #4A90E2;
+}
 
 @media all and (min-width: 768px) {
-  /* line 24, scss/component/card-component/_checkbox.scss */
   .check-custom {
     font-size: 18px;
-    margin-right: 5px; } }
-
-/* line 1, scss/component/card-component/_mark.scss */
+    margin-right: 5px;
+  }
+}
 .task-mark {
-  padding-top: 5px; }
-  /* line 3, scss/component/card-component/_mark.scss */
-  .task-mark-star {
-    display: none; }
-    /* line 5, scss/component/card-component/_mark.scss */
-    .task-mark-star-custom {
-      cursor: pointer;
-      padding-right: 8px; }
-      /* line 8, scss/component/card-component/_mark.scss */
-      .task-mark-star-custom::before {
-        font-family: "Font Awesome 5 Free";
-        font-weight: 400;
-        content: "\f005";
-        font-size: 14px; }
-  /* line 16, scss/component/card-component/_mark.scss */
-  .task-mark-pen {
-    display: none; }
-    /* line 18, scss/component/card-component/_mark.scss */
-    .task-mark-pen-custom {
-      cursor: pointer;
-      padding-right: 8px; }
-      /* line 21, scss/component/card-component/_mark.scss */
-      .task-mark-pen-custom::before {
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        content: "\f304";
-        font-size: 14px; }
-  /* line 29, scss/component/card-component/_mark.scss */
-  .task-mark-delete {
-    padding: 0;
-    cursor: pointer; }
+  padding-top: 5px;
+}
+.task-mark-star {
+  display: none;
+}
+.task-mark-star-custom {
+  cursor: pointer;
+  padding-right: 8px;
+}
+.task-mark-star-custom::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "";
+  font-size: 14px;
+}
+.task-mark-pen {
+  display: none;
+}
+.task-mark-pen-custom {
+  cursor: pointer;
+  padding-right: 8px;
+}
+.task-mark-pen-custom::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "";
+  font-size: 14px;
+}
+.task-mark-delete {
+  padding: 0;
+  cursor: pointer;
+}
 
-/* line 35, scss/component/card-component/_mark.scss */
 .task-mark-star:checked + .task-mark-star-custom::before {
   font-weight: 900;
-  color: #F5A623; }
+  color: #F5A623;
+}
 
-/* line 41, scss/component/card-component/_mark.scss */
 .is-edit .task-mark-pen-custom {
-  color: #4A90E2; }
+  color: #4A90E2;
+}
 
-/* line 46, scss/component/card-component/_mark.scss */
 .task-mark-star.d-none {
-  display: none; }
+  display: none;
+}
 
 @media all and (min-width: 768px) {
-  /* line 55, scss/component/card-component/_mark.scss */
   .task-mark {
-    font-size: 24px; }
-    /* line 57, scss/component/card-component/_mark.scss */
-    .task-mark-mark-star, .task-mark-mark-star-shiny {
-      padding-right: 15px; } }
-
-/* line 1, scss/component/card-component/_tag.scss */
+    font-size: 24px;
+  }
+  .task-mark-mark-star, .task-mark-mark-star-shiny {
+    padding-right: 15px;
+  }
+}
 .task-tag {
   flex: 0 0 100%;
   padding-left: 25px;
@@ -229,147 +230,147 @@ html {
   font-size: 12px;
   font-weight: regular;
   line-height: 1.2;
-  color: #757575; }
+  color: #757575;
+}
 
-/* line 8, scss/component/card-component/_tag.scss */
 .tag-item {
   display: inline-block;
-  margin-right: 5px; }
-  /* line 11, scss/component/card-component/_tag.scss */
-  .tag-item time {
-    padding-left: 5px; }
+  margin-right: 5px;
+}
+.tag-item time {
+  padding-left: 5px;
+}
 
-/* line 16, scss/component/card-component/_tag.scss */
 .tag-item.d-none {
-  display: none; }
+  display: none;
+}
 
 @media all and (min-width: 768px) {
-  /* line 21, scss/component/card-component/_tag.scss */
   .task-tag {
     padding-left: 37px;
     margin-top: 8px;
-    font-size: 18px; }
-    /* line 25, scss/component/card-component/_tag.scss */
-    .task-tag .tag-item {
-      margin-right: 12px; } }
-
-/* line 2, scss/component/card-component/_form.scss */
+    font-size: 18px;
+  }
+  .task-tag .tag-item {
+    margin-right: 12px;
+  }
+}
 .task-form-edit {
   padding: 25px 38px 0 38px;
-  border-top: 1px solid #C8C8C8; }
-
-/* line 6, scss/component/card-component/_form.scss */
+  border-top: 1px solid #C8C8C8;
+}
 .task-form-item {
   margin-bottom: 20px;
-  font-size: 0; }
-  /* line 9, scss/component/card-component/_form.scss */
-  .task-form-item h3 {
-    margin-bottom: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.6;
-    color: #000; }
-    /* line 12, scss/component/card-component/_form.scss */
-    .task-form-item h3 i {
-      padding-right: 5px; }
-  /* line 16, scss/component/card-component/_form.scss */
-  .task-form-item input {
-    line-height: 28px;
-    padding-left: 5px;
-    width: 40%;
-    min-width: 135px;
-    letter-spacing: -1px; }
-    /* line 22, scss/component/card-component/_form.scss */
-    .task-form-item input[type="time"] {
-      min-width: 98px; }
-    /* line 25, scss/component/card-component/_form.scss */
-    .task-form-item input:first-child {
-      margin-bottom: 5px; }
-    /* line 28, scss/component/card-component/_form.scss */
-    .task-form-item input[type="file"] {
-      display: none; }
-  /* line 32, scss/component/card-component/_form.scss */
-  .task-form-item .task-deadline, .task-form-item .file-add, .task-form-item textarea {
-    margin: 0 18px; }
-  /* line 35, scss/component/card-component/_form.scss */
-  .task-form-item .file-add-button {
-    display: inline-block;
-    padding: 6px 8px;
-    background: #C8C8C8;
-    vertical-align: middle;
-    border-radius: 1px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer; }
-    /* line 44, scss/component/card-component/_form.scss */
-    .task-form-item .file-add-button:active, .task-form-item .file-add-button:hover {
-      background: #4A90E2; }
-  /* line 48, scss/component/card-component/_form.scss */
-  .task-form-item .file-caption {
-    display: inline-block;
-    vertical-align: middle;
-    max-width: 174px;
-    margin-right: 3%;
-    font-size: 12px; }
-    /* line 54, scss/component/card-component/_form.scss */
-    .task-form-item .file-caption time {
-      color: #757575; }
-  /* line 58, scss/component/card-component/_form.scss */
-  .task-form-item textarea {
-    width: calc(100% - 18px);
-    padding: 8px 18px; }
-    /* line 61, scss/component/card-component/_form.scss */
-    .task-form-item textarea::placeholder {
-      color: #C8C8C8; }
+  font-size: 0;
+}
+.task-form-item h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: #000;
+}
+.task-form-item h3 i {
+  padding-right: 5px;
+}
+.task-form-item input {
+  line-height: 28px;
+  padding-left: 5px;
+  width: 40%;
+  min-width: 135px;
+  letter-spacing: -1px;
+}
+.task-form-item input[type=time] {
+  min-width: 98px;
+}
+.task-form-item input:first-child {
+  margin-bottom: 5px;
+}
+.task-form-item input[type=file] {
+  display: none;
+}
+.task-form-item .task-deadline, .task-form-item .file-add, .task-form-item textarea {
+  margin: 0 18px;
+}
+.task-form-item .file-add-button {
+  display: inline-block;
+  padding: 6px 8px;
+  background: #C8C8C8;
+  vertical-align: middle;
+  border-radius: 1px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.task-form-item .file-add-button:active, .task-form-item .file-add-button:hover {
+  background: #4A90E2;
+}
+.task-form-item .file-caption {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 174px;
+  margin-right: 3%;
+  font-size: 12px;
+}
+.task-form-item .file-caption time {
+  color: #757575;
+}
+.task-form-item textarea {
+  width: calc(100% - 18px);
+  padding: 8px 18px;
+}
+.task-form-item textarea::placeholder {
+  color: #C8C8C8;
+}
 
 @media all and (min-width: 768px) {
-  /* line 69, scss/component/card-component/_form.scss */
   .task-form {
-    padding: 25px 68px 0 68px; }
-    /* line 72, scss/component/card-component/_form.scss */
-    .task-form-item h3 {
-      font-size: 20px; }
-    /* line 75, scss/component/card-component/_form.scss */
-    .task-form-item input {
-      min-width: 140px; }
-    /* line 78, scss/component/card-component/_form.scss */
-    .task-form-item input, .task-form-item textarea {
-      font-size: 14px; }
-    /* line 81, scss/component/card-component/_form.scss */
-    .task-form-item .file-caption {
-      font-size: 16px; } }
-
-/* line 1, scss/component/_counter.scss */
+    padding: 25px 68px 0 68px;
+  }
+  .task-form-item h3 {
+    font-size: 20px;
+  }
+  .task-form-item input {
+    min-width: 140px;
+  }
+  .task-form-item input, .task-form-item textarea {
+    font-size: 14px;
+  }
+  .task-form-item .file-caption {
+    font-size: 16px;
+  }
+}
 .task-counter {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.6;
   color: #C8C8C8;
-  font-style: italic; }
+  font-style: italic;
+}
 
 @media all and (min-width: 768px) {
-  /* line 7, scss/component/_counter.scss */
   .task-counter {
-    font-size: 24px; } }
-
-/* line 1, scss/layout/_substrate.scss */
+    font-size: 24px;
+  }
+}
 body {
-  background: #E1E1E1; }
-  /* line 3, scss/layout/_substrate.scss */
+  background: #E1E1E1;
+}
+body main {
+  padding: 24px 5% 46px 5%;
+}
+@media all and (min-width: 576px) {
   body main {
-    padding: 24px 5% 46px 5%; }
-    @media all and (min-width: 576px) {
-      /* line 3, scss/layout/_substrate.scss */
-      body main {
-        padding: 24px 20% 46px 20%; } }
+    padding: 24px 20% 46px 20%;
+  }
+}
 
-/* line 1, scss/layout/_header.scss */
 .body-header {
   background: #4A90E2;
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
-/* line 6, scss/layout/_header.scss */
 .label-link {
   text-align: center;
   flex: 0 0 28%;
@@ -378,19 +379,23 @@ body {
   font-size: 14px;
   font-weight: regular;
   line-height: 1.4;
-  color: #00408B; }
+  color: #00408B;
+}
 
-/* line 13, scss/layout/_header.scss */
 .current {
   color: #fff;
-  box-shadow: inset 0 -3px #00408B; }
+  box-shadow: inset 0 -3px #00408B;
+}
 
 @media all and (min-width: 576px) {
-  /* line 19, scss/layout/_header.scss */
   .body-header {
-    padding: 0 20%; } }
-
+    padding: 0 20%;
+  }
+}
 @media all and (min-width: 768px) {
-  /* line 25, scss/layout/_header.scss */
   .label-link {
-    font-size: 24px; } }
+    font-size: 24px;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

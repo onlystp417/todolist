@@ -4,9 +4,9 @@
   "description": "## 說明",
   "main": "index.js",
   "scripts": {
-    "dev-css": "node-sass -r --source-comments scss/ -o css/ && node-sass -wr --source-comments scss/ -o css/",
-    "build-css": "node-sass --output-style=compressed scss/main.scss  dist/main.min.css",
-    "server": "php -S localhost:8080",
+    "dev-css": "sass --watch scss/:css/",
+    "build-css": "sass -s compressed scss/:dist/",
+    "server-vanilla": "cd vanilla_js && live-server --port=5500",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +20,10 @@
   },
   "homepage": "https://gitlab.com/last_stand/t7.1#readme",
   "dependencies": {
-    "node-sass": "^4.13.1"
+    "vue": "^3.0.2"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "sass": "^1.29.0"
   }
 }
