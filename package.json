@@ -6,7 +6,7 @@
   "scripts": {
     "dev-css": "sass --watch scss/:css/",
     "build-css": "sass -s compressed scss/:dist/",
-    "server-vanilla": "cd vanilla_js && live-server --port=5500",
+    "server-vanilla": "live-server --open=vanilla_js --port=5500",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
