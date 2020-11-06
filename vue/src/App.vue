@@ -1,7 +1,11 @@
 <template>
   <HeaderTab></HeaderTab>
-  <main>
-    <TaskAddForm></TaskAddForm>
+  <main @click.self="closeAddTaskForm(false)">
+    <TaskAddForm
+      :taskFormIsShow="taskFormIsShow"
+      @openAddTaskForm="openAddTaskForm"
+      @closeAddTaskForm="closeAddTaskForm"
+    ></TaskAddForm>
     <TaskList></TaskList>
     <TaskCounter></TaskCounter>
   </main>
@@ -20,6 +24,20 @@ export default {
     TaskAddForm,
     TaskList,
     TaskCounter
+  },
+  data() {
+    return {
+      taskFormIsShow: false
+    }
+  },
+  methods: {
+    openAddTaskForm(isShow) {
+      this.taskFormIsShow = isShow;
+    },
+    closeAddTaskForm(isShow) {
+      // console.log(e.currentTarget === "main");
+      this.taskFormIsShow = isShow;
+    }
   }
 }
 </script>

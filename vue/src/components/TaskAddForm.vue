@@ -1,11 +1,11 @@
 <template>
   <section class="add">
-    <button class="add-form">
+    <button class="add-form" @click="openAddTaskForm">
       <span><i class="fas fa-plus"></i></span>
       <span>Add Task</span>
     </button>
   </section>
-  <form class="task d-none">
+  <form class="task" v-if="taskFormIsShow">
     <header class="task-title major-task-bg">
       <h2>
         <span class="checkbox">
@@ -46,7 +46,7 @@
         </section>
       </div>
       <div class="task-btn">
-        <button class="task-btn-basic task-btn-cancel"><i class="fas fa-times"></i>Cancel</button>
+        <button class="task-btn-basic task-btn-cancel" @click.prevent="closeAddTaskForm"><i class="fas fa-times"></i>Cancel</button>
         <button class="task-btn-basic task-btn-add"><i class="fas fa-plus"></i>Add Task</button>
       </div>
     </section>
@@ -55,7 +55,22 @@
 
 <script>
 export default {
-  name: "task-add-form"
+  name: "task-add-form",
+  props: {
+    taskFormIsShow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  emits: ["openAddTaskForm", "closeAddTaskForm"],
+  methods: {
+    openAddTaskForm() {
+      this.$emit("openAddTaskForm", true);
+    },
+    closeAddTaskForm() {
+      this.$emit("closeAddTaskForm", false);
+    }
+  }
 }
 </script>
 
