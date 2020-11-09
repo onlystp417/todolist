@@ -1,0 +1,61 @@
+.task-mark {
+  padding-top: 5px;
+  &-star {
+    display: none;
+    &-custom {
+      cursor: pointer;
+      padding-right: 8px;
+      &::before {
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 400; 
+        content: "\f005";
+        font-size: 14px;
+      }
+    }
+  }
+  &-pen {
+    display: none;
+    &-custom {
+      cursor: pointer;
+      padding-right: 8px;
+      &::before {
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 900; 
+        content: "\f304";
+        font-size: 14px;
+      }
+    }
+  }
+  &-delete {
+    padding: 0;
+    cursor: pointer;
+  }
+}
+
+.task-mark-star:checked + .task-mark-star-custom::before {
+  font-weight: 900;
+  color: $yolk-yellow;
+}
+
+.is-edit {
+  .task-mark-pen-custom {
+    color: $royal-blue;
+  }
+}
+
+.task-mark-star.d-none {
+  display: none;
+}
+
+// .task-mark-pen-custom.current-pen {
+//   color: $royal-blue;
+// }
+
+@include mediaquery_pad {
+  .task-mark {
+    font-size: 24px;
+    &-mark-star, &-mark-star-shiny {
+      padding-right: 15px;
+    }
+  }
+}
