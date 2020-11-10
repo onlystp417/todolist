@@ -3,8 +3,8 @@
   <main @click.self="closeAddTaskForm(false)">
     <TaskAddForm
       :taskFormIsShow="taskFormIsShow"
-      @openAddTaskForm="openAddTaskForm"
-      @closeAddTaskForm="closeAddTaskForm"
+      @openAddTaskForm="taskFormIsShow = $event"
+      @closeAddTaskForm="taskFormIsShow = $event"
     ></TaskAddForm>
     <TaskList></TaskList>
     <TaskCounter></TaskCounter>
@@ -27,8 +27,7 @@ export default {
   },
   data() {
     return {
-      taskFormIsShow: false
-    }
+      taskFormIsShow: false,
   },
   methods: {
     openAddTaskForm(isShow) {
