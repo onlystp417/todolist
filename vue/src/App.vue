@@ -1,10 +1,22 @@
 <template>
   <HeaderTab></HeaderTab>
   <main @click.self="closeAddTaskForm(false)">
+    <pre>{{ taskData }}</pre>
     <TaskAddForm
       :taskFormIsShow="taskFormIsShow"
+      :isEditable="isEditable"
+      :taskData="taskData"
       @openAddTaskForm="taskFormIsShow = $event"
       @closeAddTaskForm="taskFormIsShow = $event"
+      @update:Complete="taskData.isComplete = $event"
+      @update:Name="taskData.name = $event"
+      @update:date="taskData.date = $event"
+      @update:time="taskData.time = $event"
+      @update:IsStar="taskData.isStar = $event"
+      @update:IsEdit="taskData.isEdit = $event"
+      @update:FileName="taskData.fileName = $event"
+      @update:FileTime="taskData.fileTime = $event"
+      @update:Comment="taskData.comment = $event"
     ></TaskAddForm>
     <TaskList></TaskList>
     <TaskCounter></TaskCounter>
@@ -28,14 +40,17 @@ export default {
   data() {
     return {
       taskFormIsShow: false,
-  },
-  methods: {
-    openAddTaskForm(isShow) {
-      this.taskFormIsShow = isShow;
-    },
-    closeAddTaskForm(isShow) {
-      // console.log(e.currentTarget === "main");
-      this.taskFormIsShow = isShow;
+      isEditable: false,
+      taskData: {
+        isComplete: false,
+        name: null,
+        date: null,
+        time: null,
+        isStar: false,
+        fileName: null,
+        fileTime: null,
+        comment: null
+      }
     }
   }
 }

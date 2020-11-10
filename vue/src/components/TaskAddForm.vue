@@ -10,16 +10,42 @@
       <h2>
         <span class="checkbox">
           <!-- check-is-complete 的 id 值要用 js 賦予新的值  -->
-          <input class="check-is-complete task-data" id="check" type="checkbox" data-keyname="isComplete">
+          <input
+            class="check-is-complete task-data"
+            id="check"
+            type="checkbox"
+            :checked="taskData.isComplete"
+            @change="checkComplete($event.target.checked)"
+          >
           <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
         </span>
-        <input onkeypress="if (event.keyCode == 13) {return false;}" class="task-name task-data" type="text" placeholder="Type Something Here..." data-keyname="name">
+        <input
+          onkeypress="if (event.keyCode == 13) {return false;}"
+          class="task-name task-data" type="text"
+          placeholder="Type Something Here..."
+          :value="taskData.name"
+          @input="$emit('update:Name', $event.target.value)"
+        >
       </h2>
       <div class="task-mark">
-        <input class="task-mark-star task-data" id="isStar" type="checkbox" data-keyname="isStar">
-        <label class="task-mark-star-custom" for="isStar"></label>
-        <input class="task-mark-pen" id="isEdit" type="checkbox" data-keyname="isEdit">
-        <label class="task-mark-pen-custom" for="isEdit"></label>
+        <!-- FontAwsone 5 用前端框架會自動轉成 svg，元，  原生用 CSS 寫 fontfamily 則會不起作用，所以還是要寫在 template 裡面 -->
+        <input
+          class="task-mark-star task-data"
+          id="isStar"
+          type="checkbox"
+          :checked="taskData.isStar"
+          @change="$emit('update:IsStar', $event.target.checked)"
+        >
+        <label class="task-mark-star-custom task-mark-star-custom-off" v-if="!taskData.isStar" for="isStar"><i class="far fa-star"></i></label>
+        <label class="task-mark-star-custom task-mark-star-custom-on" v-if="taskData.isStar" for="isStar"><i class="fas fa-star"></i></label>
+        <input
+          class="task-mark-pen"
+          id="isEdit"
+          type="checkbox"
+          :checked="isEdit"
+          @change="isEdit = $event.target.checked"
+        >
+        <label class="task-mark-pen-custom" :class="{ 'is-edit': isEdit}" v-if="isEditable" for="isEdit"><i class="fas fa-pen"></i></label>
       </div>
     </header>
     <section class="task-form">
@@ -27,8 +53,18 @@
         <section class="task-form-item task-form-deadline">
           <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
           <div class="task-deadline">
-            <input class="task-data" type="date" data-keyname="date">
-            <input class="task-data" type="time" data-keyname="time">
+            <input
+              class="task-data"
+              type="date"
+              :value="taskData.date"
+              @input="$emit('update:date', $event.target.value)"
+            >
+            <input
+              class="task-data"
+              type="time"
+              :value="taskData.time"
+              @input="$emit('update:time', $event.target.value)"
+            >
           </div>
         </section>
         <section class="task-form-item task-form-file">
@@ -38,11 +74,23 @@
             <time></time>
           </div>
           <label class="file-add-button" for="add-file"><i class="fas fa-plus"></i></label>
-          <input class="task-data file-input" type="file" data-keyname="file" id="add-file">
+          <input
+            class="task-data file-input"
+            type="file"
+            id="add-file"
+            @input="parseFileData($event.target.files[0])"
+          >
         </section>
         <section class="task-form-item task-form-comment">
           <h3><i class="far fa-comment-dots"></i>Comment</h3>
-          <textarea class="task-data" data-keyname="comment" cols="30" rows="3" placeholder="Type your meno here..."></textarea>
+          <textarea
+            class="task-data"
+            cols="30"
+            rows="3"
+            placeholder="Type your meno here..."
+            :value="comment"
+            @input="$emit('update:Comment', $event.target.value)"
+          ></textarea>
         </section>
       </div>
       <div class="task-btn">
@@ -56,19 +104,58 @@
 <script>
 export default {
   name: "task-add-form",
+  data() {
+    return {
+      isEdit: false
+    }
+  },
   props: {
     taskFormIsShow: {
       type: Boolean,
       default: false
+    },
+    isEditable: {
+      type: Boolean,
+      default: false
+    },
+    taskData: {
+      type: Object,
+      required: true
     }
   },
-  emits: ["openAddTaskForm", "closeAddTaskForm"],
+  emits: [
+    "openAddTaskForm",
+    "closeAddTaskForm",
+    "update:Complete",
+    "update:Name",
+    "update:IsStar",
+    "update:IsEdit",
+    "update:date",
+    "update:time",
+    "update:FileName",
+    "update:FileTime",
+    "update:Comment"
+  ],
   methods: {
     openAddTaskForm() {
       this.$emit("openAddTaskForm", true);
     },
     closeAddTaskForm() {
       this.$emit("closeAddTaskForm", false);
+    },
+    checkComplete(isComplete) {
+      this.$emit("update:Complete", isComplete);
+    },
+    parseFileData(file) {
+      this.$emit("update:FileName", file.name);
+      this.$emit("update:FileTime", this.timeFormat(new Date(file.lastModified)));
+    },
+    timeFormat(timeStamp) {
+      const year = timeStamp.getFullYear();
+      const month = timeStamp.getMonth() + 1;
+      const day = timeStamp.getDate();
+
+      return `${ year }.${ month }.${ day }`;
     }
   }
 }
