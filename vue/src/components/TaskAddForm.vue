@@ -88,14 +88,15 @@
             cols="30"
             rows="3"
             placeholder="Type your meno here..."
-            :value="comment"
+            :value="taskData.comment"
             @input="$emit('update:Comment', $event.target.value)"
           ></textarea>
         </section>
       </div>
       <div class="task-btn">
         <button class="task-btn-basic task-btn-cancel" @click.prevent="closeAddTaskForm"><i class="fas fa-times"></i>Cancel</button>
-        <button class="task-btn-basic task-btn-add"><i class="fas fa-plus"></i>Add Task</button>
+        <button class="task-btn-basic task-btn-add" v-if="!isEditable" @click.prevent="addTask"><i class="fas fa-plus"></i>Add Task</button>
+        <button class="task-btn-basic task-btn-add" v-if="isEditable"><i class="fas fa-plus"></i>Save Task</button>
       </div>
     </section>
   </form>
@@ -113,6 +114,10 @@ export default {
     taskFormIsShow: {
       type: Boolean,
       default: false
+    },
+    taskList: {
+      type: Array,
+      default: () => []
     },
     isEditable: {
       type: Boolean,
@@ -134,7 +139,8 @@ export default {
     "update:time",
     "update:FileName",
     "update:FileTime",
-    "update:Comment"
+    "update:Comment",
+    "update:AddTask"
   ],
   methods: {
     openAddTaskForm() {
@@ -156,6 +162,17 @@ export default {
       const day = timeStamp.getDate();
 
       return `${ year }.${ month }.${ day }`;
+    },
+    addTask() {
+      const newTask = {
+        ...this.taskData,
+        id: Date.now()
+      };
+      const taskList = [
+        ...this.taskList,
+        newTask
+      ];
+      this.$emit('update:AddTask', taskList);
     }
   }
 }

@@ -6,6 +6,7 @@
       :taskFormIsShow="taskFormIsShow"
       :isEditable="isEditable"
       :taskData="taskData"
+      :taskList="taskList"
       @openAddTaskForm="taskFormIsShow = $event"
       @closeAddTaskForm="taskFormIsShow = $event"
       @update:Complete="taskData.isComplete = $event"
@@ -17,6 +18,8 @@
       @update:FileName="taskData.fileName = $event"
       @update:FileTime="taskData.fileTime = $event"
       @update:Comment="taskData.comment = $event"
+
+      @update:AddTask="addTask"
     ></TaskAddForm>
     <TaskList></TaskList>
     <TaskCounter></TaskCounter>
@@ -42,6 +45,7 @@ export default {
       taskFormIsShow: false,
       isEditable: false,
       taskData: {
+        id: null,
         isComplete: false,
         name: null,
         date: null,
@@ -50,7 +54,14 @@ export default {
         fileName: null,
         fileTime: null,
         comment: null
-      }
+      },
+      taskList: JSON.parse(localStorage.getItem('taskList')) || []
+    }
+  },
+  methods: {
+    addTask(taskList) {
+      console.log(taskList);
+      localStorage.setItem('taskList', JSON.stringify(taskList));
     }
   }
 }
