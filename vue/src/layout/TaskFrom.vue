@@ -98,9 +98,12 @@
           ></textarea>
         </section>
       </div>
-      <div class="task-btn">
+      <div class="task-btn" v-if="!isInList">
         <button class="task-btn-basic task-btn-cancel" @click.prevent="closeAddTaskForm"><i class="fas fa-times"></i>Cancel</button>
         <button class="task-btn-basic task-btn-add" v-if="!isInList" @click.prevent="addTask"><i class="fas fa-plus"></i>Add Task</button>
+      </div>
+      <div class="task-btn" v-if="isInList">
+        <button class="task-btn-basic task-btn-cancel" @click.prevent="isEdit=false"><i class="fas fa-times"></i>Cancel</button>
         <button class="task-btn-basic task-btn-add" v-if="isInList"><i class="fas fa-plus"></i>Save Task</button>
       </div>
     </section>
