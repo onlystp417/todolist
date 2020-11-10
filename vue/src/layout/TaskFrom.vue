@@ -1,11 +1,5 @@
 <template>
-  <section class="add">
-    <button class="add-form" @click="openAddTaskForm">
-      <span><i class="fas fa-plus"></i></span>
-      <span>Add Task</span>
-    </button>
-  </section>
-  <form class="task" v-if="taskFormIsShow">
+  <form class="task">
     <header class="task-title major-task-bg">
       <h2>
         <span class="checkbox">
@@ -104,17 +98,9 @@
 
 <script>
 export default {
-  name: "task-add-form",
-  data() {
-    return {
-      isEdit: false
-    }
-  },
+  name: "task-form",
+  inheritAttrs: false,
   props: {
-    taskFormIsShow: {
-      type: Boolean,
-      default: false
-    },
     taskList: {
       type: Array,
       default: () => []
@@ -129,8 +115,7 @@ export default {
     }
   },
   emits: [
-    "openAddTaskForm",
-    "closeAddTaskForm",
+    "update:AddTaskFormShow",
     "update:Complete",
     "update:Name",
     "update:IsStar",
@@ -143,11 +128,8 @@ export default {
     "update:AddTask"
   ],
   methods: {
-    openAddTaskForm() {
-      this.$emit("openAddTaskForm", true);
-    },
     closeAddTaskForm() {
-      this.$emit("closeAddTaskForm", false);
+      this.$emit("update:AddTaskFormShow", false);
     },
     checkComplete(isComplete) {
       this.$emit("update:Complete", isComplete);
@@ -178,5 +160,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
+
 </style>

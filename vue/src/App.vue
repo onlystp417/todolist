@@ -2,13 +2,13 @@
   <HeaderTab></HeaderTab>
   <main @click.self="taskFormIsShow = false">
     <pre>{{ taskData }}</pre>
-    <TaskAddForm
+    <TaskAdd
       :taskFormIsShow="taskFormIsShow"
       :isEditable="isEditable"
       :taskData="taskData"
       :taskList="taskList"
-      @openAddTaskForm="taskFormIsShow = $event"
-      @closeAddTaskForm="taskFormIsShow = $event"
+      @update:AddTaskFormShow="taskFormIsShow = $event"
+
       @update:Complete="taskData.isComplete = $event"
       @update:Name="taskData.name = $event"
       @update:date="taskData.date = $event"
@@ -20,7 +20,7 @@
       @update:Comment="taskData.comment = $event"
 
       @update:AddTask="addTask"
-    ></TaskAddForm>
+    ></TaskAdd>
     <TaskList></TaskList>
     <TaskCounter></TaskCounter>
   </main>
@@ -28,7 +28,7 @@
 
 <script>
 import HeaderTab from './components/HeaderTab.vue';
-import TaskAddForm from './components/TaskAddForm.vue';
+import TaskAdd from './components/TaskAdd.vue';
 import TaskList from './components/TaskList.vue';
 import TaskCounter from './components/TaskCounter.vue';
 
@@ -36,7 +36,7 @@ export default {
   name: 'App',
   components: {
     HeaderTab,
-    TaskAddForm,
+    TaskAdd,
     TaskList,
     TaskCounter
   },
@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     addTask(taskList) {
-      console.log(taskList);
       localStorage.setItem('taskList', JSON.stringify(taskList));
     }
   }
