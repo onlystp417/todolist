@@ -1,6 +1,6 @@
 <template>
   <HeaderTab></HeaderTab>
-  <main @click.self="closeAddTaskForm(false)">
+  <main @click.self="taskFormIsShow = false">
     <pre>{{ taskData }}</pre>
     <TaskAddForm
       :taskFormIsShow="taskFormIsShow"
