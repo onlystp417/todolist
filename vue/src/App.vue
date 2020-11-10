@@ -62,6 +62,21 @@ export default {
   methods: {
     addTask(taskList) {
       localStorage.setItem('taskList', JSON.stringify(taskList));
+      this.taskFormIsShow = false;
+      this.taskDataInitial();
+    },
+    taskDataInitial() {
+      this.taskData = {
+        id: 1,
+        isComplete: false,
+        name: null,
+        date: null,
+        time: null,
+        isStar: false,
+        fileName: null,
+        fileTime: null,
+        comment: null
+      }
     }
   }
 }
