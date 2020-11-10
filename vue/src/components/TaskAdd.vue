@@ -5,8 +5,7 @@
       <span>Add Task</span>
     </button>
   </section>
-  <!-- {{ $attrs }} -->
-  <TaskForm v-bind="$attrs" v-if="taskFormIsShow"></TaskForm>
+  <TaskForm v-bind="$attrs"></TaskForm>
 </template>
 
 <script>
@@ -16,12 +15,6 @@ export default {
   name: "task-add",
   components: {
     TaskForm
-  },
-  props: {
-    taskFormIsShow: {
-      type: Boolean,
-      default: false
-    }
   },
   emits: [
     "update:AddTaskFormShow"

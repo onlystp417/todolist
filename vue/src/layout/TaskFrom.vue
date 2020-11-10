@@ -1,5 +1,5 @@
 <template>
-  <form class="task">
+  <form class="task" v-if="taskFormIsShow">
     <header class="task-title major-task-bg">
       <h2>
         <span class="checkbox">
@@ -39,10 +39,21 @@
           :checked="isEdit"
           @change="isEdit = $event.target.checked"
         >
-        <label class="task-mark-pen-custom" :class="{ 'is-edit': isEdit}" v-if="isEditable" for="isEdit"><i class="fas fa-pen"></i></label>
+        <label class="task-mark-pen-custom" :class="{ 'is-edit': isEdit}" v-if="isInList" for="isEdit"><i class="fas fa-pen"></i></label>
+      </div>
+      <div class="task-tag" v-if="isInList">
+        <span class="tag-item tag-time" v-if="taskData.date">
+          <i class="far fa-calendar-alt"></i><time>{{ taskData.date }}</time>
+        </span>
+        <span class="tag-item tag-file" v-if="taskData.fileName">
+          <i class="far fa-file"></i>
+        </span>
+        <span class="tag-item tag-comment" v-if="taskData.comment">
+          <i class="far fa-comment-dots"></i>
+        </span>
       </div>
     </header>
-    <section class="task-form">
+    <section class="task-form" v-if="!isInList || isEdit">
       <div class="task-form-edit">
         <section class="task-form-item task-form-deadline">
           <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
@@ -89,8 +100,8 @@
       </div>
       <div class="task-btn">
         <button class="task-btn-basic task-btn-cancel" @click.prevent="closeAddTaskForm"><i class="fas fa-times"></i>Cancel</button>
-        <button class="task-btn-basic task-btn-add" v-if="!isEditable" @click.prevent="addTask"><i class="fas fa-plus"></i>Add Task</button>
-        <button class="task-btn-basic task-btn-add" v-if="isEditable"><i class="fas fa-plus"></i>Save Task</button>
+        <button class="task-btn-basic task-btn-add" v-if="!isInList" @click.prevent="addTask"><i class="fas fa-plus"></i>Add Task</button>
+        <button class="task-btn-basic task-btn-add" v-if="isInList"><i class="fas fa-plus"></i>Save Task</button>
       </div>
     </section>
   </form>
@@ -99,13 +110,22 @@
 <script>
 export default {
   name: "task-form",
-  inheritAttrs: false,
+  // inheritAttrs: false,
+  data() {
+    return {
+      isEdit: false
+    }
+  },
   props: {
+    taskFormIsShow: {
+      type: Boolean,
+      default: false
+    },
     taskList: {
       type: Array,
       default: () => []
     },
-    isEditable: {
+    isInList: {
       type: Boolean,
       default: false
     },

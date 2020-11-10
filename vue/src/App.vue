@@ -1,10 +1,10 @@
 <template>
   <HeaderTab></HeaderTab>
+  <pre>{{ taskData }}</pre>
   <main @click.self="taskFormIsShow = false">
-    <pre>{{ taskData }}</pre>
     <TaskAdd
       :taskFormIsShow="taskFormIsShow"
-      :isEditable="isEditable"
+      :isInList="isInList"
       :taskData="taskData"
       :taskList="taskList"
       @update:AddTaskFormShow="taskFormIsShow = $event"
@@ -21,7 +21,9 @@
 
       @update:AddTask="addTask"
     ></TaskAdd>
-    <TaskList></TaskList>
+    <TaskList
+      :taskList="taskList"
+    ></TaskList>
     <TaskCounter></TaskCounter>
   </main>
 </template>
@@ -43,7 +45,7 @@ export default {
   data() {
     return {
       taskFormIsShow: false,
-      isEditable: false,
+      isInList: false,
       taskData: {
         id: null,
         isComplete: false,
