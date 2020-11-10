@@ -6,12 +6,12 @@
           <!-- check-is-complete 的 id 值要用 js 賦予新的值  -->
           <input
             class="check-is-complete task-data"
-            id="check"
+            :id="`check-${taskData.id}`"
             type="checkbox"
             :checked="taskData.isComplete"
             @change="checkComplete($event.target.checked)"
           >
-          <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
+          <label class="check-custom" :for="`check-${taskData.id}`"><i class="fas fa-check"></i></label>
         </span>
         <input
           onkeypress="if (event.keyCode == 13) {return false;}"
@@ -25,21 +25,21 @@
         <!-- FontAwsone 5 用前端框架會自動轉成 svg，元，  原生用 CSS 寫 fontfamily 則會不起作用，所以還是要寫在 template 裡面 -->
         <input
           class="task-mark-star task-data"
-          id="isStar"
+          :id="`isStar-${taskData.id}`"
           type="checkbox"
           :checked="taskData.isStar"
           @change="$emit('update:IsStar', $event.target.checked)"
         >
-        <label class="task-mark-star-custom task-mark-star-custom-off" v-if="!taskData.isStar" for="isStar"><i class="far fa-star"></i></label>
-        <label class="task-mark-star-custom task-mark-star-custom-on" v-if="taskData.isStar" for="isStar"><i class="fas fa-star"></i></label>
+        <label class="task-mark-star-custom task-mark-star-custom-off" v-if="!taskData.isStar" :for="`isStar-${taskData.id}`"><i class="far fa-star"></i></label>
+        <label class="task-mark-star-custom task-mark-star-custom-on" v-if="taskData.isStar" :for="`isStar-${taskData.id}`"><i class="fas fa-star"></i></label>
         <input
           class="task-mark-pen"
-          id="isEdit"
+          :id="`isEdit-${taskData.id}`"
           type="checkbox"
           :checked="isEdit"
           @change="isEdit = $event.target.checked"
         >
-        <label class="task-mark-pen-custom" :class="{ 'is-edit': isEdit}" v-if="isInList" for="isEdit"><i class="fas fa-pen"></i></label>
+        <label class="task-mark-pen-custom" :class="{ 'is-edit': isEdit}" v-if="isInList" :for="`isEdit-${taskData.id}`"><i class="fas fa-pen"></i></label>
       </div>
       <div class="task-tag" v-if="isInList">
         <span class="tag-item tag-time" v-if="taskData.date">

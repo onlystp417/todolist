@@ -1,6 +1,5 @@
 <template>
   <HeaderTab></HeaderTab>
-  <pre>{{ taskData }}</pre>
   <main @click.self="taskFormIsShow = false">
     <TaskAdd
       :taskFormIsShow="taskFormIsShow"
@@ -47,7 +46,7 @@ export default {
       taskFormIsShow: false,
       isInList: false,
       taskData: {
-        id: null,
+        id: 1,
         isComplete: false,
         name: null,
         date: null,
