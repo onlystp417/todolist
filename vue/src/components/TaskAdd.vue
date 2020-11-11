@@ -5,7 +5,8 @@
       <span>Add Task</span>
     </button>
   </section>
-  <TaskForm v-bind="$attrs"></TaskForm>
+  <!-- update:AddTaskFormShow 事件被中間這層使用，所以不會包在 $attrs 裡，必須要再透過它傳給子層 -->
+  <TaskForm v-bind="$attrs" @update:AddTaskFormShow="$emit('update:AddTaskFormShow', $event)"></TaskForm>
 </template>
 
 <script>

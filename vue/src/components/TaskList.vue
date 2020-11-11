@@ -3,9 +3,9 @@
     <!-- area shows task lists -->
     <template v-for="(item, index) in taskList" :key="`task-${ index }`">
       <TaskForm
-        :taskFormIsShow="true"
+        :id="`task-${ index }`"
         :taskData="item"
-        :isInList="true"
+        v-bind="$attrs"
       ></TaskForm>
     </template>
   </div>
