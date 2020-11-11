@@ -1,13 +1,13 @@
 <template>
   <div class="task-list">
     <!-- area shows task lists -->
-    <template v-for="(item, index) in taskList" :key="`task-${ index }`">
-      <TaskForm
-        :id="`task-${ index }`"
-        :taskData="item"
-        v-bind="$attrs"
-      ></TaskForm>
-    </template>
+    <TaskForm
+      v-for="item in taskList"
+      :key="`task-${ item.id }`"
+      :id="`task-${ item.id }`"
+      :taskData="item"
+      v-bind="$attrs"
+    ></TaskForm>
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <form class="task" v-if="taskFormIsShow">
-    <!-- <pre>{{ taskData.id }}</pre> -->
     <header class="task-title major-task-bg">
       <h2>
         <span class="checkbox">
