@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-// import './index.css'
+
+import '@fortawesome/fontawesome-free/js/all.js';
 import './assets/scss/main.scss'
 
-createApp(App).mount('#app')
+createApp(App).mount('#app');
+

@@ -6,6 +6,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "vue": "^3.0.2"
   },
   "devDependencies": {
