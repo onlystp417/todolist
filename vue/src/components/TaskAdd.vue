@@ -1,6 +1,7 @@
 <template>
   <section class="add">
     <button class="add-form" @click="$emit('update:AddTaskFormShow', true)">
+    <!-- <button class="add-form"> -->
       <span><i class="fas fa-plus"></i></span>
       <span>Add Task</span>
     </button>

@@ -1,5 +1,6 @@
 <template>
   <form class="task" v-if="taskFormIsShow">
+    <!-- <pre>{{ taskData.id }}</pre> -->
     <header class="task-title major-task-bg">
       <h2>
         <span class="checkbox">
@@ -104,7 +105,7 @@
       </div>
       <div class="task-btn" v-if="isInList">
         <button class="task-btn-basic task-btn-cancel" @click.prevent="$emit('update:IsEdit', { value: false, id: taskData.id })"><i class="fas fa-times"></i>Cancel</button>
-        <button class="task-btn-basic task-btn-add" v-if="isInList"><i class="fas fa-plus"></i>Save Task</button>
+        <button class="task-btn-basic task-btn-add" v-if="isInList" @click.prevent="$emit('update:SaveTask', { id: taskData.id })"><i class="fas fa-plus"></i>Save Task</button>
       </div>
     </section>
   </form>
@@ -144,6 +145,7 @@ export default {
     "update:FileTime",
     "update:Comment",
     "update:AddTask",
+    "update:SaveTask"
   ],
   methods: {
     parseFileData(file) {

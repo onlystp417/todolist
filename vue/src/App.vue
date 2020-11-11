@@ -29,10 +29,12 @@
       @update:date="modifyTaskListData('date', { value:$event.value, id:$event.id })"
       @update:time="modifyTaskListData('time', { value:$event.value, id:$event.id })"
       @update:IsStar="modifyTaskListData('isStar', { value:$event.value, id:$event.id })"
-      @update:IsEdit="modifyTaskListData('isEdit', { value:$event.value, id:$event.id })"
+      @update:IsEdit="switchEditTask('isEdit', { value:$event.value, id:$event.id })"
       @update:FileName="modifyTaskListData('fileName', { value:$event.value, id:$event.id })"
       @update:FileTime="modifyTaskListData('fileTime', { value:$event.value, id:$event.id })"
       @update:Comment="modifyTaskListData('comment', { value:$event.value, id:$event.id })"
+
+      @update:SaveTask="saveTask"
     ></TaskList>
     <TaskCounter></TaskCounter>
   </main>
@@ -68,15 +70,22 @@ export default {
         comment: null,
         isEdit: true
       },
-      taskList: JSON.parse(localStorage.getItem('taskList')) || []
+      taskList: JSON.parse(localStorage.getItem('taskList')) || [],
+      newTaskList: JSON.parse(localStorage.getItem('taskList')) || []
     }
   },
   methods: {
     addTask(taskList) {
       localStorage.setItem('taskList', JSON.stringify(taskList));
       this.taskFormIsShow = false;
-      this.taskList = JSON.parse(localStorage.getItem('taskList'));
+      this.taskList = JSON.parse(localStorage.getItem('taskList')); // 更新資料
       this.taskDataInitial();
+    },
+    saveTask() {
+      console.log(this.newTaskList);
+      this.newTaskList.forEach(item => item.isEdit = false);
+      localStorage.setItem('taskList', JSON.stringify(this.newTaskList));
+      this.taskList = JSON.parse(localStorage.getItem('taskList')); // 更新資料
     },
     taskDataInitial() {
       this.taskData = {
@@ -92,8 +101,20 @@ export default {
       }
     },
     modifyTaskListData(key, { value, id }) {
-      console.log(key, value, id);
-      this.taskList.find(item => item.id === id)[key] = value;
+      console.log(this.newTaskList);
+      this.newTaskList.find(item => item.id === id)[key] = value;
+    },
+    switchEditTask(key, { value, id }) {
+      if (value) {
+        this.taskList.forEach(item => item[key] = false);
+        this.taskList.find(item => item.id === id)[key] = value;
+        localStorage.setItem('taskList', JSON.stringify(this.taskList));
+        this.taskList = JSON.parse(localStorage.getItem('taskList')); // 更新資料
+      } else {
+        this.taskList.find(item => item.id === id)[key] = value; 
+        localStorage.setItem('taskList', JSON.stringify(this.taskList));
+        this.taskList = JSON.parse(localStorage.getItem('taskList')); // 更新資料
+      }
     }
   }
 }
