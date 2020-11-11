@@ -17,6 +17,7 @@
           onkeypress="if (event.keyCode == 13) {return false;}"
           class="task-name task-data" type="text"
           placeholder="Type Something Here..."
+          :class="{'cross-off': taskData.isComplete}"
           :value="taskData.name"
           @input="$emit('update:Name', { value: $event.target.value, id: taskData.id })"
         >
