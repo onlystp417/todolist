@@ -1,11 +1,14 @@
 <template>
-  <HeaderTab></HeaderTab>
+  <HeaderTab
+    :tabName="tabName"
+    @update:TagName="this.tabName = $event"
+  ></HeaderTab>
   <main @click.self="taskFormIsShow = false">
     <TaskAdd
       :taskFormIsShow="taskFormIsShow"
       :isInList="isInList"
       :taskData="taskData"
-      :taskList="taskList"
+      :taskList="filterdTaskList"
       @update:AddTaskFormShow="taskFormIsShow = $event"
 
       @update:Complete="taskData.isComplete = $event.value"
@@ -20,7 +23,7 @@
       @update:AddTask="addTask"
     ></TaskAdd>
     <TaskList
-      :taskList="taskList"
+      :taskList="filterdTaskList"
       :taskFormIsShow="true"
       :isInList="true"
 
@@ -36,7 +39,7 @@
 
       @update:SaveTask="saveTask"
     ></TaskList>
-    <TaskCounter :taskList="taskList"></TaskCounter>
+    <TaskCounter :taskList="filterdTaskList"></TaskCounter>
   </main>
 </template>
 
@@ -57,6 +60,7 @@ export default {
   data() {
     return {
       taskFormIsShow: false,
+      tabName: "my-tasks",
       isInList: false,
       taskData: {
         id: 1,
@@ -157,6 +161,13 @@ export default {
         comment: null
       }
     },
+  },
+  computed: {
+    filterdTaskList() {
+      if (this.tabName === 'my-tasks') return this.taskList;
+      if (this.tabName === 'in-progress') return this.taskList.filter(item => item.isComplete === false);
+      if (this.tabName === 'completed') return this.taskList.filter(item => item.isComplete === true);
+    }
   }
 }
 </script>
