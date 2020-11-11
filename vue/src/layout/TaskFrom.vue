@@ -41,7 +41,7 @@
           @change="$emit('update:IsEdit', { value: $event.target.checked, id: taskData.id })"
         >
         <label class="task-mark-pen-custom" :class="{ 'is-edit': taskData.isEdit }" v-if="isInList" :for="`isEdit-${taskData.id}`"><i class="fas fa-pen"></i></label>
-        <button type="submit" class="task-mark-delete" id="delete-1"><i class="far fa-trash-alt"></i></button>
+        <button type="submit" class="task-mark-delete" v-if="isInList" :id="`delete-${ taskData.id }`" @click="$emit('update:DeleteTask', { id: taskData.id })"><i class="far fa-trash-alt"></i></button>
       </div>
       <div class="task-tag" v-if="isInList">
         <span class="tag-item tag-time" v-if="taskData.date">
@@ -146,7 +146,8 @@ export default {
     "update:FileTime",
     "update:Comment",
     "update:AddTask",
-    "update:SaveTask"
+    "update:SaveTask",
+    "update:DeleteTask"
   ],
   methods: {
     parseFileData(file) {

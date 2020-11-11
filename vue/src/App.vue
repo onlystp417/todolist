@@ -36,7 +36,8 @@
       @update:FileName="modifyTaskListData('fileName', { value:$event.value, id:$event.id })"
       @update:FileTime="modifyTaskListData('fileTime', { value:$event.value, id:$event.id })"
       @update:Comment="modifyTaskListData('comment', { value:$event.value, id:$event.id })"
-
+      
+      @update:DeleteTask="deleteTask({ id: $event.id })"
       @update:SaveTask="saveTask"
     ></TaskList>
     <TaskCounter :taskList="filterdTaskList"></TaskCounter>
@@ -89,6 +90,13 @@ export default {
     saveTask() {
       this.newTaskList.forEach(item => item.isEdit = false);
       localStorage.setItem('taskList', JSON.stringify(this.newTaskList));
+      this.taskList = JSON.parse(localStorage.getItem('taskList')); // 更新資料
+    },
+    deleteTask({ id }) {
+      const taskIndex = this.taskList.findIndex(item => item.id === id);
+      this.taskList.splice(taskIndex, 1);
+
+      localStorage.setItem('taskList', JSON.stringify(this.taskList)); // 儲存資料
       this.taskList = JSON.parse(localStorage.getItem('taskList')); // 更新資料
     },
     modifyTaskListData(key, { value, id }) {
@@ -160,7 +168,7 @@ export default {
         fileTime: null,
         comment: null
       }
-    },
+    }
   },
   computed: {
     filterdTaskList() {
