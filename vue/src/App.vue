@@ -36,7 +36,7 @@
 
       @update:SaveTask="saveTask"
     ></TaskList>
-    <TaskCounter></TaskCounter>
+    <TaskCounter :taskList="taskList"></TaskCounter>
   </main>
 </template>
 
