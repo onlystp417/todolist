@@ -76,16 +76,20 @@
         </section>
         <section class="task-form-item task-form-file">
           <h3><i class="far fa-file"></i>File</h3>
-          <div class="file-caption">
-            <h4></h4>
-            <time></time>
+          <div class="file-caption" v-if="!isInList">
+            <h4>{{ fileName }}</h4>
+            <time>{{ fileTime }}</time>
+          </div>
+          <div class="file-caption" v-if="isInList">
+            <h4>{{ taskData.fileName }}</h4>
+            <time>{{ taskData.fileTime }}</time>
           </div>
           <label class="file-add-button" for="add-file"><i class="fas fa-plus"></i></label>
           <input
             class="task-data file-input"
             type="file"
             id="add-file"
-            @input="parseFileData($event.target.files[0])"
+            @input="parseFileData($event.target.files[0], taskData.id)"
           >
         </section>
         <section class="task-form-item task-form-comment">
@@ -101,7 +105,7 @@
         </section>
       </div>
       <div class="task-btn" v-if="!isInList">
-        <button class="task-btn-basic task-btn-cancel" @click.prevent="$emit('update:AddTaskFormShow', false)"><i class="fas fa-times"></i>Cancel</button>
+        <button class="task-btn-basic task-btn-cancel" @click.prevent="$emit('update:AddTaskFormShow', false), fileName = null, fileTime = null"><i class="fas fa-times"></i>Cancel</button>
         <button class="task-btn-basic task-btn-add" v-if="!isInList" @click.prevent="addTask"><i class="fas fa-plus"></i>Add Task</button>
       </div>
       <div class="task-btn" v-if="isInList">
@@ -116,6 +120,12 @@
 export default {
   name: "task-form",
   inheritAttrs: false,
+  data() {
+    return {
+      fileName: null,
+      fileTime: null
+    }
+  },
   props: {
     taskFormIsShow: {
       type: Boolean,
@@ -150,9 +160,11 @@ export default {
     "update:DeleteTask"
   ],
   methods: {
-    parseFileData(file) {
-      this.$emit("update:FileName", file.name);
-      this.$emit("update:FileTime", this.timeFormat(new Date(file.lastModified)));
+    parseFileData(file, id) {
+      this.fileName = file.name;
+      this.fileTime = this.timeFormat(new Date(file.lastModified));
+      this.$emit("update:FileName", { value: file.name, id });
+      this.$emit("update:FileTime", { value: this.timeFormat(new Date(file.lastModified)), id });
     },
     timeFormat(timeStamp) {
       const year = timeStamp.getFullYear();
@@ -162,6 +174,8 @@ export default {
       return `${ year }.${ month }.${ day }`;
     },
     addTask() {
+      this.fileName = null;
+      this.fileTime = null;
       const newTask = {
         ...this.taskData,
         id: Date.now()
