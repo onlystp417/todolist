@@ -70,10 +70,10 @@ export default {
         date: null,
         time: null,
         isStar: false,
+        isEdit: false,
         fileName: null,
         fileTime: null,
-        comment: null,
-        isEdit: false
+        comment: null
       },
       taskList: JSON.parse(localStorage.getItem('taskList')) || [],
       newTaskList: JSON.parse(localStorage.getItem('taskList')) || []
@@ -132,10 +132,12 @@ export default {
     },
     hoistTask(key, { value, id }) {
       if (value) {
+        // console.log(key, value, id);
         const starTaskIndex = this.newTaskList.findIndex(item => item.id === id);
         const starTask = this.newTaskList.splice(starTaskIndex, 1);
         starTask[0][key] = value;
         this.newTaskList.unshift(starTask[0]);
+        // console.log(this.newTaskList);
   
         localStorage.setItem('taskList', JSON.stringify(this.newTaskList)); // 儲存資料
         this.taskList = JSON.parse(localStorage.getItem('taskList')); // 更新資料
@@ -164,6 +166,7 @@ export default {
         date: null,
         time: null,
         isStar: false,
+        isEdit: false,
         fileName: null,
         fileTime: null,
         comment: null
