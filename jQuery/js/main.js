@@ -106,7 +106,7 @@ function showAddTaskForm(e) {
   e.stopPropagation();
 
   $('.task-add-form').show();
-  $('.task-add-form .file-input').change( showFileChange )
+  $('.task-add-form .file-input').change( showFileChange );
 }
 
 // 新增任務
@@ -207,7 +207,7 @@ function saveEditChange(e) {
   e.preventDefault();
 
   const index = ID2Index(e.currentTarget.id);
-  // const inputs = Array.from(document.querySelectorAll(`#task-item-${index + 1} .task-data`));
+  
   const inputs = Array.from($(`#task-item-${index + 1}`).find('.task-data'));
 
   const newTask = getFormData(inputs, taskListArray[index]);
