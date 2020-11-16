@@ -111,8 +111,7 @@ function addEvent4TaskStatus() {
 function showAddTaskForm(e) {
   e.stopPropagation();
 
-  $('.task').show();
-  $('.task-btn-add').click(taskAdd);
+  $('.task-add-form').show();
   
   showFileChange(e.currentTarget);
 }
@@ -130,7 +129,7 @@ function taskAdd(e) {
 
   taskListArray.unshift(newTask);
   storeData();
-  taskAddingForm.classList.add('d-none');
+  $('.task-add-form').hide();
 
   resetInputs(e.currentTarget);
   renderUI();
@@ -150,7 +149,7 @@ function cacelAddTask(e) {
   e.preventDefault();
   e.stopPropagation();
 
-  $('.task').hide();
+  $('.task-add-form').hide();
 
   resetInputs(e.currentTarget);
 }
