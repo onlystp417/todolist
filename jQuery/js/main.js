@@ -181,14 +181,9 @@ function openTaskEditForm(e){
 function removeFileChange(e) {
   const index = ID2Index(e.currentTarget.id);
   const indexTaskList = UIIndex2DataIndex(index);
-  
-  const taskItem = document.querySelector(`#task-item-${ index + 1 }`);
 
-  const fileName = taskItem.querySelector('.file-caption > h4');
-  const fileTime = taskItem.querySelector('.file-caption > time');
-
-  fileName.textContent = taskListArray[indexTaskList].file;
-  fileTime.textContent = taskListArray[indexTaskList].fileTime;
+  const fileName = $(`#task-item-${ index + 1 }`).children('.file-caption > h4').text( taskListArray[indexTaskList].file) ;
+  const fileTime = $(`#task-item-${ index + 1 }`).children('.file-caption > time').text( taskListArray[indexTaskList].fileTime );
 }
 
 // 上傳檔案即時顯示檔案名稱與修改日期
