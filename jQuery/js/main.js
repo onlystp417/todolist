@@ -118,9 +118,9 @@ function showAddTaskForm(e) {
 }
 
 // 新增任務
-function taskAdd(event) {
-  event.stopPropagation();
-  event.preventDefault();
+function taskAdd(e) {
+  e.stopPropagation();
+  e.preventDefault();
 
   const taskAddingForm = document.querySelector('.task');
   const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
@@ -132,7 +132,7 @@ function taskAdd(event) {
   storeData();
   taskAddingForm.classList.add('d-none');
 
-  resetInputs();
+  resetInputs(e.currentTarget);
   renderUI();
 }
 
@@ -152,19 +152,16 @@ function cacelAddTask(e) {
 
   $('.task').hide();
 
-  resetInputs();
+  resetInputs(e.currentTarget);
 }
 
 // reset（清空） input 的值
 function resetInputs() {
-  const taskAddingForm = document.querySelector('.task');
-  taskAddingForm.reset();
+  $('.task').trigger('reset');
   
   // 把檔案標題與時間清空
-  const fileName = taskAddingForm.querySelector('.file-caption > h4');
-  const fileTime = taskAddingForm.querySelector('.file-caption > time');
-  fileName.textContent = '';
-  fileTime.textContent = '';
+  $('.task').children('.file-caption > h4').textContent = '';
+  $('.task').children('.file-caption > time').textContent = '';
 }
 
 // 勾選為已完成

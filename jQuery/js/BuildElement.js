@@ -90,8 +90,8 @@ function buildTaskBody(item, index) {
 function buildTaskButton(index) {
   return `
   <div class="task-btn">
-    <button class="task-btn-basic task-btn-cancel" id="save-button-${index + 1}"><i class="fas fa-times"></i>Cancel</button>
-    <button class="task-btn-basic task-btn-save" id="cancel-button-${index + 1}"><i class="fas fa-plus"></i>Save</button>
+    <button type="reset" class="task-btn-basic task-btn-cancel" id="save-button-${index + 1}"><i class="fas fa-times"></i>Cancel</button>
+    <button type="submit" class="task-btn-basic task-btn-save" id="cancel-button-${index + 1}"><i class="fas fa-plus"></i>Save</button>
   </div>
   `
 }
