@@ -18,6 +18,7 @@ function initEvent() {
   // 防止點擊任務列表區域導致 form 關閉
   $('.tasks-list').click( e => e.stopPropagation());
   $('.add-form').click( showAddTaskForm );
+  $('.task-btn-add').click( taskAdd );
   $('.task-btn-cancel').click( cacelAddTask );
   $('main').click( cacelAddTask );
   document.querySelectorAll('.label-link')
@@ -112,13 +113,13 @@ function showAddTaskForm(e) {
   e.stopPropagation();
 
   $('.task-add-form').show();
-  $('.task-btn-add').click( taskAdd );
-
   $('.task-add-form .file-input').change( showFileChange )
 }
 
 // 新增任務
 function taskAdd(e) {
+  console.log(e.target);
+
   e.stopPropagation();
   e.preventDefault();
 
