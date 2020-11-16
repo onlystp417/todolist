@@ -21,8 +21,7 @@ function initEvent() {
   $('.task-btn-add').click( taskAdd );
   $('.task-btn-cancel').click( cacelAddTask );
   $('main').click( cacelAddTask );
-  document.querySelectorAll('.label-link')
-    .forEach(tag => tag.addEventListener('click', switchTag));
+  $('.label-link').each((index, element) => $(element).click( switchTag ));
 }
 
 // 將所有任務渲染在畫面上
@@ -43,12 +42,10 @@ function storeData() {
 
 // 切換頁籤功能
 function switchTag(e) {
-  const tags = document.querySelectorAll('.label-link')
-
   tagName = e.currentTarget.dataset.tagname;
-
-  tags.forEach(item => item.classList.remove('current'));
-  e.currentTarget.classList.add('current');
+  
+  $('.label-link').each((index, element) => $(element).removeClass('current'));
+  $(e.currentTarget).addClass('current');
 
   renderUI();
 }
@@ -207,7 +204,7 @@ function saveEditChange(e) {
   e.preventDefault();
 
   const index = ID2Index(e.currentTarget.id);
-  
+
   const inputs = Array.from($(`#task-item-${index + 1}`).find('.task-data'));
 
   const newTask = getFormData(inputs, taskListArray[index]);
