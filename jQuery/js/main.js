@@ -167,13 +167,12 @@ function checkComplete(e) {
 // 打開已存在任務的編輯區域
 function openTaskEditForm(e){
   e.preventDefault();
-  document.querySelectorAll('.task').forEach(item => {
-    if(item.classList.contains('is-edit')) item.classList.remove('is-edit');
+  $('.task').each((index, element) => {
+    if($(element).hasClass('is-edit')) $(element).removeClass('is-edit');
   });
   const index = ID2Index(e.currentTarget.id);
 
-  const currentTask = document.querySelector(`#task-item-${index + 1}`);
-  currentTask.classList.add('is-edit');
+  $(`#task-item-${index + 1}`).addClass('is-edit');
   
   $(`#task-item-${index + 1}`).change( showFileChange )
 };
