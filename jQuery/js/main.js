@@ -112,8 +112,9 @@ function showAddTaskForm(e) {
   e.stopPropagation();
 
   $('.task-add-form').show();
-  
-  showFileChange(e.currentTarget);
+  $('.task-btn-add').click( taskAdd );
+
+  // showFileChange(e.currentTarget);
 }
 
 // 新增任務
@@ -121,11 +122,7 @@ function taskAdd(e) {
   e.stopPropagation();
   e.preventDefault();
 
-  const taskAddingForm = document.querySelector('.task');
-  const inputs = Array.from(taskAddingForm.querySelectorAll('.task-data'));
-  let newTask = {};
-
-  newTask = getFormData(inputs, newTask)
+  const newTask = getFormData(Array.from($(e.target).closest('.task').find('.task-data')), {})
 
   taskListArray.unshift(newTask);
   storeData();
@@ -155,7 +152,7 @@ function cacelAddTask(e) {
 }
 
 // reset（清空） input 的值
-function resetInputs() {
+function resetInputs(e) {
   $('.task').trigger('reset');
   
   // 把檔案標題與時間清空
@@ -204,7 +201,7 @@ function removeFileChange(e) {
 
 // 上傳檔案即時顯示檔案名稱與修改日期
 function showFileChange(taskCard) {
-  console.log(taskCard);
+  // console.log(taskCard);
   // const fileName = taskCard.querySelector('.file-caption > h4');
   // const fileTime = taskCard.querySelector('.file-caption > time');
   // const fileInput = taskCard.querySelector('.file-input');
