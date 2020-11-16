@@ -256,14 +256,13 @@ function ID2Index(target) {
 
 // 顯示未完成任務的數量
 function showLeftTasks() {
-  const taskCounter = document.querySelector('.task-counter > span');
   let leftTaskAmount = 0;
-
+  
   taskListArray.map(item => {
     leftTaskAmount += item.isComplete === false ? 1 : 0;
   });
-
-  taskCounter.textContent = leftTaskAmount;
+  
+  $('.task-counter > span').text( leftTaskAmount );
 }
 
 // 刪除任務
