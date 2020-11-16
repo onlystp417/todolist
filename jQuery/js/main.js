@@ -28,10 +28,9 @@ function initEvent() {
 // 將所有任務渲染在畫面上
 function renderUI() {
   taskListShow = sortTaskList(filterTaskList(tagName));
-  const taskList = document.querySelector('.tasks-list');
+
   const taskListHTML = taskListShow.map((item, index) => buildTaskForm(item, index));
-  
-  taskList.innerHTML = taskListHTML.join('');
+  const taskList = $('.tasks-list').html(taskListHTML.join(''));
   
   addEvent4TaskStatus();
   showLeftTasks();
@@ -87,27 +86,19 @@ function sortTaskList(taskArray) {
 // 為 task 狀態按鈕綁定事件
 function addEvent4TaskStatus() {
   // 綁定 isCompete inputs
-  // const isCompletInputs = document.querySelectorAll('.tasks-list .check-is-complete');
-  // isCompletInputs.forEach(input => input.addEventListener('change', checkComplete));
-
   $('.tasks-list .check-is-complete').each((index, element) => $(element).change( checkComplete ));
 
   // 綁定 isStar inputs
-  const isStarInputs = document.querySelectorAll('.tasks-list .task-mark-star');
-  isStarInputs.forEach(input => input.addEventListener('change', markStar));
+  $('.tasks-list .task-mark-star').each((index, element) => $(element).change( markStar ));
 
   // 綁定 isEdit input
-  const isEditInputs = document.querySelectorAll('.tasks-list .task-mark-pen');
-  isEditInputs.forEach(input => input.addEventListener('change', openTaskEditForm));
+  $('.tasks-list .task-mark-pen').each((index, element) => $(element).change( openTaskEditForm ));
 
-  const saveChangeButtons = document.querySelectorAll('.tasks-list .task-btn-save');
-  saveChangeButtons.forEach(button => button.addEventListener('click', saveEditChange));
+  $('.tasks-list .task-btn-save').each((index, element) => $(element).click( saveEditChange ));
 
-  const cancelEditButtons = document.querySelectorAll('.tasks-list .task-btn-cancel');
-  cancelEditButtons.forEach(button => button.addEventListener('click', cancelEdit));
+  $('.tasks-list .task-btn-cancel').each((index, element) => $(element).click( cancelEdit ));
 
-  const deleteTaskButton = document.querySelectorAll('.task-mark-delete');
-  deleteTaskButton.forEach(button => button.addEventListener('click', deleteTask));
+  $('.task-mark-delete').each((index, element) => $(element).click( deleteTask ))
 }
 
 // 叫出新增任務的窗口
@@ -120,8 +111,6 @@ function showAddTaskForm(e) {
 
 // 新增任務
 function taskAdd(e) {
-  console.log(e.target);
-
   e.stopPropagation();
   e.preventDefault();
 
@@ -213,10 +202,10 @@ function showFileChange(e) {
 function cancelEdit(e) {
   e.preventDefault();
   const index = ID2Index(e.currentTarget.id);
-  const currentTask = document.querySelector(`#task-item-${index + 1}`);
-  currentTask.classList.remove('is-edit');
+  const currentTask = $(`#task-item-${index + 1}`).removeClass('is-edit');
 
   removeFileChange(e);
+  renderUI();
 };
 
 // 儲存已存在任務的變更
@@ -224,7 +213,8 @@ function saveEditChange(e) {
   e.preventDefault();
 
   const index = ID2Index(e.currentTarget.id);
-  const inputs = Array.from(document.querySelectorAll(`#task-item-${index + 1} .task-data`));
+  // const inputs = Array.from(document.querySelectorAll(`#task-item-${index + 1} .task-data`));
+  const inputs = Array.from($(`#task-item-${index + 1}`).find('.task-data'));
 
   const newTask = getFormData(inputs, taskListArray[index]);
 
