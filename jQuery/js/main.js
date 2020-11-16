@@ -87,8 +87,10 @@ function sortTaskList(taskArray) {
 // 為 task 狀態按鈕綁定事件
 function addEvent4TaskStatus() {
   // 綁定 isCompete inputs
-  const isCompletInputs = document.querySelectorAll('.tasks-list .check-is-complete');
-  isCompletInputs.forEach(input => input.addEventListener('change', checkComplete));
+  // const isCompletInputs = document.querySelectorAll('.tasks-list .check-is-complete');
+  // isCompletInputs.forEach(input => input.addEventListener('change', checkComplete));
+
+  $('.tasks-list .check-is-complete').each((index, element) => $(element).change( checkComplete ));
 
   // 綁定 isStar inputs
   const isStarInputs = document.querySelectorAll('.tasks-list .task-mark-star');
