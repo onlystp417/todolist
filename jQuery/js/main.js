@@ -114,7 +114,7 @@ function showAddTaskForm(e) {
   $('.task-add-form').show();
   $('.task-btn-add').click( taskAdd );
 
-  // showFileChange(e.currentTarget);
+  $('.task-add-form .file-input').change( showFileChange )
 }
 
 // 新增任務
@@ -183,7 +183,7 @@ function openTaskEditForm(e){
   const currentTask = document.querySelector(`#task-item-${index + 1}`);
   currentTask.classList.add('is-edit');
   
-  showFileChange(e.currentTarget);
+  $(`#task-item-${index + 1}`).change( showFileChange )
 };
 
 function removeFileChange(e) {
@@ -200,16 +200,10 @@ function removeFileChange(e) {
 }
 
 // 上傳檔案即時顯示檔案名稱與修改日期
-function showFileChange(taskCard) {
-  // console.log(taskCard);
-  // const fileName = taskCard.querySelector('.file-caption > h4');
-  // const fileTime = taskCard.querySelector('.file-caption > time');
-  // const fileInput = taskCard.querySelector('.file-input');
-
-  // fileInput.addEventListener('change', (e) => {
-  //   fileName.textContent = e.currentTarget.files[0].name;
-  //   fileTime.textContent = timeFormat(new Date(Date.now()));
-  //})
+function showFileChange(e) {
+  if (!e.target.files) return;
+    $(e.target).siblings('.file-caption').children('.file-caption > h4').text(e.target.files[0].name);
+    $(e.target).siblings('.file-caption').children('.file-caption > time').text(timeFormat(new Date(Date.now())));
 }
 
 // 取消編輯已存在任務
