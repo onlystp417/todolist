@@ -128,7 +128,7 @@ function taskAdd(e) {
   storeData();
   $('.task-add-form').hide();
 
-  resetInputs(e.currentTarget);
+  resetInputs();
   renderUI();
 }
 
@@ -148,16 +148,16 @@ function cacelAddTask(e) {
 
   $('.task-add-form').hide();
 
-  resetInputs(e.currentTarget);
+  resetInputs();
 }
 
 // reset（清空） input 的值
-function resetInputs(e) {
+function resetInputs() {
   $('.task').trigger('reset');
   
   // 把檔案標題與時間清空
-  $('.task').children('.file-caption > h4').textContent = '';
-  $('.task').children('.file-caption > time').textContent = '';
+  $('.task .file-caption > h4').text('');
+  $('.task .file-caption > time').text('');
 }
 
 // 勾選為已完成
