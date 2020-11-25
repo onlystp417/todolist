@@ -75,7 +75,8 @@ function buildTaskBody(item, index) {
           <time>${ item.fileTime }</time>
         </div>
         <label class="file-add-button" for="add-file-${ index + 1 }"><i class="fas fa-plus"></i></label>
-        <input class="task-data file-input" type="file" data-keyname="file" id="add-file-${ index + 1 }">              <div class="file-add">
+        <input class="task-data file-input" type="file" data-keyname="file" id="add-file-${ index + 1 }">
+        <div class="file-add">
       </section>
       <section class="task-form-item task-form-comment">
         <h3><i class="far fa-comment-dots"></i>Comment</h3>
@@ -96,4 +97,5 @@ function buildTaskButton(index) {
   `
 }
 
+// module.exports = { buildTaskForm  };
 export { buildTaskForm };
