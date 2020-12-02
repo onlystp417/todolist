@@ -1,3 +1,53 @@
+import taskOperator from '../data/taskOperator.js';
+import tabOperator from '../data/tabOperator.js';
+import taskListShowProcessor from '../data/taskListShowProcessor.js';
+
+function taskUIRender(taskListArray) {
+  // const tabName = tabOperator.getTab();
+  const taskListShow = taskListShowProcessor(taskListArray);
+  const taskListHTML =  taskListShow.map((item, index) => buildTaskForm(item, index));
+  
+  const taskList = document.querySelector('.tasks-list');
+  taskList.innerHTML = taskListHTML.join('');
+  // showLeftTasks(taskListArray);
+  
+  addEvent4TaskStatus(taskListArray);
+}
+
+function addEvent4TaskStatus(taskListArray) {
+  // 綁定 isCompete inputs
+  const isCompletInputs = document.querySelectorAll('.tasks-list .check-is-complete');
+  isCompletInputs.forEach(input => input.addEventListener('change', event => taskOperator.checkComplete(event, taskListArray)));
+
+  // 綁定 isStar inputs
+  const isStarInputs = document.querySelectorAll('.tasks-list .task-mark-star');
+  isStarInputs.forEach(input => input.addEventListener('change', event => taskOperator.markStar(event, taskListArray)));
+
+  // 綁定 isEdit input
+  const isEditInputs = document.querySelectorAll('.tasks-list .task-mark-pen');
+  isEditInputs.forEach(input => input.addEventListener('change', taskOperator.showTaskEditForm));
+
+  const saveChangeButtons = document.querySelectorAll('.tasks-list .task-btn-save');
+  saveChangeButtons.forEach(button => button.addEventListener('click', event => taskOperator.submitTaskEdit(event, taskListArray)));
+
+  const cancelEditButtons = document.querySelectorAll('.tasks-list .task-btn-cancel');
+  cancelEditButtons.forEach(button => button.addEventListener('click', event => taskOperator.cancelTaskEdit(event, taskListArray)));
+
+  const deleteTaskButton = document.querySelectorAll('.task-mark-delete');
+  deleteTaskButton.forEach(button => button.addEventListener('click', event => taskOperator.deleteTask(event, taskListArray)));
+}
+
+function leftTasksUIRender(taskListArray) {
+  const taskCounter = document.querySelector('.task-counter > span');
+  let leftTaskAmount = 0;
+
+  taskListArray.map(item => {
+    leftTaskAmount += item.isComplete === false ? 1 : 0;
+  });
+
+  taskCounter.textContent = leftTaskAmount;
+}
+
 function buildTaskForm(item, index) {
   return `
   <form class="task" id="task-item-${index + 1}">
@@ -97,5 +147,4 @@ function buildTaskButton(index) {
   `
 }
 
-// module.exports = { buildTaskForm  };
-export { buildTaskForm };
+export { taskUIRender, leftTasksUIRender };
