@@ -12,20 +12,7 @@ initEvent(taskListArray);
 
 // 取得 DOM 節點
 function initEvent(taskListArray) {
-  // 防止 form 點擊自己會關閉
-  document.querySelector('.task')
-    .addEventListener('click', event => event.stopPropagation());
-  // 防止點擊任務列表區域導致 form 關閉
-  document.querySelector('.tasks-list')
-    .addEventListener('click', event => event.stopPropagation());
-  document.querySelector('.add-form')
-    .addEventListener('click', event => taskOperator.showTaskAddForm(event, taskListArray));
-  document.querySelector('.task-btn-cancel')
-    .addEventListener('click', taskOperator.cancelTaskAdd);
-  document.querySelector('main')
-    .addEventListener('click', taskOperator.cancelTaskAdd);
-  // document.querySelectorAll('.label-link')
-  //   .forEach(tag => tag.addEventListener('click', event => tabOperator.setTab(event, taskListArray)));
+  taskOperator.initTaskEvent(taskListArray);
   initTabEvent(taskListArray);
 
   // enter page render UI

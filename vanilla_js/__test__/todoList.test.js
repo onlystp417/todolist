@@ -288,3 +288,176 @@ describe('測試 tab 操作', () => {
     expect(tabGroup.innerHTML.replace(/\s/g, '')).toBe(expectedResult.replace(/\s/g, ''));
   })
 })
+
+describe('測試 task 操作', () => {
+  describe('新增任務', () => {
+    afterEach(() => {
+      document.body.innerHTML = '';
+    });
+
+    beforeEach(() => {
+      // fake DOM select
+      document.body.innerHTML = `
+        <header class="body-header" data-testid="tabGroup">
+          <a href="##" data-testid="tab" class="label-link current" data-tabname="my-tasks">My Tasks</a>
+          <a href="##" class="label-link" data-tabname="progress">In Progress</a>
+          <a href="##" class="label-link" data-tabname="completed">Completed</a>
+        </header>
+        <main>
+          <section class="add">
+            <button data-testid="taskFormOpenButton" class="add-form">
+              <span><i class="fas fa-plus"></i></span>
+              <span>Add Task</span>
+            </button>
+          </section>
+          <form data-testid="taskForm" class="task d-none">
+            <header class="task-title major-task-bg">
+              <h2>
+                <span class="checkbox">
+                  <!-- check-is-complete 的 id 值要用 js 賦予新的值  -->
+                  <input class="check-is-complete task-data" id="check" type="checkbox" data-keyname="isComplete">
+                  <label class="check-custom" for="check"><i class="fas fa-check"></i></label>
+                </span>
+                <input data-testid="taskNameInput" onkeypress="if (event.keyCode == 13) {return false;}" class="task-name task-data" type="text" placeholder="Type Something Here..." data-keyname="name">
+              </h2>
+              <div class="task-mark">
+                <input class="task-mark-star task-data" id="isStar" type="checkbox" data-keyname="isStar">
+                <label class="task-mark-star-custom" for="isStar"></label>
+                <input class="task-mark-pen" id="isEdit" type="checkbox" data-keyname="isEdit">
+                <label class="task-mark-pen-custom" for="isEdit"></label>
+              </div>
+            </header>
+            <section class="task-form">
+              <div class="task-form-edit">
+                <section class="task-form-item task-form-deadline">
+                  <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
+                  <div class="task-deadline">
+                    <input data-testid="taskDateInput" class="task-data" type="date" data-keyname="date">
+                    <input class="task-data" type="time" data-keyname="time">
+                  </div>
+                </section>
+                <section class="task-form-item task-form-file">
+                  <h3><i class="far fa-file"></i>File</h3>
+                  <div class="file-caption">
+                    <h4></h4>
+                    <time></time>
+                  </div>
+                  <label class="file-add-button" for="add-file"><i class="fas fa-plus"></i></label>
+                  <input class="task-data file-input" type="file" data-keyname="file" id="add-file">
+                </section>
+                <section class="task-form-item task-form-comment">
+                  <h3><i class="far fa-comment-dots"></i>Comment</h3>
+                  <textarea data-testid="taskCommentInput" class="task-data" data-keyname="comment" cols="30" rows="3" placeholder="Type your meno here..."></textarea>
+                </section>
+              </div>
+              <div class="task-btn">
+                <button class="task-btn-basic task-btn-cancel"><i class="fas fa-times"></i>Cancel</button>
+                <button data-testid="taskAddButton" class="task-btn-basic task-btn-add"><i class="fas fa-plus"></i>Add Task</button>
+              </div>
+            </section>
+          </form>
+          <div data-testid="tasksList" class="tasks-list">
+          </div>
+          <p class="task-counter"><span data-testid="taskCounter">0</span> task left</p>
+        </main>
+      `;
+      const tab = getByTestId(document.body, 'tab');
+      const taskFormOpenButton = getByTestId(document.body, 'taskFormOpenButton');
+      const taskNameInput = getByTestId(document.body, 'taskNameInput');
+      const taskDateInput = getByTestId(document.body, 'taskDateInput');
+      const taskCommentInput = getByTestId(document.body, 'taskCommentInput');
+      const taskAddButton = getByTestId(document.body, 'taskAddButton');
+      
+      let taskListArray = [];
+      taskOperator.initTaskEvent(taskListArray);
+      initTabEvent(taskListArray);
+  
+      // action: open task form
+      fireEvent.click(taskFormOpenButton);
+  
+      // fill in form data
+      taskNameInput.value = '測試任務';
+      taskDateInput.value = '2020-12-05';
+      taskCommentInput.value = '單元測試';
+  
+      // action: task adding form submit & check all tasks
+      fireEvent.click(taskAddButton);
+      fireEvent.click(tab);
+    })
+
+    // assertion
+    test('點擊 Add Task 按鈕顯示 task 表單', () => {
+      const taskForm = getByTestId(document.body, 'taskForm');
+      expect(taskForm.classList).toEqual(expect.not.arrayContaining(['d-none']));
+    })
+    test('任務是否新增到清單中', () => {
+      const tasksList = getByTestId(document.body, 'tasksList');
+      const expectResult = `
+        <form class="task" id="task-item-1">
+          <header class="task-title ">
+            <h2>
+              <span class="checkbox">
+                <input class="check-is-complete task-data" id="check-1" type="checkbox" data-keyname="isComplete">
+                <label class="check-custom" for="check-1"><i class="fas fa-check"></i></label>
+              </span>
+              <input onkeypress="if (event.keyCode == 13) {return false;}" class="task-name task-data " type="text" placeholder="Type Something Here..." value="測試任務" data-keyname="name">
+            </h2>
+            <div class="task-mark">
+              <input class="task-mark-star task-data" id="isStar-1" type="checkbox" data-keyname="isStar">
+              <label class="task-mark-star-custom" for="isStar-1"></label>
+              <input class="task-mark-pen" id="isEdit-1" type="checkbox" data-keyname="isEdit">
+              <label class="task-mark-pen-custom" for="isEdit-1" id="edit-pen-1"></label>
+              <button type="submit" class="task-mark-delete" id="delete-1"><i class="far fa-trash-alt"></i></button>
+            </div>
+            <div class="task-tag">
+              <span class="tag-item tag-time ">
+                <i class="far fa-calendar-alt"></i><time>2020-12-05</time>
+              </span>
+              <span class="tag-item tag-file d-none">
+                <i class="far fa-file"></i>
+              </span>
+              <span class="tag-item tag-comment ">
+                <i class="far fa-comment-dots"></i>
+              </span>
+            </div>
+          </header>
+          <section class="task-form d-none">
+            <div class="task-form-edit">
+              <section class="task-form-item task-form-deadline">
+                <h3><i class="far fa-calendar-alt"></i>Deadline</h3>
+                <div action="">
+                  <input class="task-data" type="date" value="2020-12-05" data-keyname="date">
+                  <input class="task-data" type="time" value="" data-keyname="time">
+                </div>
+              </section>
+              <section class="task-form-item task-form-file">
+                <h3><i class="far fa-file"></i>File</h3>
+                <div class="file-caption">
+                  <h4></h4>
+                  <time></time>
+                </div>
+                <label class="file-add-button" for="add-file-1"><i class="fas fa-plus"></i></label>
+                <input class="task-data file-input" type="file" data-keyname="file" id="add-file-1">
+                <div class="file-add">
+              </div></section>
+              <section class="task-form-item task-form-comment">
+                <h3><i class="far fa-comment-dots"></i>Comment</h3>
+                <textarea class="task-data" name="" id="" cols="3" rows="3" placeholder="Type your meno here..." data-keyname="comment">單元測試</textarea>
+              </section>
+            </div>
+            <div class="task-btn">
+              <button class="task-btn-basic task-btn-cancel" id="save-button-1"><i class="fas fa-times"></i>Cancel</button>
+              <button class="task-btn-basic task-btn-save" id="cancel-button-1"><i class="fas fa-plus"></i>Save</button>
+            </div>
+          </section>
+        </form>
+      `;
+      expect(tasksList.innerHTML.replace(/\s/g, '')).toBe(expectResult.replace(/\s/g, ''));
+    })
+    test('待辦清單數量為 1', () => {
+      const taskCounter = getByTestId(document.body, 'taskCounter');
+      expect(taskCounter.textContent).toBe('1');
+    })
+  })
+
+})

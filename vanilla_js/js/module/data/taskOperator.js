@@ -3,6 +3,21 @@ import fileUIRender from '../UI/fileUIRender.js';
 import { UIIndex2DataIndex, ID2Index } from '../utility/indexParse.js';
 import timeFormat from '../utility/timeFormat.js';
 
+function initTaskEvent (taskListArray) {
+  // 防止 form 點擊自己會關閉
+  document.querySelector('.task')
+    .addEventListener('click', event => event.stopPropagation());
+  // 防止點擊任務列表區域導致 form 關閉
+  document.querySelector('.tasks-list')
+    .addEventListener('click', event => event.stopPropagation());
+  document.querySelector('.add-form')
+    .addEventListener('click', event => showTaskAddForm(event, taskListArray));
+  document.querySelector('.task-btn-cancel')
+    .addEventListener('click', cancelTaskAdd);
+  document.querySelector('main')
+    .addEventListener('click', cancelTaskAdd);
+}
+
 function showTaskAddForm (event, taskListArray) {
   const taskAddingForm = document.querySelector('.task');
   const taskAddButton = document.querySelector('.task-btn-add');
@@ -143,8 +158,7 @@ function storeData (taskListArray) {
 }
 
 export default {
-  showTaskAddForm,
-  cancelTaskAdd,
+  initTaskEvent,
   submitTaskAdd,
   showTaskEditForm,
   submitTaskEdit,
