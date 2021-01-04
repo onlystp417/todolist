@@ -1,15 +1,12 @@
 import taskOperator from '../data/taskOperator.js';
-import tabOperator from '../data/tabOperator.js';
 import taskListShowProcessor from '../data/taskListShowProcessor.js';
 
 function taskUIRender(taskListArray) {
-  // const tabName = tabOperator.getTab();
   const taskListShow = taskListShowProcessor(taskListArray);
   const taskListHTML =  taskListShow.map((item, index) => buildTaskForm(item, index));
   
   const taskList = document.querySelector('.tasks-list');
   taskList.innerHTML = taskListHTML.join('');
-  // showLeftTasks(taskListArray);
   
   addEvent4TaskStatus(taskListArray);
 }
@@ -147,4 +144,4 @@ function buildTaskButton(index) {
   `
 }
 
-export { taskUIRender, leftTasksUIRender };
+export { taskUIRender, leftTasksUIRender, addEvent4TaskStatus };
