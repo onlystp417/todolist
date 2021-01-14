@@ -2,7 +2,7 @@
   <section class="add">
     <button class="add-form" @click="$emit('update:AddTaskFormShow', true)">
     <!-- <button class="add-form"> -->
-      <span><i class="fas fa-plus"></i></span>
+      <span><font-awesome-icon icon="plus" /></span>
       <span>Add Task</span>
     </button>
   </section>

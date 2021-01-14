@@ -11,7 +11,7 @@
             :checked="taskData.isComplete"
             @change="$emit('update:Complete', { value: $event.target.checked, id: taskData.id })"
           >
-          <label class="check-custom" :for="`check-${taskData.id}`"><i class="fas fa-check"></i></label>
+          <label class="check-custom" :for="`check-${taskData.id}`"><font-awesome-icon icon="check" /></label>
         </span>
         <input
           onkeypress="if (event.keyCode == 13) {return false;}"
@@ -32,7 +32,7 @@
           @change="$emit('update:IsStar', { value: $event.target.checked, id: taskData.id })"
         >
         <label class="task-mark-star-custom task-mark-star-custom-off" v-if="!taskData.isStar" :for="`isStar-${taskData.id}`"><i class="far fa-star"></i></label>
-        <label class="task-mark-star-custom task-mark-star-custom-on" v-if="taskData.isStar" :for="`isStar-${taskData.id}`"><i class="fas fa-star"></i></label>
+        <label class="task-mark-star-custom task-mark-star-custom-on" v-if="taskData.isStar" :for="`isStar-${taskData.id}`"><font-awesome-icon icon="star" /></label>
         <input
           class="task-mark-pen"
           :id="`isEdit-${taskData.id}`"
@@ -40,7 +40,7 @@
           :checked="taskData.isEdit"
           @change="$emit('update:IsEdit', { value: $event.target.checked, id: taskData.id })"
         >
-        <label class="task-mark-pen-custom" :class="{ 'is-edit': taskData.isEdit }" v-if="isInList" :for="`isEdit-${taskData.id}`"><i class="fas fa-pen"></i></label>
+        <label class="task-mark-pen-custom" :class="{ 'is-edit': taskData.isEdit }" v-if="isInList" :for="`isEdit-${taskData.id}`"><font-awesome-icon icon="pen" /></label>
         <label class="task-mark-delete" v-if="isInList" :id="`delete-${ taskData.id }`" @click="$emit('update:DeleteTask', { id: taskData.id })"><i class="far fa-trash-alt"></i></label>
       </div>
       <div class="task-tag" v-if="isInList">
@@ -84,7 +84,7 @@
             <h4>{{ taskData.fileName }}</h4>
             <time>{{ taskData.fileTime }}</time>
           </div>
-          <label class="file-add-button" for="add-file"><i class="fas fa-plus"></i></label>
+          <label class="file-add-button" for="add-file"><font-awesome-icon icon="plus" /></label>
           <input
             class="task-data file-input"
             type="file"
@@ -105,12 +105,12 @@
         </section>
       </div>
       <div class="task-btn" v-if="!isInList">
-        <button class="task-btn-basic task-btn-cancel" @click.prevent="$emit('update:AddTaskFormShow', false), fileName = null, fileTime = null"><i class="fas fa-times"></i>Cancel</button>
-        <button class="task-btn-basic task-btn-add" v-if="!isInList" @click.prevent="addTask"><i class="fas fa-plus"></i>Add Task</button>
+        <button class="task-btn-basic task-btn-cancel" @click.prevent="$emit('update:AddTaskFormShow', false), fileName = null, fileTime = null"><font-awesome-icon icon="times" />Cancel</button>
+        <button class="task-btn-basic task-btn-add" v-if="!isInList" @click.prevent="addTask"><font-awesome-icon icon="plus" />Add Task</button>
       </div>
       <div class="task-btn" v-if="isInList">
-        <button class="task-btn-basic task-btn-cancel" @click.prevent="$emit('update:IsEdit', { value: false, id: taskData.id })"><i class="fas fa-times"></i>Cancel</button>
-        <button class="task-btn-basic task-btn-add" v-if="isInList" @click.prevent="$emit('update:SaveTask', { id: taskData.id })"><i class="fas fa-plus"></i>Save Task</button>
+        <button class="task-btn-basic task-btn-cancel" @click.prevent="$emit('update:IsEdit', { value: false, id: taskData.id })"><font-awesome-icon icon="times" />Cancel</button>
+        <button class="task-btn-basic task-btn-add" v-if="isInList" @click.prevent="$emit('update:SaveTask', { id: taskData.id })"><font-awesome-icon icon="plus" />Save Task</button>
       </div>
     </section>
   </form>
